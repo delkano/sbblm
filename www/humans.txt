@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Diego Cano -- Main Developer -- 
+
+# THANKS
+
+    The NAF
+
+# TECHNOLOGY COLOPHON
+
+    PHP, SQLite, CSS3, HTML5
+    Fat Free Framework, Cortex, Apache Server Configs, jQuery, Modernizr, Normalize.css
