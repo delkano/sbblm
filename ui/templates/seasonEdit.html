@@ -1,0 +1,29 @@
+{~ if(@season.name): ~}
+<h2>{{@L.season.editing,@season.number|format}}</h2>
+
+<form method="POST" action="{{'season_update','id='.@season.id | alias}}"  enctype="multipart/form-data">
+    {~ else: ~}
+<h2>{{@L.season.creating}}</h2>
+
+<form method="POST" action="{{'season_create' | alias}}"  enctype="multipart/form-data">
+{~ endif ~}
+
+    <p>
+        <input type="input" name="number" value="{{@season.number}}" title="{{@L.season.number}}" placeholder="{{@L.season.number}}" />
+    </p>
+    <p>
+        <input type="input" name="name" value="{{@season.name}}" title="{{@L.season.name}}" placeholder="{{@L.season.name}}" />
+    </p>
+    <p>
+        <textarea name="comment" id="comment" placeholder="{{@L.season.comment}}">{{@season.comment}}</textarea>
+    </p>
+
+    <select name="teams" id="teams" multiple >
+        {~ foreach(@teams?:[] as @team): ~}
+        <option value={{@team.id}} {~ if(@season->hasTeam(@team)): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
+        {~ endforeach ~}
+    </select>
+
+    <input type="submit" value="{{@L.basic.save}}"/>
+
+</form>

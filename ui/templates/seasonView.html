@@ -1,0 +1,44 @@
+<h2>{{@L.season.header,@season.number,@season.name|format}}
+    <span class="season meta">
+        {~ if(@MANAGER): ~}<a href="{{'season_edit' | alias}}">{{@L.season.edit}}</a>{~ endif ~}
+    </span>
+</h2>
+
+<div class='comment'>
+    {{@season.comment}}
+</div>
+<h3>{{@L.basic.teams}}</h3>
+<table>
+    <thead>
+        <tr>
+            <th>{{@L.basic.name}}</th>
+            <th>{{@L.team.race}}</th>
+            <th>{{@L.team.value}}</th>
+            <th>{{@L.team.wins}}</th>
+            <th>{{@L.team.ties}}</th>
+            <th>{{@L.team.losses}}</th>
+            <th>{{@L.team.winperc}}</th>
+            <th>{{@L.player.cp}}</th>
+            <th>{{@L.player.td}}</th>
+            <th>{{@L.player.int}}</th>
+            <th>{{@L.player.cas}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {~ foreach(@season.teams?:[] as @team): ~}
+        <tr>
+            <td>{{@team.name}}</td>
+            <td>{{@team.list.name}}</td>
+            <td>{{@team.value}}</td>
+            <td>{{@team.wins}}</td>
+            <td>{{@team.ties}}</td>
+            <td>{{@team.losses}}</td>
+            <td>{{@team.winperc}}</td>
+            <td>{{@team.cp}}</td>
+            <td>{{@team.td}}</td>
+            <td>{{@team.int}}</td>
+            <td>{{@team.cas}}</td>
+        </tr>
+        {~ endforeach ~}
+    </tbody>
+</table>

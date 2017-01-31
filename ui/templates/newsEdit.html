@@ -1,0 +1,18 @@
+{~ if(@news.title): ~}
+<h2>{{@L.news.editing}}</h2>
+<form method="POST" action="{{'news_update','id='.@news.id | alias}}"  enctype="multipart/form-data">
+{~ else: ~}
+<h2>{{@L.news.creating}}</h2>
+<form method="POST" action="{{'news_create' | alias}}"  enctype="multipart/form-data">
+{~ endif ~}
+
+<p>
+    <input type="input" name="title" value="{{@news.title}}" title="{{@L.news.title}}" placeholder="{{@L.news.title}}" />
+</p>
+<p>{{@L.news.author}}: {{@coach.name}}</p>
+<p>
+    <textarea name="content" id="content" placeholder="{{@L.news.content}}">{{@news.content}}</textarea>
+</p>
+<input type="submit" value="{{@L.basic.save}}"/>
+
+</form>

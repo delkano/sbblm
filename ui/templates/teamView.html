@@ -1,0 +1,53 @@
+<h2><img src="{{@BASE}}/{{@team.logo}}" />{{@team.name}}</h2>
+<h3><a href="{{'coach_view', 'id='.@team.coach.id | alias}}">{{@L.basic.coach}}: {{@team.coach.name}}</a></h3>
+
+<table class="player list">
+    <tr>
+        <th>{{@L.player.number}}</th>
+        <th>{{@L.basic.name}}</th>
+        <th>{{@L.player.position}}</th>
+        <th>{{@L.player.ma}}</th>
+        <th>{{@L.player.st}}</th>
+        <th>{{@L.player.ag}}</th>
+        <th>{{@L.player.av}}</th>
+        <th>{{@L.player.basicskills}}</th>
+        <th>{{@L.player.learnedskills}}</th>
+        <th>{{@L.player.cp}}</th>
+        <th>{{@L.player.td}}</th>
+        <th>{{@L.player.int}}</th>
+        <th>{{@L.player.cas}}</th>
+        <th>{{@L.player.mvp}}</th>
+        <th>{{@L.player.spp}}</th>
+        <th>{{@L.player.value}}</th>
+        <th>{{@L.player.level}}</th>
+    </tr>
+    {~ foreach((@team.players?:[]) as @player): ~}
+    <tr>
+        <td>{{@player.number}}</td>
+        <td>{{@player.name}}</td>
+        <td>{{@player.position.name}}</td>
+        <td>{{@player.MA}}</td>
+        <td>{{@player.ST}}</td>
+        <td>{{@player.AG}}</td>
+        <td>{{@player.AV}}</td>
+        <td>
+            {~foreach(@player.basicSkills?:[] as @skill): ~}
+            <a data-tooltip="{{@skill.description}}" class="skill-tag">{{@skill.name}}</a>
+            {~ endforeach ~}
+        </td>
+        <td>
+            {~foreach(@player.learnedSkills?:[] as @skill): ~}
+            <a title="{{@skill.description}}" class="skill-tag">{{@skill.name}}</a>
+            {~ endforeach ~}
+        </td>
+        <td>{{@player.CP}}</td>
+        <td>{{@player.TD}}</td>
+        <td>{{@player.Int}}</td>
+        <td>{{@player.Cas}}</td>
+        <td>{{@player.MVP}}</td>
+        <td>{{@player.SPP}}</td>
+        <td>{{@player.value}}</td>
+        <td>{{@player.level}}</td>
+ 
+    </tr>
+    {~ endforeach ~}

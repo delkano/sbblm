@@ -1,0 +1,28 @@
+<div id="welcome-message">
+    {{@cfg.welcome|raw}}
+</div>
+
+<div id="news-block">
+    <h3>{{@L.basic.news}}</h3>
+    <div class="news meta">
+        {~ if(@MANAGER): ~}<a href="{{'news_new' | alias}}">{{@L.news.new}}</a>{~ endif ~}
+    </div>
+    <ul id="news-list">
+        {~ foreach(@news?:[] as @piece): ~}
+        <li>
+            <article>
+                <header>
+                    <h4>{{@piece.title}}</h4>
+                    <div class='news meta'>
+                        {{@L.news.meta,@piece.author.name,@piece.date | format}}
+                        {~ if(@MANAGER): ~}- <a href="{{'news_edit', 'id='.@piece.id | alias}}">{{@L.news.edit}}</a>{~ endif ~}
+                    </div>
+                </header>
+                <div class='news-body'>
+                    {{@piece.content}}
+                </div>
+            </article>
+        </li>
+        {~ endforeach ~}
+    </ul>
+</div>

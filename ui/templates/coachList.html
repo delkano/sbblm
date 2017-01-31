@@ -1,0 +1,21 @@
+<h2>{{@L.coach.list}}</h2>
+<table class="coach list">
+    <tr>
+        <th>{{@L.basic.avatar}}</th>
+        <th>{{@L.basic.name}}</th>
+        <th>{{@L.basic.teams}}</th>
+    </tr>
+    {~ foreach(@coaches as @coach): ~}
+    <tr>
+        <td><img src="{{@BASE}}/{{@coach.avatar}}" alt="{{@coach.name}}'s avatar" class="avatar"/></td>
+        <td><a href="{{ 'coach_view', 'id='.@coach.id | alias}}" title="{{@coach.name}}">{{@coach.name}}</a></td>
+        <td>
+            <ul>
+                {~ foreach(@coach.teams?:[] as @team): ~}
+                <li><a href="{{'team_view', 'id='.@team.id | alias}}" title="{{@team.name}}" />{{@team.name}}</a></li>
+                {~ endforeach ~}
+            </ul>
+        </td>
+    </tr>
+    {~ endforeach ~}
+</table>

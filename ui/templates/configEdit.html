@@ -1,0 +1,30 @@
+<form action="{{'config' | alias}}" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+    <div class="logo">
+        {~ if(@cfg.logo): ~}
+        <img src="{{@BASE}}/img/logo.png" />
+        {~ endif ~}
+        <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
+        <label for="upload-logo">{{@L.basic.logoupload}}</label><input type="file" name="upload-logo" value="" id="upload-logo">
+    </div>
+    <span class="field">
+        <label for="name">{{@L.basic.name}}</label><input type="text" name="name" value="{{@cfg.name}}" id="name" required=true />
+    </span>
+    <span class="field">
+        <label for="welcome">{{@L.league.presentation}}</label>
+        <textarea name="welcome" id="welcome">{{@cfg.welcome}}</textarea>
+    </span>
+
+    <fieldset id="rules" class="">
+        <legend>Rules</legend>
+        <span class="field">
+            <label for="initialgold">{{@L.rules.initialgold}}</label><input type="number" name="initialgold" value={{@cfg.initialgold?:1000}} id="initialgold">
+        </span>
+        <span class="field">
+            <label for="ff">{{@L.rules.ff}}</label><input type="number" name="ff" value={{@cfg.ff?:5}} id="ff">
+        </span>
+        <span class="field">
+            <label for="ffPrice">{{@L.rules.ffPrice}}</label><input type="number" name="ffPrice" value={{@cfg.ffPrice?:10}} id="ffPrice">
+        </span>
+    </fieldset>
+    <input type="submit" value="{{@L.basic.save}}" />
+</form>

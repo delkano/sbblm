@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{~ if(@page.title): ~}{{@page.title}} - {~ endif ~}{{@cfg.name}}</title>
+        <meta name="description" content="{{@page.description}}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <!-- Because of summernote. See if we can load it only on pages that need it -->
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="{{@BASE}}/css/normalize.css">
+        <link rel="stylesheet" href="{{@BASE}}/css/chosen.min.css">
+        <link rel="stylesheet" type="text/css" href="{{@BASE}}/assets/less?files=main.less">
+        <script src="{{@BASE}}/js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <header>
+            <a href="{{@BASE}}/">
+                <div id='title'><img src="{{@BASE}}/{{@cfg.logo}}" id="logo" /><h1>{{@cfg.name}}</h1></div>
+            </a>
+            
+            <nav id="main-menu">
+                <ul>
+                    <li><a href="{{'coach_list' | alias}}" title="Coaches">{{@L.menu.coaches}}</a>
+                    <li><a href="{{'season_list' | alias}}" title="Seasons">{{@L.menu.seasons}}</a>
+                    {~ if(@MANAGER): ~} 
+                        <li><a href="{{'config' | alias}}" title="Configuration">{{@L.menu.config}}</a>
+                    {~ endif ~}
+                    {~ if(@LOGGEDIN): ~} 
+                        <li><a href="{{'coach_profile' | alias}}" title="Profile">{{@L.menu.profile}}</a>
+                        <li><a href="{{'logout' | alias}}" title="Logout">{{@L.menu.logout}}</a>
+                    {~ else: ~}
+                        <li><a href="{{'login' | alias}}" title="Login">{{@L.menu.login}}</a>
+                    {~ endif ~}
+                </ul>
+            </nav>
+        </header>
+        <div class="container" id="main">
+
+            <include if="{{@ERROR && @ERROR.code!=400}}" href="error.html"/>
+
+            <include if="{{isset(@page.template)}}" href="{{'templates/'.@page.template.'.html'}}"/>
+
+        </div>
+        <footer>
+            
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <!-- Because of summernote. See if we can load it only on pages that need it -->
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+        <script src="{{@BASE}}/js/vendor/jquery.singleuploadimage.js"></script>
+        <script src="{{@BASE}}/js/vendor/chosen.jquery.min.js"></script>
+        <script src="/assets/js?files=plugins.js"></script>
+        <script src="/assets/js?files=main.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <!--
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+        -->
+    </body>
+</html>

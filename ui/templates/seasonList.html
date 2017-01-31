@@ -1,0 +1,21 @@
+<h2>{{@L.season.list}}</h2>
+<table class="season list">
+    <tr>
+        <th>{{@L.season.number}}</th>
+        <th>{{@L.basic.name}}</th>
+        <th>{{@L.basic.teams}}</th>
+    </tr>
+    {~ foreach(@seasons as @season): ~}
+    <tr>
+        <td>{{@season.number}}</td>
+        <td><a href="{{ 'season_view', 'id='.@season.id | alias}}" title="{{@season.name}}">{{@season.name}}</a></td>
+        <td>
+            <ul>
+                {~ foreach(@season.teams?:[] as @team): ~}
+                <li><a href="{{'team_view', 'id='.@team.id | alias}}" title="{{@team.name}}" />{{@team.name}}</a></li>
+                {~ endforeach ~}
+            </ul>
+        </td>
+    </tr>
+    {~ endforeach ~}
+</table>

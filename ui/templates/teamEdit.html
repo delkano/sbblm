@@ -1,0 +1,170 @@
+{~ if(@team.name): ~}
+<h2>{{@L.team.editing,@team.name|format}}</h2>
+<form method="POST" action="{{'team_update','id='.@team.id | alias}}"  enctype="multipart/form-data">
+    <fieldset id="team-logo" class="">
+        <!--legend>{{@L.basic.logo}}</legend-->
+        <div id="avatarbox" onClick="avatarupload.click();" class="singleupload" data-url="{{'team_logo', 'id='.@team.id|alias}}">
+            <img src="{{@BASE}}/{{@team.logo}}" />
+        </div>
+        <input type="file" name="logo" id="avatarupload"  style="display:none;" />
+    </fieldset>
+
+    {~ else: ~}
+    <form method="POST" action="{{'team_create' | alias}}">
+        <fieldset id="team-logo" class="">
+            <!--legend>{{@L.basic.logo}}</legend-->
+            <input type="file" name="logo" id="logo-upload"/>
+        </fieldset>
+        {~ endif ~}
+
+        <input id="team-name" name="teamname" placeholder="{{@L.basic.name}}" value="{{@team.name}}" required=true />
+        <select name="race" class="change-positions" id="race" size="1">
+            {~ if(!@team.id): ~}
+            <option value="" disable selected hidden>{{@L.team.chooserace}}</option>
+            {~ endif ~}
+            {~ foreach(@lists as @list): ~}
+            <option value="{{@list.id}}" {~ if(@team.list.id == @list.id): ~}selected{~ endif ~}>{{@list.name}}</option>
+            {~ endforeach ~}
+        </select>
+        <table class="player list">
+            <tr>
+                <th>{{@L.player.number}}</th>
+                <th>{{@L.basic.name}}</th>
+                <th>{{@L.player.position}}</th>
+                <th>{{@L.player.ma}}</th>
+                <th>{{@L.player.st}}</th>
+                <th>{{@L.player.ag}}</th>
+                <th>{{@L.player.av}}</th>
+                <th>{{@L.player.basicskills}}</th>
+                <th>{{@L.player.learnedskills}}</th>
+                <th>{{@L.player.cp}}</th>
+                <th>{{@L.player.td}}</th>
+                <th>{{@L.player.int}}</th>
+                <th>{{@L.player.cas}}</th>
+                <th>{{@L.player.mvp}}</th>
+                <th>{{@L.player.spp}}</th>
+                <th>{{@L.player.value}}</th>
+                <th>{{@L.player.level}}</th>
+            </tr>
+            {~ foreach((@team.players?:[]) as @player): ~}
+            <tr>
+                <td>
+                    <input type="number" name=number[] value={{@player.number}}  readonly="readonly">
+                    <input type="hidden" name=id[] value={{@player.id}}  readonly="readonly">
+                </td>
+                <td>
+                    <input class="name" name="name[]" value="{{@player.name}}" required=true/>
+                </td>
+                <td>
+                    <select class="positions" name="position[]" required=true>
+                        {~ if(@team.id): ~}
+                        {~ foreach(@team.list.positions as @position): ~}
+                        <option value="{{@position.id}}" {~ if(@player.position.id == @position.id): ~}selected{~ endif ~}>{{@position.name}}</option>
+                        {~ endforeach ~}
+                        {~ endif ~}
+                    </select>
+                </td>
+                <td>
+                    <input class="ma" name="ma[]" type="number" value="{{@player.MA}}" required=true min=1 max=10 />
+                </td>
+                <td>
+                    <input class="st" name="st[]" type="number" value="{{@player.ST}}" required=true min=1 max=10 />
+                </td>
+                <td>
+                    <input class="ag" name="ag[]" type="number" value="{{@player.AG}}" required=true min=1 max=10 />
+                </td>
+                <td>
+                    <input class="av" name="av[]" type="number" value="{{@player.AV}}" required=true min=1 max=10 />
+                </td>
+                <td>
+                    <select class="basicskills" name="basicskills[]" required=true readonly="readonly" multiple=true>
+                        {~ if(@team.id): ~}
+                        {~ foreach(@player.basicSkills?:[] as @skill): ~}
+                        <option value="{{@skill.id}}" selected>{{@skill.name}}</option>
+                        {~ endforeach ~}
+                        {~ endif ~}
+                    </select>
+                </td>
+                <td>
+                    <select class="learnedskills" name="learnedskills[]" multiple=true>
+                        {~ if(@team.id): ~}
+                        {~ foreach(@player.position.basic?:[] as @basic): ~}
+                        <optgroup label="{{@basic.name}}">
+                            {~ foreach(@basic.skills?:[] as @skill): ~}
+                            <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                            {~ endforeach ~}
+                        </optgroup>
+                        {~ endforeach ~}
+                        {~ foreach(@player.position.doubles?:[] as @basic): ~}
+                        <optgroup label="{{@basic.name}}">
+                            {~ foreach(@basic.skills?:[] as @skill): ~}
+                            <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                            {~ endforeach ~}
+                        </optgroup>
+                        {~ endforeach ~}
+                        {~ endif ~}
+                    </select>
+
+
+                </td>
+                <td>
+                    <input class="cp" name="cp[]" type="number" value="{{@player.CP}}" required=true min=0 />
+                </td>
+                <td>
+                    <input class="td" name="td[]" type="number" value="{{@player.TD}}" required=true min=0 />
+                </td>
+                <td>
+                    <input class="int" name="int[]" type="number" value="{{@player.Int}}" required=true min=0 />
+                </td>
+                <td>
+                    <input class="cas" name="cas[]" type="number" value="{{@player.Cas}}" required=true min=0 />
+                </td>
+                <td>
+                    <input class="mvp" name="mvp[]" type="number" value="{{@player.MVP}}" required=true min=0 />
+                </td>
+                <td>
+                    <input class="spp" name="spp[]" type="number" value="{{@player.SPP}}" required=true min=0 />
+                </td>
+                <td>
+                    <input class="value" name="playervalue[]" type="number" value="{{@player.value}}"  readonly="readonly"/>
+                </td>
+                <td>
+                    <input class="level" name="level[]" type="number" value="{{@player.level}}" required=true min=1 />
+                </td>
+                <td> <button type="button" class="remove-player" data-id="{{@player.id}}">{{@L.basic.delete}}</button> </td>
+            </tr>
+            {~ endforeach ~}
+        </table>
+        <button type="button" class="add-player">{{@L.player.add}}</button>
+
+        <div class="team data">
+            <fieldset>
+                <p>
+                    <label for="money">{{@L.team.money}}</label><input type="number" name="money" value="{{@team.money?:@cfg.initialgold}}" id="money">
+                </p>
+                <p>
+                    <label for="FF">{{@L.team.ff}}</label><input type="number" name="ff" value="{{@team.FF?:@cfg.ff}}" id="ff" min=0 max=9 />
+                </p>
+                <p>
+                    <label for="value">{{@L.team.value}}</label><input type="number" name="value" value="{{@team.value?:0}}" id="value" readonly="readonly">
+                </p>
+                <p>
+                    <label for="rerolls">{{@L.team.rerolls}}</label><input type="number" name="rerolls" value="{{@team.rerolls?:0}}" id="rerolls" min=0 />
+                </p>
+            </fieldset>
+            <fieldset>
+                <p>
+                    <label for="assistants">{{@L.team.assistants}}</label><input type="number" name="assistants" value="{{@team.assistants?:0}}" id="assistants" min=0 />
+                </p>
+                <p>
+                    <label for="cheerleaders">{{@L.team.cheerleaders}}</label><input type="number" name="cheerleaders" value="{{@team.cheerleaders?:0}}" id="cheerleaders" min=0 />
+                </p>
+                <p>
+                    <label for="apothecary">{{@L.team.apothecary}}</label><input type="number" name="apothecary" value="{{@team.apothecary?:0}}" id="apothecary" min=0 max=1 />
+                </p>
+            </fieldset>
+        </div>
+
+        <p><input type="submit" value="{{@L.basic.save}}" /></p>
+
+    </form>

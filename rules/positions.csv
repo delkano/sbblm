@@ -1,0 +1,89 @@
+16;Altos Elfos;Línea;70;6;3;4;8;;GA;FP
+2;Altos Elfos;Lanzador;90;6;3;4;8;Pasar, Pase Seguro;GAP;F
+4;Altos Elfos;Receptor;90;8;3;4;7;Atrapar;GA;FP
+2;Altos Elfos;Blitzer;100;7;3;4;8;Placar;GA;FP
+16;Amazonas;Línea;50;6;3;3;7;Esquivar;G;AFP
+2;Amazonas;Lanzadora;70;6;3;3;7;Esquivar, Pasar;GP;AF
+2;Amazonas;Receptora;70;6;3;3;7;Esquivar, Atrapar;GA;FP
+4;Amazonas;Blitzer;90;6;3;3;7;Esquivar, Placar;GF;AP
+16;Caos;Hombre Bestia;60;6;3;3;8;Cuernos;GFM;AP
+4;Caos;Guerrero del Caos;100;5;4;3;9;;GFM;AP
+1;Caos;Minotauro;150;5;5;2;8;Solitario, Furia, Cuernos, Golpe Mortífero, Cabeza Dura, Animal Salvaje;FM;GAP
+16;Elfos;Línea;60;6;3;4;7;;GA;FP
+2;Elfos;Lanzador;70;6;3;4;7;Pasar;GAP;F
+4;Elfos;Receptor;100;8;3;4;7;Atrapar, Nervios de Acero;GA;FP
+2;Elfos;Blitzer;110;7;3;4;8;Placar, Echarse a un Lado;GA;FP
+16;Elfos Oscuros;Línea;70;6;3;4;8;;GA;FP
+2;Elfos Oscuros;Corredor;80;7;3;4;7;Pase Precipitado;GAP;F
+2;Elfos Oscuros;Asesino;90;6;3;4;7;Perseguir, Puñal;GA;FP
+4;Elfos Oscuros;Blitzer;100;7;3;4;8;Placar;GA;FP
+2;Elfos Oscuros;Bruja Elfa;110;7;3;4;7;Furia, Esquivar, En Pie de un Salto;GA;FP
+16;Elfos Silvanos;Línea;70;7;3;4;7;;GA;FP
+4;Elfos Silvanos;Receptor;90;8;2;4;7;Atrapar, Esquivar, Carrera;GA;FP
+2;Elfos Silvanos;Lanzador;90;7;3;4;7;Pasar;GAP;F
+2;Elfos Silvanos;Bailarín Guerrero;120;8;3;4;7;Pasar, Esquivar, Saltar;GA;FP
+1;Elfos Silvanos;Hombre Árbol;120;2;6;1;10;Solitario, Golpe Mortífero, Mantenerse Firme, Brazo Fuerte, Echar Raíces, Cabeza Dura, Lanzar Compañero de Equipo;F;GAP
+16;Enanos;Defensa;70;4;3;2;9;Placar, Placaje Defensivo, Cabeza Dura;GF;AP
+2;Enanos;Corredor;80;6;3;3;8;Manos Seguras, Cabeza Dura;GP;AF
+2;Enanos;Blitzer;80;5;3;3;9;Placar, Cabeza Dura;GF;AP
+2;Enanos;Matatrolls;90;5;3;2;8;Placar, Agallas, Furia, Cabeza Dura;GF;AP
+1;Enanos;Apisonadora;160;4;7;1;10;Solitario, Abrirse Paso, Juego Sucio, Juggernaut, Golpe Mortífero, Sin Manos, Arma Secreta, Mantenerse Firme;F;GAP
+16;Enanos del Caos;Hobgoblin;40;6;3;3;7;;G;AFP
+6;Enanos del Caos;Defensa Enano del Caos;70;4;3;2;9;Placar, Placaje Defensivo, Cabeza Dura;GF;APM
+2;Enanos del Caos;Centauro Toro;130;6;4;2;9;Carrera, Pies Firmes, Cabeza Dura;GF;AP
+1;Enanos del Caos;Minotauro;150;5;5;2;8;Solitario, Furia, Cuernos, Golpe Mortífero, Cabeza Dura, Animal Salvaje;F;GAPM
+16;Goblins;Goblin;40;6;2;3;7;Esquivar, Agilidad Felina, Escurridizo;A;GFP
+1;Goblins;Bombardero;40;6;2;3;7;Bombardero, Esquivar, Arma Secreta, Escurridizo;A;GFP
+1;Goblins;Chiflado;40;6;2;3;7;Sierra Mecánica, Arma Secreta, Escurridizo;A;GFP
+1;Goblins;Fanático;70;3;7;3;7;Bola con Cadena, Sin Manos, Arma Secreta, Escurridizo;F;GAP
+1;Goblins;Pogo;70;7;2;3;7;Esquivar, Saltar, Escurridizo, Piernas muy Largas;A;GFP
+2;Goblins;Troll;110;4;5;1;9;Solitario, Siempre Hambriento, Golpe Mortífero, Realmente Estúpido, Regeneración, Lanzar Compañero de Equipo;F;GAP
+16;Halflings;Halfling;30;5;2;3;6;Esquivar, Agilidad Felina, Escurridizo;A;GFP
+2;Halflings;Hombre Árbol;120;2;6;1;10;Golpe Mortífero, Mantenerse Firme, Brazo Fuerte, Echar Raíces, Cabeza Dura, Lanzar Compañero de Equipo;F;GAP
+16;Hombres Lagarto;Eslizón;60;8;2;3;7;Esquivar, Escurridizo;A;GFP
+6;Hombres Lagarto;Saurio;80;6;4;1;9;;GF;AP
+1;Hombres Lagarto;Kroxigor;140;6;5;1;9;Solitario, Cabeza Hueca, Golpe Mortífero, Cola Prensil, Cabeza Dura;F;GAP
+16;Humanos;Línea;50;6;3;3;8;;G;AFP
+4;Humanos;Receptor;70;8;2;3;7;Atrapar, Esquivar;GA;FP
+2;Humanos;Lanzador;70;6;3;3;8;Manos Seguras, Pasar;GP;AF
+4;Humanos;Blitzer;90;7;3;3;8;Placar;GF;AP
+1;Humanos;Ogro;140;5;5;2;9;Solitario, Cabeza Hueca, Golpe Mortífero, Cabeza Dura, Lanzar Compañero de Equipo;F;GAP
+16;Khemri;Esqueleto;40;5;3;2;7;Regeneración, Cabeza Dura;G;AFP
+2;Khemri;Thro-Ra;70;6;3;2;7;Pasar, Regeneración, Manos Seguras;GP;AF
+2;Khemri;Blitz-Ra;90;6;3;2;8;Placar, Regeneración;GF;AP
+4;Khemri;Guardían de la Tumba;100;4;5;1;9;Degenerar, Regeneración;F;GAP
+16;Nigromantes;Zombi;40;4;3;2;8;Regeneración;G;AFP
+2;Nigromantes;Necrófago;70;7;3;3;7;Esquivar;GA;FP
+2;Nigromantes;Tumulario;90;6;3;3;8;Placar, Regeneración;GF;AP
+2;Nigromantes;Golem de Carne;110;4;4;2;9;Regeneración, Mantenerse Firme, Cabeza Dura;GF;AP
+2;Nigromantes;Hombre Lobo Nigromántico;120;8;3;3;8;Garras, Furia, Regeneración;GA;FP
+16;No Muertos;Esqueleto;40;5;3;2;7;Regeneración, Cabeza Dura;G;AFP
+16;No Muertos;Zombi;40;4;3;2;8;Regeneración;G;AFP
+4;No Muertos;Necrófago;70;7;3;3;7;Esquivar;GA;FP
+2;No Muertos;Tumulario;90;6;3;3;8;Placar, Regeneración;GF;AP
+2;No Muertos;Momia;120;3;5;1;9;Golpe Mortífero, Regeneración;F;GAP
+16;Nórdicos;Línea;50;6;3;3;7;Placar;G;AFP
+2;Nórdicos;Lanzador;70;6;3;3;7;Placar, Pasar;GP;AF
+2;Nórdicos;Corredor;90;7;3;3;7;Placar, Agallas;GA;FP
+2;Nórdicos;Berserker;90;6;3;3;7;Placar, Furia, En Pie de un Salto;GF;AP
+2;Nórdicos;Hombre Lobo Nórdico;110;6;4;2;8;Furia;GF;AP
+1;Nórdicos;Yehti;140;5;5;1;8;Solitario, Garras, Presencia Perturbadora, Furia, Animal Salvaje;F;GAP
+16;Nurgle;Putrefacto;40;5;3;3;8;Degenerar, Putrefacción de Nurgle;GM;AFP
+4;Nurgle;Pestigor;80;6;3;3;8;Cuernos, Putrefacción de Nurgle, Regeneración;GFM;AP
+4;Nurgle;Guerrero de Nurgle;110;4;4;2;9;Presencia Perturbadora, Apariencia Asquerosa, Putrefacción de Nurgle, Regeneración;GFM;AP
+1;Nurgle;Bestia de Nurgle;140;4;5;1;9;Solitario, Presencia Perturbadora, Apariencia Asquerosa, Golpe Mortífero, Putrefacción de Nurgle, Realmente Estúpido, Regeneración, Tentáculos;F;GAPM
+16;Ogros;Snotling;20;5;1;3;5;Esquivar, Agilidad Felina, Echarse a un Lado, Escurridizo, Canijo;A;GFP
+6;Ogros;Ogro;140;5;5;2;9;Cabeza Hueca, Golpe Mortífero, Cabeza Dura, Lanzar Compañero de Equipo;F;GAP
+16;Orcos;Línea;50;5;3;3;9;;G;AFP
+4;Orcos;Goblin;40;6;2;3;7;Agilidad Felina, Esquivar, Escurridizo;A;GFP
+2;Orcos;Lanzador;70;5;3;3;8;Manos Seguras, Pasar;GP;AF
+4;Orcos;Defensa Orco Negro;80;4;4;2;9;;GF;AP
+4;Orcos;Blitzer;80;6;3;3;9;Placar;GF;AP
+1;Orcos;Troll;110;4;5;1;9;Solitario, Siempre Hambriento, Golpe Mortífero, Realmente Estúpido, Regeneración, Lanzar Compañero de Equipo;F;GAP
+16;Skavens;Línea;50;7;3;3;7;;G;AFPM
+2;Skavens;Lanzador;70;7;3;3;7;Pasar, Manos Seguras;GP;AFM
+4;Skavens;Corredor de Alcantarillas;80;9;2;4;7;Esquivar;GA;FPM
+2;Skavens;Blitzer;90;7;3;3;8;Placar;GF;APM
+1;Skavens;Rata Ogro;150;6;5;2;8;Solitario, Furia, Golpe Mortífero, Cola Prensil, Animal Salvaje;F;GAPM
+16;Vampiros;Siervo;40;6;3;3;7;;G;AFP
+6;Vampiros;Vampiro;110;6;4;4;8;Sed de Sangre, Mirada Hipnótica, Regeneración;GAF;P

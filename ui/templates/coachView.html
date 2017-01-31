@@ -1,0 +1,44 @@
+<h2>
+    <img src="{{@BASE}}/{{@coach.avatar}}" />{{@coach.name}}
+    <span class="meta">{~ if(@myprofile): ~}<a href="{{'coach_profile_edit'|alias}}">{{@L.basic.edit}}</a>{~ endif ~}</span>
+</h2>
+
+<h3>{{@L.basic.teams}}</h3>
+<table>
+    <thead>
+        <tr>
+            <th>{{@L.basic.name}}</th>
+            <th>{{@L.team.race}}</th>
+            <th>{{@L.team.value}}</th>
+            <th>{{@L.team.wins}}</th>
+            <th>{{@L.team.ties}}</th>
+            <th>{{@L.team.losses}}</th>
+            <th>{{@L.team.winperc}}</th>
+            <th>{{@L.player.cp}}</th>
+            <th>{{@L.player.td}}</th>
+            <th>{{@L.player.int}}</th>
+            <th>{{@L.player.cas}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {~ foreach(@coach.teams?:[] as @team): ~}
+        <tr>
+            <td>{{@team.name}}</td>
+            <td>{{@team.list.name}}</td>
+            <td>{{@team.value}}</td>
+            <td>{{@team.wins}}</td>
+            <td>{{@team.ties}}</td>
+            <td>{{@team.losses}}</td>
+            <td>{{@team.winperc}}</td>
+            <td>{{@team.cp}}</td>
+            <td>{{@team.td}}</td>
+            <td>{{@team.int}}</td>
+            <td>{{@team.cas}}</td>
+        </tr>
+        {~ endforeach ~}
+    </tbody>
+</table>
+
+{~ if(@myprofile): ~}
+<a href="{{'team_new'|alias}}">{{@L.coach.addteam}}</a>
+{~ endif ~}

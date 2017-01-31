@@ -1,0 +1,40 @@
+{~ if(@coach.name): ~}
+<h2>{{@L.coach.editing,@coach.name|format}}</h2>
+
+<form method="POST" action="{{'coach_update','id='.@coach.id | alias}}"  enctype="multipart/form-data">
+    <fieldset id="avatar" class="">
+        <legend>{{@L.basic.avatar}}</legend>
+        <div id="avatarbox" onClick="avatarupload.click();" class="singleupload" data-url="{{'coach_avatar', 'id='.@coach.id|alias}}">
+            <img src="{{@BASE}}/{{@coach.avatar}}" />
+        </div>
+        <input type="file" name="avatar" id="avatarupload"  style="display:none;" />
+    </fieldset>
+{~ else: ~}
+<h2>{{@L.coach.creating}}</h2>
+
+<form method="POST" action="{{'coach_create' | alias}}"  enctype="multipart/form-data">
+    <fieldset id="avatar" class="">
+        <legend>{{@L.basic.avatar}}</legend>
+        <input type="file" name="avatar" id="avatar-upload"/>
+    </fieldset>
+{~ endif ~}
+    <fieldset id="access_data" class="">
+        <legend>{{@coach.accessdata}}</legend>
+        
+        <input type="input" name="username" value="{{@coach.username}}" title="{{@L.basic.username}}" placeholder="{{@L.basic.username}}" />
+        <input type="password" name="password" value="" title="{{@L.basic.password}}" placeholder="{{@L.basic.password}}" />
+
+        {~ if(@MANAGER): ~}
+        <input type="checkbox" name="manager" {~if(@coach.manager): ~}checked{~endif~} title="{{@L.coach.manager}}" /><label for="manager">{{@L.coach.manager}}</label>
+        {~ endif ~}
+    </fieldset>
+    <fieldset id="personal_information" class="">
+        <legend>{{@coach.personalinfo}}</legend>
+
+        <input type="input" name="name" value="{{@coach.name}}" title="{{@L.basic.name}}" placeholder="{{@L.basic.name}}" />
+        <input type="email" name="email" value="{{@coach.email}}" title="{{@L.basic.email}}" placeholder="{{@L.basic.email}}" />
+    </fieldset>
+
+    <input type="submit" value="{{@L.basic.save}}"/>
+
+</form>
