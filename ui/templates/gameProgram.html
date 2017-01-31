@@ -1,0 +1,38 @@
+{~ if(@game.date): ~}
+<h2>{{@L.game.editing,@game.number|format}}</h2>
+
+<form method="POST" action="{{'game_update','id='.@game.id | alias}}"  enctype="multipart/form-data">
+    {~ else: ~}
+<h2>{{@L.game.creating}}</h2>
+
+<form method="POST" action="{{'game_create' | alias}}"  enctype="multipart/form-data">
+{~ endif ~}
+
+    <p>
+        <input type="date" name="date" value="{{ '{0,date,custom,%Y-%m-%d}', @game.date | format}}" title="{{@L.game.date}}" placeholder="{{@L.game.date}}" />
+    </p>
+    <p>
+        <label for="local">{{@L.game.local}}</label>
+        <select name="local" id="local">
+            {~ foreach(@teams?:[] as @team): ~}
+            <option value={{@team.id}} {~ if(@game.local.id == @team.id): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
+            {~ endforeach ~}
+        </select>
+    </p>
+
+    <p>
+        <label for="visitor">{{@L.game.visitor}}</label>
+        <select name="visitor" id="visitor">
+            {~ foreach(@teams?:[] as @team): ~}
+            <option value={{@team.id}} {~ if(@game.visitor.id == @team.id): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
+            {~ endforeach ~}
+        </select>
+    </p>
+    <p>
+        <textarea name="comment" id="comment" placeholder="{{@L.game.comment}}">{{@game.comment}}</textarea>
+    </p>
+
+
+    <input type="submit" value="{{@L.basic.save}}"/>
+
+</form>

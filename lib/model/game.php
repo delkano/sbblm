@@ -19,47 +19,47 @@ class Game extends \DB\Cortex {
             ),
             'localResult' => array(
                 'type' => 'INT1',
-                'nullable' => false
+                'nullable' => true
             ),
             'visitorResult' => array(
                 'type' => 'INT1',
-                'nullable' => false
+                'nullable' => true
             ),
             'localCasualties' => array(
                 'type' => 'INT1',
-                'nullable' => false
+                'nullable' => true
             ),
             'visitorCasualties' => array(
                 'type' => 'INT1',
-                'nullable' => false
+                'nullable' => true
             ),
             'localGate' => array(
                 'type' => 'INT1',
-                'nullable' => false
+                'nullable' => true
             ),
             'visitorGate' => array(
                 'type' => 'INT1',
-                'nullable' => false
+                'nullable' => true
             ),
             'localFans' => array(
                 'type' => 'INT1',
-                'nullable' => false
+                'nullable' => true
             ),
             'visitorFans' => array(
                 'type' => 'INT1',
-                'nullable' => false
+                'nullable' => true
             ),
             'localMoney' => array(
                 'type' => 'INT2',
-                'nullable' => false
+                'nullable' => true
             ),
             'visitorMoney' => array(
                 'type' => 'INT2',
-                'nullable' => false
+                'nullable' => true
             ),
             'comment' => array(
                 'type' => 'TEXT',
-                'nullable' => true
+                'nullable' => false
             )
         ),
         $db = 'DB',

@@ -34,6 +34,7 @@ $f3->set("MANAGER", (\Controller\Auth::role($f3) == 'manager'));
 // Home
 $f3->route("GET @home: /", function($f3) {
     $f3->set("news", (new \Controller\News)->getLast($f3));
+    $f3->set("games", (new \Controller\Game)->getNext($f3));
     $f3->set("page.template", "home");
     echo Template::instance()->render('layout.html');
 });
@@ -82,6 +83,8 @@ $access->deny('/season/@/edit');
 $access->deny('/season/new');
 $access->allow('/season/@/edit', 'manager');
 $access->allow('/season/new', 'manager');
+$access->deny('/game/@/reprogram', 'guest');
+$access->deny('/game/program', 'guest');
 
 $access->authorize(\Controller\Auth::role($f3));
 
@@ -122,6 +125,13 @@ $f3->route('GET @season_edit: /season/@id/edit', '\Controller\Season->edit');
 $f3->route('GET @season_new: /season/new', '\Controller\Season->edit');
 $f3->route('POST @season_update: /season/@id/update', '\Controller\Season->update');
 $f3->route('POST @season_create: /season/create', '\Controller\Season->update');
+
+$f3->route('GET @game_view: /game/@id/view', '\Controller\Game->getOne');
+$f3->route('GET @game_program: /game/program', '\Controller\Game->program');
+$f3->route('GET @game_reprogram: /game/@id/reprogram', '\Controller\Game->program');
+$f3->route('GET @game_results: /game/@id/results', '\Controller\Game->results');
+$f3->route('POST @game_create: /game/create', '\Controller\Game->update');
+$f3->route('POST @game_update: /game/@id/update', '\Controller\Game->update');
 
 // Install
 $f3->route('GET /install', function() {

@@ -1,0 +1,48 @@
+<h2>{{@L.game.resultstitle,@game.local.name,@game.visitor.name|format}}</h2>
+<p>
+    {{ '{0,date}', @game.date | format}}
+</p>
+<p>
+    {{@game.comment}}
+</p>
+
+<p>
+    <table class='result list'>
+        <tr>
+            <th colspan=2>{{@L.game.result}}</th>
+            <th colspan=2>{{@L.game.casualties}}</th>
+            <th colspan=2>{{@L.game.gate}}</th>
+            <th colspan=2>{{@L.game.fans}}</th>
+            <th colspan=2>{{@L.game.money}}</th>
+        </tr>
+        <tr>
+            <th>{{@L.game.local}}</th>
+            <th>{{@L.game.visitor}}</th>
+            <th>{{@L.game.local}}</th>
+            <th>{{@L.game.visitor}}</th>
+            <th>{{@L.game.local}}</th>
+            <th>{{@L.game.visitor}}</th>
+            <th>{{@L.game.local}}</th>
+            <th>{{@L.game.visitor}}</th>
+            <th>{{@L.game.local}}</th>
+            <th>{{@L.game.visitor}}</th>
+        </tr>
+        <tr>
+            <td>{{@game.localResult}}</td>
+            <td>{{@game.visitorResult}}</td>
+            <td>{{@game.localCasualties}}</td>
+            <td>{{@game.visitorCasualties}}</td>
+            <td>{{@game.localGate}}</td>
+            <td>{{@game.visitorGate}}</td>
+            <td>{{@game.localFans}}</td>
+            <td>{{@game.visitorFans}}</td>
+            <td>{{@game.localMoney}}</td>
+            <td>"{{@game.visitorMoney}}</td>
+        </tr>
+    </table>
+</p>
+
+
+<input type="submit" value="{{@L.basic.save}}"/>
+
+    </form>

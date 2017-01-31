@@ -33,5 +33,9 @@ class Season extends \DB\Cortex {
         return false;
     }
 
+    static public function getCurrent($f3) {
+        $season = (new Season())->find('', array('order' => 'number DESC', 'limit' => 1));
+        return $season[0];
+    }
 }
  

@@ -26,3 +26,24 @@
         {~ endforeach ~}
     </ul>
 </div>
+
+<div id="games-block">
+    <h3>{{@L.game.nextgames}}</h3>
+    <ul id="games-list">
+        {~ foreach(@games?:[] as @game): ~}
+        <li>
+            <span class='date'>{{'{0, date}',@game.date | format}}</span>
+            <a href="{{'team_view', 'id='.@game.local.id | alias}}">{{@game.local.name}}</a>
+            (<a href="{{'coach_view', 'id='.@game.local.coach.id | alias}}">{{@game.local.coach.name}}</a>)
+            vs
+            <a href="{{'team_view', 'id='.@game.visitor.id | alias}}">{{@game.visitor.name}}</a>
+            (<a href="{{'coach_view', 'id='.@game.visitor.coach.id | alias}}">{{@game.visitor.coach.name}}</a>)
+            {~ if(@MANAGER): ~}
+            <span class="meta">(<a href="{{'game_reprogram', 'id='.@game.id | alias}}">{{@L.basic.edit}}</a>)</span>
+            <span class="meta">(<a href="{{'game_results', 'id='.@game.id | alias}}">{{@L.game.results}}</a>)</span>
+            {~ endif ~}
+        </li>
+        {~ endforeach ~}
+    </ul>
+    {~ if(@MANAGER): ~}<a href="{{'game_program' | alias}}">{{@L.game.program}}{~ endif ~}
+</div>

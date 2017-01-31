@@ -1,0 +1,75 @@
+{~ if(@game.date): ~}
+<h2>{{@L.game.editing,@game.number|format}}</h2>
+
+<form method="POST" action="{{'game_update','id='.@game.id | alias}}"  enctype="multipart/form-data">
+    {~ else: ~}
+    <h2>{{@L.game.creating}}</h2>
+
+    <form method="POST" action="{{'game_create' | alias}}"  enctype="multipart/form-data">
+        {~ endif ~}
+
+        <p>
+            <label for="date">{{@L.game.date}}</label>
+            <input type="date" name="date" value="{{ '{0,date,custom,%Y-%m-%d}', @game.date | format}}" title="{{@L.game.date}}" placeholder="{{@L.game.date}}" />
+        </p>
+        <p>
+            <label for="local">{{@L.game.local}}</label>
+            <select name="local" id="local" disabled>
+                {~ foreach(@teams?:[] as @team): ~}
+                <option value={{@team.id}} {~ if(@game.local.id == @team.id): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
+                {~ endforeach ~}
+            </select>
+        </p>
+
+        <p>
+            <label for="visitor">{{@L.game.local}}</label>
+            <select name="visitor" id="visitor" disabled>
+                {~ foreach(@teams?:[] as @team): ~}
+                <option value={{@team.id}} {~ if(@game.visitor.id == @team.id): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
+                {~ endforeach ~}
+            </select>
+        </p>
+        <p>
+            <textarea name="comment" id="comment" placeholder="{{@L.game.comment}}">{{@game.comment}}</textarea>
+        </p>
+
+        <p>
+            <table class='result list'>
+                <tr>
+                    <th colspan=2>{{@L.game.result}}</th>
+                    <th colspan=2>{{@L.game.casualties}}</th>
+                    <th colspan=2>{{@L.game.gate}}</th>
+                    <th colspan=2>{{@L.game.fans}}</th>
+                    <th colspan=2>{{@L.game.money}}</th>
+                </tr>
+                <tr>
+                    <th>{{@L.game.local}}</th>
+                    <th>{{@L.game.visitor}}</th>
+                    <th>{{@L.game.local}}</th>
+                    <th>{{@L.game.visitor}}</th>
+                    <th>{{@L.game.local}}</th>
+                    <th>{{@L.game.visitor}}</th>
+                    <th>{{@L.game.local}}</th>
+                    <th>{{@L.game.visitor}}</th>
+                    <th>{{@L.game.local}}</th>
+                    <th>{{@L.game.visitor}}</th>
+                </tr>
+                <tr>
+                    <td><input type="number" name="localResult" value="{{@game.localResult}}"></td>
+                    <td><input type="number" name="visitorResult" value="{{@game.visitorResult}}"></td>
+                    <td><input type="number" name="localCasualties" value="{{@game.localCasualties}}"></td>
+                    <td><input type="number" name="visitorCasualties" value="{{@game.visitorCasualties}}"></td>
+                    <td><input type="number" name="localGate" value="{{@game.localGate}}"></td>
+                    <td><input type="number" name="visitorGate" value="{{@game.visitorGate}}"></td>
+                    <td><input type="number" name="localFans" value="{{@game.localFans}}"></td>
+                    <td><input type="number" name="visitorFans" value="{{@game.visitorFans}}"></td>
+                    <td><input type="number" name="localMoney" value="{{@game.localMoney}}"></td>
+                    <td><input type="number" name="visitorMoney" value="{{@game.visitorMoney}}"></td>
+                </tr>
+            </table>
+        </p>
+
+
+        <input type="submit" value="{{@L.basic.save}}"/>
+
+    </form>

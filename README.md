@@ -12,7 +12,7 @@ It does not try to replace OBBLM, NAFLM, FEBB, nor any of these big suites with 
 
 ### Requirements
 
-SBBLM only needs a web server with PHP (>= 5.4) & SQLite support (it should be difficult to find such a server these days).
+SBBLM only needs a web server with PHP (>= 5.4) & SQLite support (it should not be difficult to find such a server these days).
 Please note I have not tested it extensively with every PHP version out there, just PHP7.1 on Lighttpd and PHP5.5 on Apache,
 but there is no reason why it wouldn't work on any other platform. If it doesn't, please file a bug.
 
