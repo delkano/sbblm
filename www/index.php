@@ -96,6 +96,9 @@ $f3->route('POST @team_logo: /team/@id/logo', '\Controller\Team->uploadLogo');
 $f3->route('GET @race_getpositions: /race/@id/getlist', '\Controller\PositionList->getPositions');
 $f3->route('GET @skills_list: /skills/getlist', '\Controller\Skill->getList');
 
+$f3->route('POST @player_delete: /player/@id/delete', '\Controller\Player->delete');
+$f3->route('POST @player_kill: /player/@id/kill', '\Controller\Player->delete');
+
 $f3->route('GET @config: /config', '\Controller\Config->create');
 $f3->route('POST @config: /config', '\Controller\Config->save');
 
@@ -118,8 +121,8 @@ $f3->route('GET @game_results: /game/@id/results', '\Controller\Game->results');
 $f3->route('POST @game_create: /game/create', '\Controller\Game->update');
 $f3->route('POST @game_update: /game/@id/update', '\Controller\Game->update');
 
-// Install
-$f3->route('GET @install: /install', '\Controller\Base->install');
+// Install: if base /install route doesn't exist, we can only access it by removing "db.sql": safer
+//$f3->route('GET @install: /install', '\Controller\Base->install');
 $f3->route('POST /postinstall', '\Controller\Base->post_install');
 
 \Assets::instance();

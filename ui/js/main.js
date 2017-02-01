@@ -5,8 +5,19 @@ var teammoney; // Initial Money amount when you load the team
 function addPlayer() {
     var nb = $(".player.list tr").length;
     if(nb > 16) { $('.add-player').disable(); }
+    var nbs = $('.player.list tr .number').map( (i, e) => { return +($(e).val()); }).get().sort();
+    switch(nbs.length) {
+        case 0: nb = 1; break;
+        case 1: nb = nbs[0]==1?2:1; break;
+        default:
+                for(var n=1; n< nbs.length; n++) {
+                    if(nbs[n] - nbs[n-1]> 1) {
+                        nb = nbs[n-1] + 1;
+                    }
+                }
+    }
     var row = "<tr class='new'>";
-    row += "<td><input type='number' name='number[]' value="+nb+" readonly='readonly'/></td>";
+    row += "<td><input class='number' type='number' name='number[]' value="+nb+" readonly='readonly'/></td>";
     row += '<td><input class="name" name="name[]" required=true/></td>';
     row += "<td><select class='positions' name='position[]' required=true>";
     row += '<option value="" disable selected hidden> --- </option>';
@@ -124,10 +135,6 @@ function populatePositions(data) {
 }
 
 function removePlayer(e) {
-    var id = $(e.target).data("id");
-    if(id) {
-        console.log("Delete player "+id+" on the server.");
-    }
     var row = $(e.target).parent().parent();
     row.remove();
     calculateMoney();

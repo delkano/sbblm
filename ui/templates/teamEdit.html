@@ -49,7 +49,7 @@
             {~ foreach((@team.players?:[]) as @player): ~}
             <tr>
                 <td>
-                    <input type="number" name=number[] value={{@player.number}}  readonly="readonly">
+                    <input type="number" class="number" name=number[] value={{@player.number}}  readonly="readonly">
                     <input type="hidden" name=id[] value={{@player.id}}  readonly="readonly">
                 </td>
                 <td>

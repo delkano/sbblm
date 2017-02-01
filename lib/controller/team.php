@@ -53,6 +53,8 @@ class Team {
         if(!empty($params['id'])) {
             $id = intval($params['id']);
             $team->load(array('id=?', $id));
+
+            $existing = $team->players;
         }
         $p = $f3->get("POST");
         //Getting the data
@@ -71,6 +73,7 @@ class Team {
 
         $post = $f3->get("POST");
         //Now, get each player.
+        $saved = array();
         foreach($post['name'] as $key=>$name) {
             $player = new \Model\Player();
             if(!empty($post['id'][$key])) {
@@ -97,6 +100,13 @@ class Team {
             $player->value = $post['playervalue'][$key];
             $player->team = $team;
             $player->save();
+            $saved[$player->name] = true;
+        }
+        //Now, let's delete the ones that were not on the POSTed array
+        foreach($existing?:[] as $old) {
+            if(empty($saved[$old->name])) {
+                $old->erase();
+            }
         }
 
         if(empty($params['id'])) {
