@@ -3,7 +3,7 @@
 This is a very basic, just-for-small-private-leagues manager for Blood Bowl. It features:
 
   - Seasons
-  - Match programming and result recording (soon)
+  - Match programming and result recording
   - Team and player tracking
   - Coach tracking
   - Localization (English and Spanish are included, others are easily added)
@@ -21,7 +21,7 @@ but there is no reason why it wouldn't work on any other platform. If it doesn't
   1. Upload the files to your server. Please note that the public directory is **www**, not the project root. I am not good
   explaining things, but if you have any problems with this file me a bug and I'll do my best to help you.
   2. Make sure folders *www/tmp* and *www/img* are writable by the server.
-  3. Point your browser towards your URL and follow the directions (this is almost done, but not yet finished).
+  3. Point your browser towards your URL and follow the directions (this takes a while, so be patient)
 
 ### Notes
 

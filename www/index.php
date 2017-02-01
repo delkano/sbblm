@@ -5,7 +5,23 @@ require_once('../vendor/autoload.php');
 $f3 = \Base::instance();
 // F3 autoloader for application business code
 $f3->config('../config.ini');
-$f3->set('DB', new \DB\SQL('sqlite:'.$f3->get('DB_NAME')));
+
+if(file_exists($f3->get("DB_NAME")))  {
+    $f3->set('DB', new \DB\SQL('sqlite:'.$f3->get('DB_NAME')));
+
+    // Load League config (if present)
+    $f3->set("cfg.logo", \Model\Config::read("logo"));
+    $f3->set("cfg.name", \Model\Config::read("name"));
+    $f3->set("cfg.welcome", \Model\Config::read("welcome"));
+    $f3->set("cfg.initialgold", \Model\Config::read("initialgold"));
+    $f3->set("cfg.ff", \Model\Config::read("ff"));
+    $f3->set("cfg.ffPrice", \Model\Config::read("ffPrice"));
+
+} else if($f3->get("URI") != '/install') {
+    $f3->set('DB', new \DB\SQL('sqlite:'.$f3->get('DB_NAME')));
+    (new \Controller\Base)->install($f3);
+}
+
 //new \DB\SQL\Session($f3->get("DB"));
 
 // Error handling
@@ -19,45 +35,14 @@ $f3->set('ONERROR',
     }
 );
 
-// Load League config (if present)
-$f3->set("cfg.logo", \Model\Config::read("logo"));
-$f3->set("cfg.name", \Model\Config::read("name"));
-$f3->set("cfg.welcome", \Model\Config::read("welcome"));
-$f3->set("cfg.initialgold", \Model\Config::read("initialgold"));
-$f3->set("cfg.ff", \Model\Config::read("ff"));
-$f3->set("cfg.ffPrice", \Model\Config::read("ffPrice"));
-
-
 $f3->set("LOGGEDIN", (\Controller\Auth::role($f3) != 'guest'));
 $f3->set("MANAGER", (\Controller\Auth::role($f3) == 'manager'));
 
 // Home
-$f3->route("GET @home: /", function($f3) {
-    $f3->set("news", (new \Controller\News)->getLast($f3));
-    $f3->set("games", (new \Controller\Game)->getNext($f3));
-    $f3->set("page.template", "home");
-    echo Template::instance()->render('layout.html');
-});
+$f3->route("GET @home: /", '\Controller\Base->home');
 
 // Asset management
-$f3->route('GET /assets/@type',
-	function($f3, $args) {
-        $path = $f3->get('UI').$args['type'].'/';
-        if($args['type'] == 'less') {
-            $parser = new Less_Parser(array('compress'=>true));
-            $files = $_GET['files'];
-            foreach(explode(",", $files) as $file) 
-                $parser->parseFile($path.$file);
-
-            header('Content-type: text/css');
-            echo $parser->getCss();
-        } else {
-            $files = preg_replace('/(\.+\/)/','',$_GET['files']); // close potential hacking attempts  
-            echo \Preview::instance()->resolve(\Web::instance()->minify($files, null, true, $path));
-        }
-	},
-	3600*24
-);
+$f3->route('GET /assets/@type', '\Controller\Base->assets',	3600*24 );
 
 // Login and auth
 $f3->route('GET @login: /login', '\Controller\Auth->login');
@@ -134,23 +119,8 @@ $f3->route('POST @game_create: /game/create', '\Controller\Game->update');
 $f3->route('POST @game_update: /game/@id/update', '\Controller\Game->update');
 
 // Install
-$f3->route('GET /install', function() {
-    echo "<h3>Creando bases de datos...</h3>";
-    $models = array('Coach', 'Game', 'Config', 'Player', 'PositionList', 'Position', 'Season', 'SkillList', 'Skill', 'Team', 'News');
-    foreach($models as $model) {
-        $class = "\Model\\$model";
-        if( $class::setup() )
-            echo "<p>Tabla <code>$model</code> creada</p>";
-        else
-            echo "<p>No se ha podido crear la tabla <code>$model</code>.</p>";
-    }
-    echo "<h3>Cargando lista de habilidades....</h3>";
-    //\Model\Skill::import("../rules/skills.csv");
-    echo "<h3>Cargando listas de equipo....</h3>";
-    //\Model\PositionList::import("../rules/teams.csv");
-    echo "<h3>Cargando lista de posiciones....</h3>";
-    //\Model\Position::import("../rules/positions.csv");
-});
+$f3->route('GET @install: /install', '\Controller\Base->install');
+$f3->route('POST /postinstall', '\Controller\Base->post_install');
 
 \Assets::instance();
 $f3->run();
