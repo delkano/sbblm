@@ -19,28 +19,28 @@ function addPlayer() {
                 }
     }
     var row = "<tr class='new'>";
-    row += "<td><input class='number' type='number' name='number[]' value="+nb+" readonly='readonly'/></td>";
-    row += '<td><input class="name" name="name[]" required=true/></td>';
-    row += "<td><select class='positions' name='position[]' required=true>";
+    row += "<td><input class='number' type='number' name='player["+nb+"][number]' value="+nb+" readonly='readonly'/></td>";
+    row += '<td><input class="name" name="player['+nb+'][name]" required=true/></td>';
+    row += "<td><select class='positions' name='player["+nb+"][position]' required=true>";
     row += '<option value="" disable selected hidden> --- </option>';
     positions.forEach( (p) => row+= "<option value='"+p.id+"'>"+p.name+"</option>");
     row += "</select></td>";
-    row += '<td><input class="ma" name="ma[]" type="number" value="" required=true/></td>';
-    row += '<td><input class="st" name="st[]" type="number" value="" required=true/></td>';
-    row += '<td><input class="ag" name="ag[]" type="number" value="" required=true/></td>';
-    row += '<td><input class="av" name="av[]" type="number" value="" required=true/></td>';
-    row += "<td><select class='basicskills' name='basicskills[]' multiple=true readonly='readonly'>";
+    row += '<td><input class="ma" name="player['+nb+'][ma]" type="number" value="" required=true/></td>';
+    row += '<td><input class="st" name="player['+nb+'][st]" type="number" value="" required=true/></td>';
+    row += '<td><input class="ag" name="player['+nb+'][ag]" type="number" value="" required=true/></td>';
+    row += '<td><input class="av" name="player['+nb+'][av]" type="number" value="" required=true/></td>';
+    row += "<td><select class='basicskills' name='player["+nb+"][basicskills][]' multiple=true readonly='readonly'>";
     row += "</select></td>";
-    row += "<td><select class='learnedskills' name='learnedskills[]' multiple=true>";
+    row += "<td><select class='learnedskills' name='player["+nb+"][learnedskills][]' multiple=true>";
     row += "</select></td>";
-    row += '<td><input class="cp" name="cp[]" type="number" value="0" required=true/></td>';
-    row += '<td><input class="td" name="td[]" type="number" value="0" required=true/></td>';
-    row += '<td><input class="int" name="int[]" type="number" value="0" required=true/></td>';
-    row += '<td><input class="cas" name="cas[]" type="number" value="0" required=true/></td>';
-    row += '<td><input class="mvp" name="mvp[]" type="number" value="0" required=true/></td>';
-    row += '<td><input class="spp" name="spp[]" type="number" value="0" required=true/></td>';
-    row += '<td><input class="value" name="playervalue[]" type="number" value="" readonly="readonly"/></td>';
-    row += '<td><input class="level" name="level[]" type="number" value="1" required=true/></td>';
+    row += '<td><input class="cp" name="player['+nb+'][cp]" type="number" value="0" required=true/></td>';
+    row += '<td><input class="td" name="player['+nb+'][td]" type="number" value="0" required=true/></td>';
+    row += '<td><input class="int" name="player['+nb+'][int]" type="number" value="0" required=true/></td>';
+    row += '<td><input class="cas" name="player['+nb+'][cas]" type="number" value="0" required=true/></td>';
+    row += '<td><input class="mvp" name="player['+nb+'][mvp]" type="number" value="0" required=true/></td>';
+    row += '<td><input class="spp" name="player['+nb+'][spp]" type="number" value="0" required=true/></td>';
+    row += '<td><input class="value" name="player['+nb+'][playervalue]" type="number" value="" readonly="readonly"/></td>';
+    row += '<td><input class="level" name="player['+nb+'][level]" type="number" value="1" required=true/></td>';
     row += '<td><button type="button" class="remove-player">{{@L.basic.delete}}</button></td>';
 
     row += "</tr>";

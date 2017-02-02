@@ -71,33 +71,32 @@ class Team {
         // Add the currently logged in coach as team coach
         $team->save();
 
-        $post = $f3->get("POST");
         //Now, get each player.
         $saved = array();
-        foreach($post['name'] as $key=>$name) {
+        foreach($p['player'] as $post) {
             $player = new \Model\Player();
-            if(!empty($post['id'][$key])) {
-                $pl_id = intval($post['id'][$key]);
+            if(!empty($post['id'])) {
+                $pl_id = intval($post['id']);
                 $player->load(array('id=?', $pl_id));
             }
 
-            $player->name = trim($name);
-            $player->position = $post['position'][$key];
-            $player->number = $post['number'][$key];
-            $player->MA = $post['ma'][$key];
-            $player->AG = $post['ag'][$key];
-            $player->ST = $post['st'][$key];
-            $player->AV = $post['av'][$key];
-            $player->basicSkills = $post['basicskills'][$key];
-            $player->learnedSkills = $post['learnedskills'][$key];
-            $player->CP = $post['cp'][$key];
-            $player->TD = $post['td'][$key];
-            $player->Int = $post['int'][$key];
-            $player->Cas = $post['cas'][$key];
-            $player->MVP = $post['mvp'][$key];
-            $player->SPP = $post['spp'][$key];
-            $player->level = $post['level'][$key];
-            $player->value = $post['playervalue'][$key];
+            $player->name = trim($post['name']);
+            $player->position = $post['position'];
+            $player->number = $post['number'];
+            $player->MA = $post['ma'];
+            $player->AG = $post['ag'];
+            $player->ST = $post['st'];
+            $player->AV = $post['av'];
+            $player->basicSkills = $post['basicskills'];
+            $player->learnedSkills = $post['learnedskills'];
+            $player->CP = $post['cp'];
+            $player->TD = $post['td'];
+            $player->Int = $post['int'];
+            $player->Cas = $post['cas'];
+            $player->MVP = $post['mvp'];
+            $player->SPP = $post['spp'];
+            $player->level = $post['level'];
+            $player->value = $post['playervalue'];
             $player->team = $team;
             $player->save();
             $saved[$player->id] = true;

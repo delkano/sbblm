@@ -50,14 +50,14 @@
                 {~ foreach((@team.players?:[]) as @player): ~}
                 <tr>
                     <td>
-                        <input type="number" class="number" name=number[] value={{@player.number}}  readonly="readonly">
-                        <input type="hidden" name=id[] value={{@player.id}}  readonly="readonly">
+                        <input type="number" class="number" name=player[{{@player.number}}][number] value={{@player.number}}  readonly="readonly">
+                        <input type="hidden" name=player[{{@player.number}}][id] value={{@player.id}}  readonly="readonly">
                     </td>
                     <td>
-                        <input class="name" name="name[]" value="{{@player.name}}" required=true/>
+                        <input class="name" name="player[{{@player.number}}][name]" value="{{@player.name}}" required=true/>
                     </td>
                     <td>
-                        <select class="positions" name="position[]" required=true>
+                        <select class="positions" name="player[{{@player.number}}][position]" required=true>
                             {~ if(@team.id): ~}
                             {~ foreach(@team.list.positions as @position): ~}
                             <option value="{{@position.id}}" {~ if(@player.position.id == @position.id): ~}selected{~ endif ~}>{{@position.name}}</option>
@@ -66,19 +66,19 @@
                         </select>
                     </td>
                     <td>
-                        <input class="ma" name="ma[]" type="number" value="{{@player.MA}}" required=true min=1 max=10 />
+                        <input class="ma" name="player[{{@player.number}}][ma]" type="number" value="{{@player.MA}}" required=true min=1 max=10 />
                     </td>
                     <td>
-                        <input class="st" name="st[]" type="number" value="{{@player.ST}}" required=true min=1 max=10 />
+                        <input class="st" name="player[{{@player.number}}][st]" type="number" value="{{@player.ST}}" required=true min=1 max=10 />
                     </td>
                     <td>
-                        <input class="ag" name="ag[]" type="number" value="{{@player.AG}}" required=true min=1 max=10 />
+                        <input class="ag" name="player[{{@player.number}}][ag]" type="number" value="{{@player.AG}}" required=true min=1 max=10 />
                     </td>
                     <td>
-                        <input class="av" name="av[]" type="number" value="{{@player.AV}}" required=true min=1 max=10 />
+                        <input class="av" name="player[{{@player.number}}][av]" type="number" value="{{@player.AV}}" required=true min=1 max=10 />
                     </td>
                     <td>
-                        <select class="basicskills" name="basicskills[]" required=true readonly="readonly" multiple=true>
+                        <select class="basicskills" name="player[{{@player.number}}][basicskills][]" required=true readonly="readonly" multiple=true>
                             {~ if(@team.id): ~}
                             {~ foreach(@player.basicSkills?:[] as @skill): ~}
                             <option value="{{@skill.id}}" selected>{{@skill.name}}</option>
@@ -87,7 +87,7 @@
                         </select>
                     </td>
                     <td>
-                        <select class="learnedskills" name="learnedskills[]" multiple=true>
+                        <select class="learnedskills" name="player[{{@player.number}}][learnedskills][]" multiple=true>
                             {~ if(@team.id): ~}
                             {~ foreach(@player.position.basic?:[] as @basic): ~}
                             <optgroup label="{{@basic.name}}">
@@ -109,28 +109,28 @@
 
                     </td>
                     <td>
-                        <input class="cp" name="cp[]" type="number" value="{{@player.CP}}" required=true min=0 />
+                        <input class="cp" name="player[{{@player.number}}][cp]" type="number" value="{{@player.CP}}" required=true min=0 />
                     </td>
                     <td>
-                        <input class="td" name="td[]" type="number" value="{{@player.TD}}" required=true min=0 />
+                        <input class="td" name="player[{{@player.number}}][td]" type="number" value="{{@player.TD}}" required=true min=0 />
                     </td>
                     <td>
-                        <input class="int" name="int[]" type="number" value="{{@player.Int}}" required=true min=0 />
+                        <input class="int" name="player[{{@player.number}}][int]" type="number" value="{{@player.Int}}" required=true min=0 />
                     </td>
                     <td>
-                        <input class="cas" name="cas[]" type="number" value="{{@player.Cas}}" required=true min=0 />
+                        <input class="cas" name="player[{{@player.number}}][cas]" type="number" value="{{@player.Cas}}" required=true min=0 />
                     </td>
                     <td>
-                        <input class="mvp" name="mvp[]" type="number" value="{{@player.MVP}}" required=true min=0 />
+                        <input class="mvp" name="player[{{@player.number}}][mvp]" type="number" value="{{@player.MVP}}" required=true min=0 />
                     </td>
                     <td>
-                        <input class="spp" name="spp[]" type="number" value="{{@player.SPP}}" required=true min=0 />
+                        <input class="spp" name="player[{{@player.number}}][spp]" type="number" value="{{@player.SPP}}" required=true min=0 />
                     </td>
                     <td>
-                        <input class="value" name="playervalue[]" type="number" value="{{@player.value}}"  readonly="readonly"/>
+                        <input class="value" name="player[{{@player.number}}][playervalue]" type="number" value="{{@player.value}}"  readonly="readonly"/>
                     </td>
                     <td>
-                        <input class="level" name="level[]" type="number" value="{{@player.level}}" required=true min=1 />
+                        <input class="level" name="player[{{@player.number}}][level]" type="number" value="{{@player.level}}" required=true min=1 />
                     </td>
                     <td> <button type="button" class="remove-player" data-id="{{@player.id}}">{{@L.basic.delete}}</button> </td>
                 </tr>
