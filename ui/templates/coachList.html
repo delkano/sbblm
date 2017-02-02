@@ -19,3 +19,9 @@
     </tr>
     {~ endforeach ~}
 </table>
+
+<p>
+    {~ if(@MANAGER): ~}
+    <a href="{{'coach_new'|alias}}">{{@L.coach.new}}</a>
+    {~ endif ~}
+</p>

@@ -114,18 +114,19 @@ td, th {
 header {
     #title {
         font-family: 'gutcruncher', sans;
-        height: 7em;
+        //height: 7em;
         margin: 0 auto;
         max-width: @width;
         img {
-            max-height: 100%;
+            max-width: 25%;
             width: auto;
             display: inline-block;
-            padding: 0.2em 2em;
+            padding: 0.2em;
+            max-height: 100%;
         }
         h1 {
             color: rgb(85, 26, 139);
-            font-size: 5em;
+            font-size: 2.5em;
             display: inline-block;
             vertical-align: middle;
             margin: 0;
@@ -136,13 +137,13 @@ header {
         border-bottom: 2px solid;
         ul {
             margin: 0 auto;
-            padding: 0 0.5em;
+            padding: 0;
             max-width: @width;
             li {
                 display: inline-block;
                 margin-bottom: -1px;
                 a {
-                    padding: 0.5em;
+                    padding: 0.2em;
                     display: inline-block;
                     text-decoration: none;
                     font-weight: 600;
@@ -162,7 +163,7 @@ header {
 #main.container {
     margin: 0 auto;
     max-width: @width;
-    padding: 1em;
+    padding: 0.2em;
 }
 
 .singleupload {
@@ -179,12 +180,12 @@ header {
 }
 
 .coach.list {
-    width: 90%;
-    margin: 0 5%;
+    width: 100%;
+    margin: 0;
     text-align: center;
     img.avatar {
-        max-width: 180px;
-        max-height: 180px;
+        max-width: 100%;
+        max-height: 100%;
     }
 }
 
@@ -286,6 +287,14 @@ form {
             width: 50%;
         }
     }
+    &.login {
+        label { min-width: 12em; }
+    }
+}
+
+.wide-table {
+    max-width: 100%;
+    overflow-y: scroll;
 }
 
 /* ==========================================================================
@@ -370,6 +379,50 @@ form {
 
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
+
+    header {
+        #title {
+            height: 7em;
+
+            img {
+                padding: 0.2em 2em;
+                max-height: 100%;
+            }
+            h1 {
+                font-size: 5em;
+            }
+        }
+
+        nav#main-menu {
+            ul {
+                margin: 0 auto;
+                padding: 0 0.5em;
+                max-width: @width;
+                li {
+                    a {
+                        padding: 0.5em;
+                    }
+                }
+            }
+        }
+    }
+    #main.container {
+        padding: 1em;
+    }
+
+    .wide-table {
+        max-width: none;
+        overflow-y: visible;
+    }
+
+    .coach.list {
+        width: 90%;
+        margin: 0 5%;
+        img.avatar {
+            max-width: 180px;
+            max-height: 180px;
+        }
+    }
 }
 
 @media print,

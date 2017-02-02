@@ -1,5 +1,11 @@
-<form action="{{'login_check' | alias}}" method="POST">
-    <label for="username">Username</label><input type="text" name="username" value="" id="username" placeholder="{{@L.basic.username}}">
-    <label for="password">Password</label><input type="password" name="password" value="" id="password" placeholder="{{@L.basic.password}}">
+<form action="{{'login_check' | alias}}" method="POST" class="login">
+    <p>
+        <label for="username">{{@L.basic.username}}</label> <input type="text" name="username" value="" id="username" placeholder="{{@L.basic.username}}">
+    </p>
+    <p>
+        <label for="password">{{@L.basic.password}}</label> <input type="password" name="password" value="" id="password" placeholder="{{@L.basic.password}}">
+    </p>
+    <p>
     <input type="submit" value="{{@L.basic.login}}" />
+    </p>
 </form>

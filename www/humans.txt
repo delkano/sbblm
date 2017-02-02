@@ -7,9 +7,10 @@
 
 # THANKS
 
-    The NAF
+    The NAF, Games Workshop
 
 # TECHNOLOGY COLOPHON
 
     PHP, SQLite, CSS3, HTML5
     Fat Free Framework, Cortex, Apache Server Configs, jQuery, Modernizr, Normalize.css
+    Summernote, LessCSS, Chosen

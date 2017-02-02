@@ -23,7 +23,13 @@
     <tbody>
         {~ foreach(@coach.teams?:[] as @team): ~}
         <tr>
-            <td>{{@team.name}}</td>
+            <td>
+                {~ if(@myprofile): ~}
+                <a href="{{'team_edit', 'id='.@team.id | alias}}">{{@team.name}}</a>
+                {~ else: ~}
+                {{@team.name}}
+                {~ endif ~}
+            </td>
             <td>{{@team.list.name}}</td>
             <td>{{@team.value}}</td>
             <td>{{@team.wins}}</td>
@@ -39,6 +45,8 @@
     </tbody>
 </table>
 
-{~ if(@myprofile): ~}
-<a href="{{'team_new'|alias}}">{{@L.coach.addteam}}</a>
-{~ endif ~}
+<p>
+    {~ if(@myprofile): ~}
+    <a href="{{'team_new'|alias}}">{{@L.coach.addteam}}</a>
+    {~ endif ~}
+</p>
