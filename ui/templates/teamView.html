@@ -1,6 +1,23 @@
 <h2><img src="{{@BASE}}/{{@team.logo}}" />{{@team.name}}</h2>
 <h3><a href="{{'coach_view', 'id='.@team.coach.id | alias}}">{{@L.basic.coach}}: {{@team.coach.name}}</a></h3>
 
+<div class="data">
+    <dl>
+        <dt>{{@L.team.value}}</dt>
+        <dd>{{@team.value}}K</dd>
+        <dt>{{@L.team.ff}}</dt>
+        <dd>{{@team.ff?:0}}</dd>
+        <dt>{{@L.team.apothecary}}</dt>
+        <dd>{{@team.apothecary?:0}}</dd>
+        <dt>{{@L.team.assistants}}</dt>
+        <dd>{{@team.assistants?:0}}</dd>
+        <dt>{{@L.team.cheerleaders}}</dt>
+        <dd>{{@team.cheerleaders?:0}}</dd>
+        <dt>{{@L.team.rerolls}}</dt>
+        <dd>{{@team.rerolls?:0}}</dd>
+    </dl>
+</div>
+
 <div class="wide-table">
     <table class="player list">
         <tr>
@@ -47,7 +64,7 @@
             <td>{{@player.Cas}}</td>
             <td>{{@player.MVP}}</td>
             <td>{{@player.SPP}}</td>
-            <td>{{@player.value}}</td>
+            <td>{{@player.value}}K</td>
             <td>{{@player.level}}</td>
 
         </tr>

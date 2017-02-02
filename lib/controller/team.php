@@ -100,11 +100,11 @@ class Team {
             $player->value = $post['playervalue'][$key];
             $player->team = $team;
             $player->save();
-            $saved[$player->name] = true;
+            $saved[$player->id] = true;
         }
         //Now, let's delete the ones that were not on the POSTed array
         foreach($existing?:[] as $old) {
-            if(empty($saved[$old->name])) {
+            if(empty($saved[$old->id])) {
                 $old->erase();
             }
         }

@@ -1,11 +1,13 @@
 var positions=[]; // We need to store them for the time being
 var skills={}; //Ditto with the skill lists
 var teammoney; // Initial Money amount when you load the team
+var rerolls = 0;
 
 function addPlayer() {
     var nb = $(".player.list tr").length;
     if(nb > 16) { $('.add-player').disable(); }
-    var nbs = $('.player.list tr .number').map( (i, e) => { return +($(e).val()); }).get().sort();
+    var nbs = $('.player.list tr .number').map( (i, e) => { return parseInt($(e).val()); }).get().sort( (a,b) => { return a-b; } );
+    console.log(nbs);
     switch(nbs.length) {
         case 0: nb = 1; break;
         case 1: nb = nbs[0]==1?2:1; break;
@@ -124,7 +126,8 @@ function findPositionById(id) {
 }
 
 function populatePositions(data) {
-    positions = data;
+    positions = data.positions; 
+    rerolls = data.rerolls;
     $(".positions").each((i, p) => {
         $(p).find("option").remove();
         $(p).append( '<option value="" disable selected hidden> --- </option>');
@@ -168,7 +171,7 @@ function calculateTotalValue() {
     total+= $('#cheerleaders').val() * 10;
     total+= $('#assistants').val() * 10;
     total+= $('#apothecary').val() * 50;
-    total+= $('#rerolls').val() * 50;
+    total+= $('#rerolls').val() * rerolls;
 
     $('#value').val(total);
 }
@@ -182,6 +185,10 @@ $(function(){
     $(".player.list input").change(calculateValue);
     $(".player.list select").change(calculateValue);
     $("#ff").change(calculateMoney);
+    $("#cheerleaders").change(calculateMoney);
+    $("#apothecary").change(calculateMoney);
+    $("#rerolls").change(calculateMoney);
+    $("#assistants").change(calculateMoney);
 
     $(".basicskills").chosen({width: '10em'});
     $(".learnedskills").chosen({width: '10em'});
@@ -190,7 +197,10 @@ $(function(){
     if(id) {
         $.get("/race/"+id+"/getlist",
                 null,
-                (data) => {positions = data; },
+                (data) => {
+                    positions = data.positions; 
+                    rerolls = data.rerolls;
+                },
                 'json'
              );
     }

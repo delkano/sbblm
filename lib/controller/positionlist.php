@@ -54,6 +54,10 @@ class PositionList {
             $arr[] = $p;
         }
 
-        print_r(json_encode($arr));
+        print_r(json_encode(array(
+            'rerolls' => $list->rerolls,
+            'description' => $list->description,
+            'positions' => $arr
+        )));
     }
 }
