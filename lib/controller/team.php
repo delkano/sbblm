@@ -24,6 +24,7 @@ class Team {
         $team = new \Model\Team();
         if(!empty($params['id'])) {
             $id = intval($params['id']);
+            $team->filter('players', array('dead = ?', 0));
             $team->load(array('id=?', $id));
             $new = false;
         } else {
@@ -52,6 +53,7 @@ class Team {
         $team = new \Model\Team();
         if(!empty($params['id'])) {
             $id = intval($params['id']);
+            $team->filter('players', array('dead = ?', 0));
             $team->load(array('id=?', $id));
 
             $existing = $team->players;
@@ -97,6 +99,7 @@ class Team {
             $player->SPP = $post['spp'];
             $player->level = $post['level'];
             $player->value = $post['playervalue'];
+            $player->dead = isset($post['dead']);
             $player->team = $team;
             $player->save();
             $saved[$player->id] = true;

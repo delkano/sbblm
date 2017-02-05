@@ -46,6 +46,7 @@
                     <th>{{@L.player.spp}}</th>
                     <th>{{@L.player.value}}</th>
                     <th>{{@L.player.level}}</th>
+                    <th>{{@L.player.dead}}</th>
                 </tr>
                 {~ foreach((@team.players?:[]) as @player): ~}
                 <tr>
@@ -131,6 +132,9 @@
                     </td>
                     <td>
                         <input class="level" name="player[{{@player.number}}][level]" type="number" value="{{@player.level}}" required=true min=1 />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="player[{{@player.number}}][dead]" class="dead" {~ if(@player.dead): ~}checked{~ endif ~}/>
                     </td>
                     <td> <button type="button" class="remove-player" data-id="{{@player.id}}">{{@L.basic.delete}}</button> </td>
                 </tr>

@@ -64,6 +64,10 @@ class Player extends \DB\Cortex {
             ),
             'level' => array(
                 'type' => 'INT1'
+            ),
+            'dead' => array(
+                'type' => 'BOOLEAN',
+                'default' => 0
             )
         ),
         $db = 'DB',
