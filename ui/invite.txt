@@ -1,0 +1,5 @@
+<p>Has recibido una invitación para {{@cfg.name}}.</p>
+<p>Puedes pinchar en el enlace siguiente para crear tu cuenta: </p>
+<p><a href="http://{{@HOST}}{{@BASE}}{{'invite_spend','hash='.@hash |alias}}">http://{{@HOST}}{{@BASE}}{{'invite_spend','hash='.@hash |alias}}</a></p>
+<p></p>
+<p>Si no deseas utilizar esta invitación o crees haberla recibido por error, puedes ignorar este mail sin problema.</p>

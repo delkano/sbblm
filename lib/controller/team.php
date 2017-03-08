@@ -75,7 +75,7 @@ class Team {
 
         //Now, get each player.
         $saved = array();
-        foreach($p['player'] as $post) {
+        foreach($p['player']?:[] as $post) {
             $player = new \Model\Player();
             if(!empty($post['id'])) {
                 $pl_id = intval($post['id']);
@@ -99,6 +99,8 @@ class Team {
             $player->SPP = $post['spp'];
             $player->level = $post['level'];
             $player->value = $post['playervalue'];
+            $player->hurt = isset($post['hurt']);
+            $player->comment = trim($post['comment']);
             $player->dead = isset($post['dead']);
             $player->team = $team;
             $player->save();
@@ -113,28 +115,17 @@ class Team {
 
         if(empty($params['id'])) {
             $file = $f3->get('FILES'); 
-            $img = new \Image($file['logo']['tmp_name'], false, '');
-            $img->resize(180, 180, false, false);
-            $slug = trim($team->name);
-            $slug = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $slug);
-            $slug = preg_replace('/[-\s]+/', '-', $slug);
-            $name = "img/teamlogos/$slug.png";
-            $f3->write( $name, $img->dump('png') );
+            if(!empty($file)) {
+                $img = new \Image($file['logo']['tmp_name'], false, '');
+                $img->resize(180, 180, false, false);
+                $slug = trim($team->name);
+                $slug = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $slug);
+                $slug = preg_replace('/[-\s]+/', '-', $slug);
+                $name = "img/teamlogos/$slug.png";
+                $f3->write( $name, $img->dump('png') );
 
-
-            /*
-            $f3->set("team", $team);
-            $f3->set('UPLOADS', 'img/teamlogos/');
-            $web = new \Web();
-            $file = $web->receive(function($file) {
-                if($file['size'] > (2 * 1024 * 1024)) // if bigger than 2 MB
-                    return false; // this file is not valid, return false will skip moving it
-                return true;
-            },true, function() { return \Base::instance()->get("team")->name.".png"; });
-
-            $name = array_keys($file)[0];
-             */
-            $team->logo = $name;
+                $team->logo = $name;
+            }
         }
 
         $team->save();
@@ -160,22 +151,6 @@ class Team {
             $f3->write( $name, $img->dump('png') );
             $team->logo = $name;
 
-            /*
-
-            $f3->set("team", $team);
-
-            $f3->set('UPLOADS', 'img/teamlogos/');
-            $web = new \Web();
-            $file = $web->receive(function($file) {
-                if($file['size'] > (2 * 1024 * 1024)) // if bigger than 2 MB
-                    return false; // this file is not valid, return false will skip moving it
-                return true;
-            },true, function() { return \Base::instance()->get("team")->logo.".png"; });
-
-            $name = array_keys($file)[0];
-
-            $team->logo = $name;
-             */
             $team->save();
 
             echo json_encode(array('code' => 0, 'url' => $f3->get("BASE")."/".$name));

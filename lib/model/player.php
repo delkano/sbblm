@@ -65,6 +65,13 @@ class Player extends \DB\Cortex {
             'level' => array(
                 'type' => 'INT1'
             ),
+            'comment' => array(
+                'type' => 'TEXT'
+            ),
+            'hurt' => array(
+                'type' => 'BOOLEAN',
+                'default' => 0
+            ),
             'dead' => array(
                 'type' => 'BOOLEAN',
                 'default' => 0

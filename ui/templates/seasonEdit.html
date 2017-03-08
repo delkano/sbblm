@@ -15,10 +15,10 @@
         <input type="input" name="name" value="{{@season.name}}" title="{{@L.season.name}}" placeholder="{{@L.season.name}}" />
     </p>
     <p>
-        <textarea name="comment" id="comment" placeholder="{{@L.season.comment}}">{{@season.comment}}</textarea>
+        <textarea class="beautiful" name="comment" id="comment" placeholder="{{@L.season.comment}}">{{@season.comment}}</textarea>
     </p>
 
-    <select name="teams" id="teams" multiple >
+    <select name="teams[]" id="teams" multiple >
         {~ foreach(@teams?:[] as @team): ~}
         <option value={{@team.id}} {~ if(@season->hasTeam(@team)): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
         {~ endforeach ~}

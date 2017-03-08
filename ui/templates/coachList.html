@@ -23,5 +23,12 @@
 <p>
     {~ if(@MANAGER): ~}
     <a href="{{'coach_new'|alias}}">{{@L.coach.new}}</a>
+    <div class="block">
+        <h3>{{@L.coach.invite}}</h3>
+        <form action="{{'invite_create' | alias}}" method="POST" accept-charset="utf-8"> 
+            <label for="email">{{@L.basic.email}}</label> <input type="email" name="inviteemail" value="" id="inviteemail">
+            <input type="submit" value="{{@L.basic.send}}" />
+        </form>
+    </div>
     {~ endif ~}
 </p>

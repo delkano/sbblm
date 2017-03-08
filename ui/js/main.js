@@ -41,6 +41,8 @@ function addPlayer() {
     row += '<td><input class="spp" name="player['+nb+'][spp]" type="number" value="0" required=true/></td>';
     row += '<td><input class="value" name="player['+nb+'][playervalue]" type="number" value="" readonly="readonly"/></td>';
     row += '<td><input class="level" name="player['+nb+'][level]" type="number" value="1" required=true/></td>';
+    row += '<td><input class="hurt" name="player['+nb+'][hurt]" type="checkbox" /></td>';
+    row += '<td><textarea class="notes" name="player['+nb+'][comment]"></textarea></td>';
     row += '<td><input class="dead" name="player['+nb+'][dead]" type="checkbox" /></td>';
     row += '<td><button type="button" class="remove-player">{{@L.basic.delete}}</button></td>';
 

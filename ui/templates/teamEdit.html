@@ -10,7 +10,7 @@
     </fieldset>
 
     {~ else: ~}
-    <form method="POST" action="{{'team_create' | alias}}">
+    <form method="POST" action="{{'team_create' | alias}}"  enctype="multipart/form-data">
         <fieldset id="team-logo" class="">
             <!--legend>{{@L.basic.logo}}</legend-->
             <input type="file" name="logo" id="logo-upload"/>
@@ -46,6 +46,8 @@
                     <th>{{@L.player.spp}}</th>
                     <th>{{@L.player.value}}</th>
                     <th>{{@L.player.level}}</th>
+                    <th>{{@L.player.hurt}}</th>
+                    <th>{{@L.player.comment}}</th>
                     <th>{{@L.player.dead}}</th>
                 </tr>
                 {~ foreach((@team.players?:[]) as @player): ~}
@@ -79,7 +81,7 @@
                         <input class="av" name="player[{{@player.number}}][av]" type="number" value="{{@player.AV}}" required=true min=1 max=10 />
                     </td>
                     <td>
-                        <select class="basicskills" name="player[{{@player.number}}][basicskills][]" required=true readonly="readonly" multiple=true>
+                        <select class="basicskills" name="player[{{@player.number}}][basicskills][]" required=true readonly="readonly" multiple=true data-placeholder="{{@L.basic.select}}">
                             {~ if(@team.id): ~}
                             {~ foreach(@player.basicSkills?:[] as @skill): ~}
                             <option value="{{@skill.id}}" selected>{{@skill.name}}</option>
@@ -88,7 +90,7 @@
                         </select>
                     </td>
                     <td>
-                        <select class="learnedskills" name="player[{{@player.number}}][learnedskills][]" multiple=true>
+                        <select class="learnedskills" name="player[{{@player.number}}][learnedskills][]" multiple=true data-placeholder="{{@L.basic.select}}">
                             {~ if(@team.id): ~}
                             {~ foreach(@player.position.basic?:[] as @basic): ~}
                             <optgroup label="{{@basic.name}}">
@@ -132,6 +134,12 @@
                     </td>
                     <td>
                         <input class="level" name="player[{{@player.number}}][level]" type="number" value="{{@player.level}}" required=true min=1 />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="player[{{@player.number}}][hurt]" class="hurt" {~ if(@player.hurt): ~}checked{~ endif ~}/>
+                    </td>
+                    <td>
+                        <textarea class="notes" name="player[{{@player.number}}][comment]">{{@player.comment}}</textarea>
                     </td>
                     <td>
                         <input type="checkbox" name="player[{{@player.number}}][dead]" class="dead" {~ if(@player.dead): ~}checked{~ endif ~}/>

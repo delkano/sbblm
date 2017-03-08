@@ -51,6 +51,10 @@
 
             <include if="{{@ERROR && @ERROR.code!=400}}" href="error.html"/>
 
+            {~ if(@note): ~}
+            <div class="note popup">{{@note}}</div>
+            {~ endif ~}
+
             <include if="{{isset(@page.template)}}" href="{{'templates/'.@page.template.'.html'}}"/>
 
         </div>

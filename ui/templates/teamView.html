@@ -40,6 +40,8 @@
             <th>{{@L.player.spp}}</th>
             <th>{{@L.player.value}}</th>
             <th>{{@L.player.level}}</th>
+            <th>{{@L.player.hurt}}</th>
+            <th>{{@L.player.comment}}</th>
         </tr>
         {~ foreach((@team.players?:[]) as @player): ~}
         {~ if(@player.dead): ~}
@@ -71,6 +73,8 @@
             <td>{{@player.SPP}}</td>
             <td>{{@player.value}}K</td>
             <td>{{@player.level}}</td>
+            <td>{~ if(@player.hurt): ~}{{@L.player.hurt}}{~ endif ~}</td>
+            <td>{{@player.comment}}</td>
 
         </tr>
         {~ endif ~}

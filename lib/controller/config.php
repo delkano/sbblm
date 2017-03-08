@@ -11,6 +11,9 @@ class Config {
         $f3->set("cfg.ff", \Model\Config::read("ff"));
         $f3->set("cfg.ffPrice", \Model\Config::read("ffPrice"));
 
+        $f3->set("cfg.roundLength", \Model\Config::read("roundLength"));
+        $f3->set("cfg.officials", \Model\Config::read("officials"));
+        $f3->set("cfg.friendlies", \Model\Config::read("friendlies"));
 
         $f3->set("page.title", "League Configuration");
         $f3->set('page.template', "configEdit");
@@ -25,11 +28,19 @@ class Config {
         $ff = trim($f3->get("POST.ff"));
         $ffPrice = trim($f3->get("POST.ffPrice"));
 
+        $roundLength = trim($f3->get("POST.roundLength"));
+        $officials = trim($f3->get("POST.officials"));
+        $friendlies = trim($f3->get("POST.friendlies"));
+
         \Model\Config::store("name", $name);
         \Model\Config::store("welcome", $welcome);
         \Model\Config::store("initialgold", $initialgold);
         \Model\Config::store("ff", $ff);
         \Model\Config::store("ffPrice", $ffPrice);
+
+        \Model\Config::store("roundLength", $roundLength);
+        \Model\Config::store("officials", $officials);
+        \Model\Config::store("friendlies", $friendlies);
 
         if(!empty($f3->get("FILES.upload-logo.name"))) {
             $f3->set('UPLOADS', 'img/');

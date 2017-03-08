@@ -12,7 +12,7 @@ class Base {
     public function install($f3) {
         echo "<h3>Creando bases de datos...</h3>";
 
-        $models = array('Coach', 'Game', 'Config', 'Player', 'PositionList', 'Position', 'Season', 'SkillList', 'Skill', 'Team', 'News');
+        $models = array('Coach', 'Game', 'Config', 'Player', 'PositionList', 'Position', 'Season', 'SkillList', 'Skill', 'Team', 'News', 'Invite');
         foreach($models as $model) {
             $class = "\Model\\$model";
             if( $class::setup() )

@@ -121,9 +121,16 @@ $f3->route('GET @game_results: /game/@id/results', '\Controller\Game->results');
 $f3->route('POST @game_create: /game/create', '\Controller\Game->update');
 $f3->route('POST @game_update: /game/@id/update', '\Controller\Game->update');
 
+$f3->route('GET @season_organize: /season/organize', '\Controller\Season->organize');
 // Install: if base /install route doesn't exist, we can only access it by removing "db.sql": safer
 //$f3->route('GET @install: /install', '\Controller\Base->install');
 $f3->route('POST /postinstall', '\Controller\Base->post_install');
+
+// Invites: how the Manager gets new coaches into his league
+$f3->route('POST @invite_create: /invite/create', '\Controller\Invite->create');
+$f3->route('GET @invite_send: /invite/send/@hash', '\Controller\Invite->send');
+$f3->route('GET @invite_spend: /invite/@hash', '\Controller\Invite->spend');
+$f3->route('POST @invite_save: /invite/@hash/save', '\Controller\Coach->update');
 
 \Assets::instance();
 $f3->run();

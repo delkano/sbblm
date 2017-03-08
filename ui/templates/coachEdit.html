@@ -12,7 +12,11 @@
 {~ else: ~}
 <h2>{{@L.coach.creating}}</h2>
 
+{~ if(@hash): ~}
+<form method="POST" action="{{'invite_save','hash='.@hash | alias}}"  enctype="multipart/form-data">
+{~ else: ~}
 <form method="POST" action="{{'coach_create' | alias}}"  enctype="multipart/form-data">
+{~ endif ~}
     <fieldset id="avatar" class="">
         <legend>{{@L.basic.avatar}}</legend>
         <input type="file" name="avatar" id="avatar-upload"/>

@@ -34,5 +34,5 @@ $(function() {
         /*,onProgress: function(loaded, total) {} */
     });
 
-    $("textarea").summernote();
+    $("textarea.beautiful").summernote();
 });

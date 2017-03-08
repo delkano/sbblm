@@ -17,6 +17,9 @@ class Game extends \DB\Cortex {
             'visitor' => array(
                 'belongs-to-one' => '\Model\Team'
             ),
+            'official' => array(
+                'type' => 'BOOLEAN'
+            ),
             'localResult' => array(
                 'type' => 'INT1',
                 'nullable' => true

@@ -2,7 +2,6 @@
 namespace Controller;
 
 class Coach {
-
     /***
      * Basic REST
      ***/
@@ -81,6 +80,15 @@ class Coach {
     }
 
     public function update($f3, $params) {
+        if(!empty($params['hash'])) { // This is an invite. Let's check everything's alright
+            $invite = new \Model\Invite();
+            $invite->load(array('hash=?', $params['hash']));
+            if($invite->dry()||$invite->status == 9) $f3->status(404);
+
+            $invite->status = 9;
+            $invite->save();
+        } // All good? Resume.
+        
         $coach = new \Model\Coach();
         if(!empty($params['id'])) {
             $id = intval($params['id']);
@@ -99,25 +107,14 @@ class Coach {
 
         if(empty($params['id'])) { // This is causing trouble on 7.1, but not on the OVH PHP version
             $file = $f3->get('FILES'); 
-            print_r($f3->get('FILES'));
-            $img = new \Image($file['avatar']['tmp_name'], false, '');
-            $img->resize(180, 180, false, false);
-            $name = "img/avatars/".$coach->username.".png";
-            $f3->write( $name, $img->dump('png') );
+            if(!empty($file) && !empty($file['avatar']['tmp_name'])) {
+                $img = new \Image($file['avatar']['tmp_name'], false, '');
+                $img->resize(180, 180, false, false);
+                $name = "img/avatars/".$coach->username.".png";
+                $f3->write( $name, $img->dump('png') );
 
-            /* Old code, works but does not resize
-            $f3->set('UPLOADS', 'img/avatars/');
-            $web = new \Web();
-            $file = $web->receive(function($file) {
-                print_r($file); exit;
-                if($file['size'] > (2 * 1024 * 1024)) // if bigger than 2 MB
-                    return false; // this file is not valid, return false will skip moving it
-                return true;
-            },true, function() { return \Base::instance()->get("coach")->username.".png"; });
-
-            $name = array_keys($file)[0];
-             */
-            $coach->avatar = $name;
+                $coach->avatar = $name;
+            } else $coach->avatar = "img/avatar/default.png";
         }
 
         $coach->save();
@@ -132,17 +129,17 @@ class Coach {
 
         if($coach->dry()) {
             $f3->error(404);
-        } else {
-            $file = $f3->get('FILES');
-            $img = new \Image($file['avatar']['tmp_name'], false, '');
-            $img->resize(180, 180, false, false);
-            $name = "img/avatars/".$coach->username.".png";
-            $f3->write( $name, $img->dump('png') );
-            $coach->avatar = $name;
-            $coach->save();
+    } else {
+        $file = $f3->get('FILES');
+        $img = new \Image($file['avatar']['tmp_name'], false, '');
+        $img->resize(180, 180, false, false);
+        $name = "img/avatars/".$coach->username.".png";
+        $f3->write( $name, $img->dump('png') );
+        $coach->avatar = $name;
+        $coach->save();
 
-            echo json_encode(array('code' => 0, 'url' => $f3->get("BASE")."/".$name));
-        }
+        echo json_encode(array('code' => 0, 'url' => $f3->get("BASE")."/".$name));
+    }
     }
 
     public function delete($f3, $params) {
@@ -152,10 +149,10 @@ class Coach {
 
         if($coach->dry()) {
             $f3->error(404);
-        } else {
-            $coach->erase();
-            $f3->reroute("@coaches_list");
-        }
+    } else {
+        $coach->erase();
+        $f3->reroute("@coaches_list");
+    }
     }
 
     public static function get($f3, $name) {

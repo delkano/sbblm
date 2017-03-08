@@ -11,11 +11,11 @@
     </span>
     <span class="field">
         <label for="welcome">{{@L.league.presentation}}</label>
-        <textarea name="welcome" id="welcome">{{@cfg.welcome}}</textarea>
+        <textarea class="beautiful" name="welcome" id="welcome">{{@cfg.welcome}}</textarea>
     </span>
 
     <fieldset id="rules" class="">
-        <legend>Rules</legend>
+        <legend>{{@L.rules.rules}}</legend>
         <span class="field">
             <label for="initialgold">{{@L.rules.initialgold}}</label><input type="number" name="initialgold" value={{@cfg.initialgold?:1000}} id="initialgold">
         </span>
@@ -24,6 +24,19 @@
         </span>
         <span class="field">
             <label for="ffPrice">{{@L.rules.ffPrice}}</label><input type="number" name="ffPrice" value={{@cfg.ffPrice?:10}} id="ffPrice">
+        </span>
+    </fieldset>
+
+    <fieldset id="season" class="">
+        <legend>{{@L.rules.season}}</legend>
+        <span class="field">
+            <label for="roundLength">{{@L.rules.roundLength}}</label><input type="number" name="roundLength" value={{@cfg.roundLength?:28}} id="roundlength">
+        </span>
+        <span class="field">
+            <label for="officials">{{@L.rules.officials}}</label><input type="number" name="officials" value={{@cfg.officials?:2}} id="officials">
+        </span>
+        <span class="field">
+            <label for="friendlies">{{@L.rules.friendlies}}</label><input type="number" name="friendlies" value={{@cfg.friendlies?:2}} id="friendlies">
         </span>
     </fieldset>
     <input type="submit" value="{{@L.basic.save}}" />

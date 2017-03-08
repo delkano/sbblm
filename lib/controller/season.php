@@ -65,10 +65,51 @@ class Season {
         $season->name = trim($f3->get("POST.name"));
         $season->number = trim($f3->get("POST.number"));
         $season->comment = trim($f3->get("POST.comment"));
-        $season->teams = trim($f3->get("POST.teams"));
+        $season->teams = $f3->get("POST.teams");
 
         $season->save();
 
         $f3->reroute("@season_view(@id=$season->id)");
+    }
+
+    public function organize($f3) {
+        $season = \Model\Season::getCurrent($f3);
+        $teams = $season->teams;
+        $teams_nb = count($teams);
+        
+        $days_per_round = \Model\Config::read("officials");
+        if($teams_nb % 2 == 1) {
+            $teams[$teams_nb] = null;
+            $teams_nb ++;
+        }
+
+        $games_per_round = $teams_nb/2;
+        $rounds_nb = ($teams_nb - 1) * $days_per_round;
+
+        //$rounds_nb = ceil(($teams_nb - 0.5) / $games_per_round) + 1;
+
+        echo "$rounds_nb rondas de $games_per_round partidos por equipo";
+
+        $games = array();
+        $t1 = 0;
+        $t2 = $teams_nb - 2;
+        for($i = 0; $i < $rounds_nb; $i++) { 
+            $games[$i] = array();
+            if( ($i % 2) == 0)
+                $games[$i][0] = $teams[$t1]->name." x ". $teams[$teams_nb-1]->name; 
+            else
+                $games[$i][0] = $teams[$teams_nb-1]->name . " x ".$teams[$t1]->name;
+            $t1 = ($t1 + 1) % ($teams_nb - 1);
+
+            for($j = 1; $j < $games_per_round; $j++) {
+                $games[$i][$j] = $teams[$t1]->name." x ".$teams[$t2]->name;
+
+                $t1 = ($t1 + 1) % ($teams_nb - 1);
+                $t2 = ($t2 == 0)? $teams_nb-2:$t2-1;
+            }
+        }
+        echo "<pre>";
+        print_r($games);
+        echo "</pre>";
     }
 }
