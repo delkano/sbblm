@@ -70,4 +70,9 @@
         {~ endforeach ~}
     </ul>
 {~ endforeach ~}
-{~ if(@MANAGER): ~}<a href="{{'game_program' | alias}}">{{@L.game.program}}{~ endif ~}
+{~ if(@MANAGER): ~}
+<a href="{{'game_program' | alias}}">{{@L.game.program}}</a>
+{~ if(!@round.games): ~}
+- <a href="{{'season_organize' | alias}}">{{@L.season.organize}}</a>
+{~ endif ~}
+{~ endif ~}

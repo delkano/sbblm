@@ -3,10 +3,13 @@
 This is a very basic, just-for-small-private-leagues manager for Blood Bowl. It features:
 
   - Seasons
-  - Match programming and result recording
+  - Game programming and result recording
   - Team and player tracking
   - Coach tracking
   - Localization (English and Spanish are included, others are easily added)
+  - Automatic round robin game programming
+  - Basic stats
+  - Invites
 
 It does not try to replace OBBLM, NAFLM, FEBB, nor any of these big suites with many stats, different leagues, etc.
 
