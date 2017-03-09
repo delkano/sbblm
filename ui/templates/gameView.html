@@ -1,6 +1,10 @@
 <h2>{{@L.game.resultstitle,@game.local.name,@game.visitor.name|format}}</h2>
 <p>
+    {~ if(@game.date): ~}
     {{ '{0,date}', @game.date | format}}
+    {~ else: ~}
+    {{@L.game.undetermined}}
+    {~ endif ~}
 </p>
 <p>
     {{@game.comment}}
@@ -37,12 +41,7 @@
             <td>{{@game.localFans}}</td>
             <td>{{@game.visitorFans}}</td>
             <td>{{@game.localMoney}}</td>
-            <td>"{{@game.visitorMoney}}</td>
+            <td>{{@game.visitorMoney}}</td>
         </tr>
     </table>
 </p>
-
-
-<input type="submit" value="{{@L.basic.save}}"/>
-
-    </form>

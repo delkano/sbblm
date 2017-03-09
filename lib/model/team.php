@@ -51,6 +51,9 @@ class Team extends \DB\Cortex {
             ),
             'visited' => array(
                 'has-many' => array('\Model\Game', 'visitor')
+            ),
+            'points' => array(
+                'type' => 'INT2'
             )
         ),
         $db = 'DB',

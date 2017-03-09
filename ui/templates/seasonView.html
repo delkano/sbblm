@@ -11,6 +11,7 @@
 <table>
     <thead>
         <tr>
+            <th>{{@L.team.points}}</th>
             <th>{{@L.basic.name}}</th>
             <th>{{@L.team.race}}</th>
             <th>{{@L.team.value}}</th>
@@ -27,6 +28,7 @@
     <tbody>
         {~ foreach(@season.teams?:[] as @team): ~}
         <tr>
+            <td>{{@team.points}}</td>
             <td>{{@team.name}}</td>
             <td>{{@team.list.name}}</td>
             <td>{{@team.value}}</td>
@@ -42,3 +44,30 @@
         {~ endforeach ~}
     </tbody>
 </table>
+<h3>{{@L.game.rounds}}</h3>
+{~ foreach(@season.rounds?:[] as @round): ~}
+<h4>{{@L.game.round}} {{@round.number}}</h4>
+    <ul id="games-list">
+        {~ foreach(@round.games?:[] as @game): ~}
+        <li>
+            <span class='date'>
+                {~ if(@game.date): ~} {{'{0, date}',@game.date | format}}
+                {~ else: ~}{{@L.game.undetermined}}
+                {~ endif ~}
+            </span>
+            <a href="{{'team_view', 'id='.@game.local.id | alias}}">{{@game.local.name}}</a>
+            (<a href="{{'coach_view', 'id='.@game.local.coach.id | alias}}">{{@game.local.coach.name}}</a>)
+            {~ if(@game.localResult): ~}: {{@game.localResult}} {~endif~}
+            vs
+            <a href="{{'team_view', 'id='.@game.visitor.id | alias}}">{{@game.visitor.name}}</a>
+            (<a href="{{'coach_view', 'id='.@game.visitor.coach.id | alias}}">{{@game.visitor.coach.name}}</a>)
+            {~ if(@game.visitorResult): ~}: {{@game.visitorResult}} {~endif~}
+            {~ if(@MANAGER): ~}
+            <span class="meta">(<a href="{{'game_reprogram', 'id='.@game.id | alias}}">{{@L.basic.edit}}</a>)</span>
+            <span class="meta">(<a href="{{'game_results', 'id='.@game.id | alias}}">{{@L.game.results}}</a>)</span>
+            {~ endif ~}
+        </li>
+        {~ endforeach ~}
+    </ul>
+{~ endforeach ~}
+{~ if(@MANAGER): ~}<a href="{{'game_program' | alias}}">{{@L.game.program}}{~ endif ~}

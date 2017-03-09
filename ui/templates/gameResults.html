@@ -1,16 +1,24 @@
-{~ if(@game.date): ~}
-<h2>{{@L.game.editing,@game.number|format}}</h2>
+{~ if(@game.id): ~}
+<h2>{{@L.game.editing}}</h2>
 
 <form method="POST" action="{{'game_update','id='.@game.id | alias}}"  enctype="multipart/form-data">
-    {~ else: ~}
-    <h2>{{@L.game.creating}}</h2>
+{~ else: ~}
+<h2>{{@L.game.creating}}</h2>
 
-    <form method="POST" action="{{'game_create' | alias}}"  enctype="multipart/form-data">
-        {~ endif ~}
+<form method="POST" action="{{'game_create' | alias}}"  enctype="multipart/form-data">
+{~ endif ~}
 
+        <p class="field">
+            <label for="round">{{@L.game.round}}</label>
+            <select name="round" id="round" disabled>
+                {~ foreach(@season.rounds?:[] as @round): ~}
+                <option value="{{@round.id}}" {~ if(@round.over): ~}disabled{~endif~} {~ if(@game.round.id == @round.id): ~}selected{~endif~}>{{@round.number}}</option>
+                {~ endforeach ~}
+            </select>
+        </p>
         <p>
             <label for="date">{{@L.game.date}}</label>
-            <input type="date" name="date" value="{{ '{0,date,custom,%Y-%m-%d}', @game.date | format}}" title="{{@L.game.date}}" placeholder="{{@L.game.date}}" />
+            <input type="date" name="date" value="{{ '{0,date,custom,%Y-%m-%d}', @game.date?:time() | format}}" title="{{@L.game.date}}" placeholder="{{@L.game.date}}" />
         </p>
         <p>
             <label for="local">{{@L.game.local}}</label>
@@ -28,6 +36,9 @@
                 <option value={{@team.id}} {~ if(@game.visitor.id == @team.id): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
                 {~ endforeach ~}
             </select>
+        </p>
+        <p class="field">
+            <input type="checkbox" name="official" id="official" {~ if(@game.official): ~}checked{~ endif ~} disabled/><label for="official">{{@L.game.official}}</label>
         </p>
         <p>
             <textarea name="comment" id="comment" placeholder="{{@L.game.comment}}">{{@game.comment}}</textarea>

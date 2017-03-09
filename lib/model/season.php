@@ -18,8 +18,8 @@ class Season extends \DB\Cortex {
             'teams' => array(
                 'has-many' => array('\Model\Team', 'seasons')
             ),
-            'games' => array(
-                'has-many' => array('\Model\Game', 'season')
+            'rounds' => array(
+                'has-many' => array('\Model\Round', 'season')
             )
         ),
         $db = 'DB',

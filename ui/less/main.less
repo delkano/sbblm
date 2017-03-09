@@ -110,6 +110,7 @@ textarea {
 
 td, th {
     padding:0.1em;
+    text-align: center;
 }
 
 header {
@@ -165,6 +166,8 @@ header {
     margin: 0 auto;
     max-width: @width;
     padding: 0.2em;
+    width: auto!important; // Summernote drags in Bootstrap; bootstrap sets crappy widths on my containers
+    // Summernote is working on getting rid of Bootstrap, this will be removed then.
 
     .note.popup {
         text-align: center;
@@ -273,6 +276,13 @@ header {
     }
 }
 
+#rules,#season,#points {
+    .field label { 
+        width: 50%; 
+        text-align: right;
+        padding-right: 2em;
+    }
+}
 form {
     .logo {
         img {
@@ -294,6 +304,10 @@ form {
         }
         input, textarea {
             width: 50%;
+        }
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 1em;
         }
     }
     &.login {
@@ -397,7 +411,7 @@ form {
 
     header {
         #title {
-            height: 7em;
+        height: 7em;
 
             img {
                 padding: 0.2em 2em;
@@ -427,7 +441,7 @@ form {
 
     .wide-table {
         max-width: none;
-        overflow-y: visible;
+        //overflow-y: visible;
     }
 
     .coach.list {

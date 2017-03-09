@@ -39,5 +39,16 @@
             <label for="friendlies">{{@L.rules.friendlies}}</label><input type="number" name="friendlies" value={{@cfg.friendlies?:2}} id="friendlies">
         </span>
     </fieldset>
+    <fieldset id="points" class="">
+        <span class="field">
+            <label for="wonPoints">{{@L.rules.wonPoints}}</label><input type="number" name="wonPoints" value={{@cfg.wonPoints?:3}} id="wonPoints">
+        </span>
+        <span class="field">
+            <label for="drawPoints">{{@L.rules.drawPoints}}</label><input type="number" name="drawPoints" value={{@cfg.drawPoints?:1}} id="drawPoints">
+        </span>
+        <span class="field">
+            <label for="lostPoints">{{@L.rules.lostPoints}}</label><input type="number" name="lostPoints" value={{@cfg.lostPoints?:0}} id="lostPoints">
+        </span>
+    </fieldset>
     <input type="submit" value="{{@L.basic.save}}" />
 </form>

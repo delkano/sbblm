@@ -55,9 +55,17 @@ class Invite {
         $text = \Template::instance()->render('invite.txt','text/html');
 
 
-        $headers = 'From: '.$f3->get("coach")->email;
+        // To send HTML mail, the Content-type header must be set
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Content-type: text/html; charset=UTF-8';
 
-        mail($invite->email, $subject, $text, $headers);
+        $headers[] = 'From: '.$f3->get("coach")->email;
+
+
+        mail($invite->email, $subject, $text, implode("\r\n", $headers));
+        //echo "<pre>";
+        //print_r($headers);
+        //echo "</pre>";
 
         $f3->set("note", $f3->get("L.invite.sentmessage", $invite->email));
         (new \Controller\Coach)->getList($f3);

@@ -33,16 +33,17 @@
             
             <nav id="main-menu">
                 <ul>
-                    <li><a href="{{'coach_list' | alias}}" title="Coaches">{{@L.menu.coaches}}</a>
-                    <li><a href="{{'season_list' | alias}}" title="Seasons">{{@L.menu.seasons}}</a>
+                    <li><a href="{{@BASE}}/" title="{{@L.menu.home}}">{{@L.menu.home}}</a>
+                    <li><a href="{{'coach_list' | alias}}" title="{{@L.menu.coaches}}">{{@L.menu.coaches}}</a>
+                    <li><a href="{{'season_list' | alias}}" title="{{@L.menu.seasons}}">{{@L.menu.seasons}}</a>
                     {~ if(@MANAGER): ~} 
-                        <li><a href="{{'config' | alias}}" title="Configuration">{{@L.menu.config}}</a>
+                    <li><a href="{{'config' | alias}}" title="{{@L.menu.configuration}}">{{@L.menu.config}}</a>
                     {~ endif ~}
                     {~ if(@LOGGEDIN): ~} 
-                        <li><a href="{{'coach_profile' | alias}}" title="Profile">{{@L.menu.profile}}</a>
-                        <li><a href="{{'logout' | alias}}" title="Logout">{{@L.menu.logout}}</a>
+                    <li><a href="{{'coach_profile' | alias}}" title="{{@L.menu.profile}}">{{@L.menu.profile}}</a>
+                        <li><a href="{{'logout' | alias}}" title="{{@L.menu.logout}}">{{@L.menu.logout}}</a>
                     {~ else: ~}
-                        <li><a href="{{'login' | alias}}" title="Login">{{@L.menu.login}}</a>
+                    <li><a href="{{'login' | alias}}" title="{{@L.menu.login}}">{{@L.menu.login}}</a>
                     {~ endif ~}
                 </ul>
             </nav>

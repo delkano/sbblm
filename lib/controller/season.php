@@ -72,13 +72,19 @@ class Season {
         $f3->reroute("@season_view(@id=$season->id)");
     }
 
+    /*******
+     * WIP *
+     *******/
+     
     public function organize($f3) {
         $season = \Model\Season::getCurrent($f3);
         $teams = $season->teams;
         $teams_nb = count($teams);
         
         $days_per_round = \Model\Config::read("officials");
+        $odd = false;
         if($teams_nb % 2 == 1) {
+            $odd = true;
             $teams[$teams_nb] = null;
             $teams_nb ++;
         }
@@ -95,14 +101,40 @@ class Season {
         $t2 = $teams_nb - 2;
         for($i = 0; $i < $rounds_nb; $i++) { 
             $games[$i] = array();
-            if( ($i % 2) == 0)
-                $games[$i][0] = $teams[$t1]->name." x ". $teams[$teams_nb-1]->name; 
-            else
-                $games[$i][0] = $teams[$teams_nb-1]->name . " x ".$teams[$t1]->name;
+            $rn = 1 + floor($i/$days_per_round);
+            if(!isset($round) || $round->number!=$rn) { 
+                $round = new \Model\Round();
+                $round->number = $rn;
+                $round->season = $season;
+                $round->save();
+            }
+            if(!$odd) {
+                $game = new \Model\Game();
+                $game->round = $round;
+                $game->official = true;
+                if( ($i % 2) == 0) {
+                    $game->local = $teams[$t1];
+                    $game->visitor = $teams[$teams_nb-1];
+                    $games[$i][0] = $teams[$t1]->name." x ". $teams[$teams_nb-1]->name; 
+                } else {
+                    $game->local = $teams[$teams_nb-1];
+                    $game->visitor = $teams[$t1];
+                    $games[$i][0] = $teams[$teams_nb-1]->name . " x ".$teams[$t1]->name;
+                }
+                $game->save();
+            }
             $t1 = ($t1 + 1) % ($teams_nb - 1);
 
             for($j = 1; $j < $games_per_round; $j++) {
+                $game = new \Model\Game();
+                $game->round = $round;
+                $game->official = true;
+
+                $game->local = $teams[$t1];
+                $game->visitor = $teams[$t2];
                 $games[$i][$j] = $teams[$t1]->name." x ".$teams[$t2]->name;
+
+                $game->save();
 
                 $t1 = ($t1 + 1) % ($teams_nb - 1);
                 $t2 = ($t2 == 0)? $teams_nb-2:$t2-1;

@@ -14,6 +14,9 @@ class Config {
         $f3->set("cfg.roundLength", \Model\Config::read("roundLength"));
         $f3->set("cfg.officials", \Model\Config::read("officials"));
         $f3->set("cfg.friendlies", \Model\Config::read("friendlies"));
+        $f3->set("cfg.lostPoints", \Model\Config::read("lostPoints"));
+        $f3->set("cfg.drawPoints", \Model\Config::read("drawPoints"));
+        $f3->set("cfg.wonPoints", \Model\Config::read("wonPoints"));
 
         $f3->set("page.title", "League Configuration");
         $f3->set('page.template', "configEdit");
@@ -32,6 +35,10 @@ class Config {
         $officials = trim($f3->get("POST.officials"));
         $friendlies = trim($f3->get("POST.friendlies"));
 
+        $draw = trim($f3->get("POST.drawPoints"));
+        $lost = trim($f3->get("POST.lostPoints"));
+        $won = trim($f3->get("POST.wonPoints"));
+
         \Model\Config::store("name", $name);
         \Model\Config::store("welcome", $welcome);
         \Model\Config::store("initialgold", $initialgold);
@@ -41,6 +48,10 @@ class Config {
         \Model\Config::store("roundLength", $roundLength);
         \Model\Config::store("officials", $officials);
         \Model\Config::store("friendlies", $friendlies);
+
+        \Model\Config::store("wonPoints", $won);
+        \Model\Config::store("lostPoints", $lost);
+        \Model\Config::store("drawPoints", $draw);
 
         if(!empty($f3->get("FILES.upload-logo.name"))) {
             $f3->set('UPLOADS', 'img/');

@@ -6,10 +6,10 @@ class Game extends \DB\Cortex {
         $fieldConf = array(
             'date' => array(
                 'type' => 'DATE',
-                'nullable' => false
+                'nullable' => true
             ),
-            'season' => array(
-                'belongs-to-one' => '\Model\Season'
+            'round' => array(
+                'belongs-to-one' => '\Model\Round'
             ),
             'local' => array(
                 'belongs-to-one' => '\Model\Team'

@@ -28,11 +28,15 @@
 </div>
 
 <div id="games-block">
-    <h3>{{@L.game.nextgames}}</h3>
+    <h3>{{@L.game.thisround}}</h3>
     <ul id="games-list">
         {~ foreach(@games?:[] as @game): ~}
         <li>
-            <span class='date'>{{'{0, date}',@game.date | format}}</span>
+            <span class='date'>
+                {~ if(@game.date): ~} {{'{0, date}',@game.date | format}}
+                {~ else: ~}{{@L.game.undetermined}}
+                {~ endif ~}
+            </span>
             <a href="{{'team_view', 'id='.@game.local.id | alias}}">{{@game.local.name}}</a>
             (<a href="{{'coach_view', 'id='.@game.local.coach.id | alias}}">{{@game.local.coach.name}}</a>)
             vs

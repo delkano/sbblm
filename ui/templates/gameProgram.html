@@ -8,27 +8,41 @@
 <form method="POST" action="{{'game_create' | alias}}"  enctype="multipart/form-data">
 {~ endif ~}
 
-    <p>
-        <input type="date" name="date" value="{{ '{0,date,custom,%Y-%m-%d}', @game.date | format}}" title="{{@L.game.date}}" placeholder="{{@L.game.date}}" />
+    <p class="field">
+        <label for="round">{{@L.game.round}}</label>
+        <select name="round" id="round">
+            {~ foreach(@season.rounds?:[] as @round): ~}
+            <option value="{{@round.id}}" {~ if(@round.over): ~}disabled{~endif~} {~ if(@game.round.id == @round.id): ~}selected{~endif~}>{{@round.number}}</option>
+            {~ endforeach ~}
+        </select>
     </p>
-    <p>
+    <p class="field">
+        <label for="date">{{@L.game.date}}</label>
+        <input type="date" name="date" value="{~ if(@game.date): ~}{{ '{0,date,custom,%Y-%m-%d}', @game.date | format}}{~ endif ~}" title="{{@L.game.date}}" placeholder="{{@L.game.date}}" />
+    </p>
+    <p class="field">
         <label for="local">{{@L.game.local}}</label>
-        <select name="local" id="local">
+        <select name="local" id="local" required>
+            <option value="" disabled selected hidden> --- </option>
             {~ foreach(@teams?:[] as @team): ~}
             <option value={{@team.id}} {~ if(@game.local.id == @team.id): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
             {~ endforeach ~}
         </select>
     </p>
 
-    <p>
+    <p class="field">
         <label for="visitor">{{@L.game.visitor}}</label>
-        <select name="visitor" id="visitor">
+        <select name="visitor" id="visitor" required>
+            <option value="" disabled selected hidden> --- </option>
             {~ foreach(@teams?:[] as @team): ~}
             <option value={{@team.id}} {~ if(@game.visitor.id == @team.id): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>
             {~ endforeach ~}
         </select>
     </p>
-    <p>
+    <p class="field">
+        <input type="checkbox" name="official" id="official" {~ if(@game.official): ~}checked{~ endif ~}/><label for="official">{{@L.game.official}}</label>
+    </p>
+    <p class="field">
         <textarea name="comment" id="comment" placeholder="{{@L.game.comment}}">{{@game.comment}}</textarea>
     </p>
 
