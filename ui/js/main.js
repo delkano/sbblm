@@ -150,6 +150,16 @@ function calculateValue(row) {
     row = $(row.target).parent().parent();
     var pos = findPositionById(row.find(".positions").val());
     var value = pos.value;
+
+    // Let's calculate SPP's too
+    var td = row.find(".td").val(),
+        cp = row.find(".cp").val(),
+        int = row.find(".int").val(),
+        cas = row.find(".cas").val(),
+        mvp = row.find(".mvp").val();
+    var spp = +cp + +td * 3 + +int * 2 + +cas * 2 + +mvp * 5;
+    row.find(".spp").val(spp);
+
     // Trait improvements
     var ma = row.find(".ma").val(),
         st = row.find(".st").val(),

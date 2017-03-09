@@ -59,4 +59,69 @@ class Team extends \DB\Cortex {
         $db = 'DB',
         $fluid = true,
         $table = 'team';
+
+    public function wins() {
+        $res = 0;
+        foreach($this->hosted?:[] as $game) {
+            $res+= ($game->localResult > $game->visitorResult)?1:0;
+        }
+        foreach($this->visited?:[] as $game) {
+            $res+= ($game->localResult < $game->visitorResult)?1:0;
+        }
+        return $res;
+    }
+    public function losses() {
+        $res = 0;
+        foreach($this->hosted?:[] as $game) {
+            $res+= ($game->localResult < $game->visitorResult)?1:0;
+        }
+        foreach($this->visited?:[] as $game) {
+            $res+= ($game->localResult > $game->visitorResult)?1:0;
+        }
+        return $res;
+    }
+    public function ties() {
+        $res = 0;
+        foreach($this->hosted as $game) {
+            if($games->localResult!==null)
+                $res+= ($game->localResult == $game->visitorResult)?1:0;
+        }
+        foreach($this->visited as $game) {
+            if($games->localResult!==null)
+                $res+= ($game->localResult == $game->visitorResult)?1:0;
+        }
+        return $res;
+    }
+    public function winperc() {
+        $total = $this->wins()+$this->losses()+$this->ties();
+        return $total?$this->wins()*100/$total:'-';
+    }
+    public function cp() {
+        $res = 0;
+        foreach($this->players?:[] as $p) {
+            $res+= $p->CP;
+        }
+        return $res;
+    }
+    public function td() {
+        $res = 0;
+        foreach($this->players?:[] as $p) {
+            $res+= $p->TD;
+        }
+        return $res;
+    }
+    public function int() {
+        $res = 0;
+        foreach($this->players?:[] as $p) {
+            $res+= $p->Int;
+        }
+        return $res;
+    }
+    public function cas() {
+        $res = 0;
+        foreach($this->players?:[] as $p) {
+            $res+= $p->Cas;
+        }
+        return $res;
+    }
 }

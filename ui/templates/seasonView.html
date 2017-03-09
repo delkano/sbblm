@@ -28,18 +28,18 @@
     <tbody>
         {~ foreach(@season.teams?:[] as @team): ~}
         <tr>
-            <td>{{@team.points}}</td>
+            <td>{{is_null(@team.points)?'-':@team.points}}</td>
             <td>{{@team.name}}</td>
             <td>{{@team.list.name}}</td>
             <td>{{@team.value}}</td>
-            <td>{{@team.wins}}</td>
-            <td>{{@team.ties}}</td>
-            <td>{{@team.losses}}</td>
-            <td>{{@team.winperc}}</td>
-            <td>{{@team.cp}}</td>
-            <td>{{@team.td}}</td>
-            <td>{{@team.int}}</td>
-            <td>{{@team.cas}}</td>
+            <td>{{@team->wins()}}</td>
+            <td>{{@team->ties()}}</td>
+            <td>{{@team->losses()}}</td>
+            <td>{{@team->winperc()}}</td>
+            <td>{{@team->cp()}}</td>
+            <td>{{@team->td()}}</td>
+            <td>{{@team->int()}}</td>
+            <td>{{@team->cas()}}</td>
         </tr>
         {~ endforeach ~}
     </tbody>
