@@ -53,6 +53,7 @@ function addPlayer() {
     row.find(".remove-player").click(removePlayer);
     row.find(".basicskills").chosen({width: '10em'});
     row.find(".learnedskills").chosen({width: '10em'});
+    $("#race").prop("disabled", "disabled");
 }
 function selectRace(e) {
     var id = this.value;

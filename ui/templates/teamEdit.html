@@ -18,7 +18,7 @@
         {~ endif ~}
 
         <input id="team-name" name="teamname" placeholder="{{@L.basic.name}}" value="{{@team.name}}" required=true />
-        <select name="race" class="change-positions" id="race" size="1">
+        <select name="race" class="change-positions" id="race" size="1" {~ if(@team.players): ~}disabled{~ endif ~}>
             {~ if(!@team.id): ~}
             <option value="" disable selected hidden>{{@L.team.chooserace}}</option>
             {~ endif ~}

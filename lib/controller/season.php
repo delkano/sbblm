@@ -7,6 +7,8 @@ class Season {
         $season = new \Model\Season();
         $season->load(array('id=?', $id));
 
+        $season->teams->orderBy('points DESC');
+
         if($season->dry()) {
             $f3->error(404);
         } else {
@@ -72,10 +74,6 @@ class Season {
         $f3->reroute("@season_view(@id=$season->id)");
     }
 
-    /*******
-     * WIP *
-     *******/
-     
     public function organize($f3) {
         $season = \Model\Season::getCurrent($f3);
         $teams = $season->teams;
@@ -92,15 +90,9 @@ class Season {
         $games_per_round = $teams_nb/2;
         $rounds_nb = ($teams_nb - 1) * $days_per_round;
 
-        //$rounds_nb = ceil(($teams_nb - 0.5) / $games_per_round) + 1;
-
-        echo "$rounds_nb rondas de $games_per_round partidos por equipo";
-
-        $games = array();
         $t1 = 0;
         $t2 = $teams_nb - 2;
         for($i = 0; $i < $rounds_nb; $i++) { 
-            $games[$i] = array();
             $rn = 1 + floor($i/$days_per_round);
             if(!isset($round) || $round->number!=$rn) { 
                 $round = new \Model\Round();
@@ -115,11 +107,9 @@ class Season {
                 if( ($i % 2) == 0) {
                     $game->local = $teams[$t1];
                     $game->visitor = $teams[$teams_nb-1];
-                    $games[$i][0] = $teams[$t1]->name." x ". $teams[$teams_nb-1]->name; 
                 } else {
                     $game->local = $teams[$teams_nb-1];
                     $game->visitor = $teams[$t1];
-                    $games[$i][0] = $teams[$teams_nb-1]->name . " x ".$teams[$t1]->name;
                 }
                 $game->save();
             }
@@ -132,7 +122,6 @@ class Season {
 
                 $game->local = $teams[$t1];
                 $game->visitor = $teams[$t2];
-                $games[$i][$j] = $teams[$t1]->name." x ".$teams[$t2]->name;
 
                 $game->save();
 
@@ -140,8 +129,6 @@ class Season {
                 $t2 = ($t2 == 0)? $teams_nb-2:$t2-1;
             }
         }
-        echo "<pre>";
-        print_r($games);
-        echo "</pre>";
+        $f3->reroute("@season_view(@id=$season->id)");
     }
 }

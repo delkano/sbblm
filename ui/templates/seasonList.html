@@ -19,3 +19,6 @@
     </tr>
     {~ endforeach ~}
 </table>
+{~ if(@MANAGER): ~}
+<a href='{{ "season_new" | alias}}'>{{@L.season.create}}</a>
+{~ endif ~}

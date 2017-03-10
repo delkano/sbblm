@@ -21,7 +21,7 @@
 16;Elfos Silvanos;Línea;70;7;3;4;7;;GA;FP
 4;Elfos Silvanos;Receptor;90;8;2;4;7;Atrapar, Esquivar, Carrera;GA;FP
 2;Elfos Silvanos;Lanzador;90;7;3;4;7;Pasar;GAP;F
-2;Elfos Silvanos;Bailarín Guerrero;120;8;3;4;7;Pasar, Esquivar, Saltar;GA;FP
+2;Elfos Silvanos;Bailarín Guerrero;120;8;3;4;7;Placar, Esquivar, Saltar;GA;FP
 1;Elfos Silvanos;Hombre Árbol;120;2;6;1;10;Solitario, Golpe Mortífero, Mantenerse Firme, Brazo Fuerte, Echar Raíces, Cabeza Dura, Lanzar Compañero de Equipo;F;GAP
 16;Enanos;Defensa;70;4;3;2;9;Placar, Placaje Defensivo, Cabeza Dura;GF;AP
 2;Enanos;Corredor;80;6;3;3;8;Manos Seguras, Cabeza Dura;GP;AF

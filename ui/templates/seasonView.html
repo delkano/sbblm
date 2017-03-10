@@ -66,6 +66,9 @@
             <span class="meta">(<a href="{{'game_reprogram', 'id='.@game.id | alias}}">{{@L.basic.edit}}</a>)</span>
             <span class="meta">(<a href="{{'game_results', 'id='.@game.id | alias}}">{{@L.game.results}}</a>)</span>
             {~ endif ~}
+            {~ if(@game.localResult): ~}
+            : <a href="{{'game_view', 'id='.@game.id | alias}}">{{@L.basic.view}}</a>
+            {~ endif ~}
         </li>
         {~ endforeach ~}
     </ul>

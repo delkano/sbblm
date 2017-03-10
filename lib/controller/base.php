@@ -5,6 +5,32 @@ class Base {
     public function home($f3) {
         $f3->set("news", (new \Controller\News)->getLast($f3));
         $f3->set("games", (new \Controller\Game)->getNext($f3));
+
+        $season = new \Model\Season();
+        $season = $season::getCurrent($f3);
+
+        $season->teams->orderBy('points DESC');
+        $f3->set("teams", $season->teams);
+        foreach($season->teams?:[] as $team) { // Get all playing players into one collection
+            if(empty($players))
+                $players = $team->players;
+            else
+                foreach($team->players?:[] as $player)
+                    $players->append($player);
+        }
+
+        $players->orderBy('TD DESC');
+        $f3->set("players_by_td", array_slice($players->castAll(), 0, 3));
+
+        $players->orderBy('Cas DESC');
+        $f3->set("players_by_cas", array_slice($players->castAll(), 0, 3));
+
+        $players->orderBy('Int DESC');
+        $f3->set("players_by_int", array_slice($players->castAll(), 0, 3));
+
+        $players->orderBy('CP DESC');
+        $f3->set("players_by_cp", array_slice($players->castAll(), 0, 3));
+
         $f3->set("page.template", "home");
         echo \Template::instance()->render('layout.html');
     }
