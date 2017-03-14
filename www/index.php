@@ -63,7 +63,7 @@ $access->deny('/team/*');
 $access->allow('/team/*', 'coach,manager');
 $access->allow('/team/@/view', 'guest');
 $access->deny('/news/*');
-$access->allow('/news/*', 'manager');
+$access->allow('/news/*', 'coach,manager');
 $access->deny('/season/@/edit');
 $access->deny('/season/new');
 $access->allow('/season/@/edit', 'manager');

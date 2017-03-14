@@ -11,9 +11,9 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
 
-        <!-- Because of summernote. See if we can load it only on pages that need it -->
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
         <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+        -->
+        <link rel="stylesheet" href="{{@BASE}}/css/trumbowyg.min.css">
 
         <link rel="stylesheet" href="{{@BASE}}/css/normalize.css">
         <link rel="stylesheet" href="{{@BASE}}/css/chosen.min.css">
@@ -65,9 +65,7 @@
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
-        <!-- Because of summernote. See if we can load it only on pages that need it -->
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+        <script src="{{@BASE}}/js/vendor/trumbowyg.min.js"></script>
         <script src="{{@BASE}}/js/vendor/jquery.singleuploadimage.js"></script>
         <script src="{{@BASE}}/js/vendor/chosen.jquery.min.js"></script>
         <script src="/assets/js?files=plugins.js"></script>

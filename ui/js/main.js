@@ -1,7 +1,11 @@
 var positions=[]; // We need to store them for the time being
 var skills={}; //Ditto with the skill lists
 var teammoney; // Initial Money amount when you load the team
-var rerolls = 0;
+var cheerleaders;
+var assistants;
+var apothecary;
+var rerolls;
+var reroll_cost = 0;
 
 function addPlayer() {
     var nb = $(".player.list tr").length;
@@ -119,10 +123,10 @@ function calculateMoney() {
     $(".new .value").each( (i, v) => { cost+= +$(v).val(); });
     cost += (+$("#ff").val() - {{@cfg.ff}}) * {{@cfg.ffPrice}};
 
-    cost+= $('#cheerleaders').val() * 10;
-    cost+= $('#assistants').val() * 10;
-    cost+= $('#apothecary').val() * 50;
-    cost+= $('#rerolls').val() * rerolls;
+    cost+= -(+cheerleaders - +$('#cheerleaders').val()) * 10;
+    cost+= -(+assistants - +$('#assistants').val()) * 10;
+    cost+= -(+apothecary - +$('#apothecary').val()) * 50;
+    cost+= -(+rerolls - +$('#rerolls').val()) * reroll_cost;
 
     $('#money').val( teammoney - cost);
     calculateTotalValue();
@@ -135,7 +139,7 @@ function findPositionById(id) {
 
 function populatePositions(data) {
     positions = data.positions; 
-    rerolls = data.rerolls;
+    reroll_cost = data.rerolls;
     $(".positions").each((i, p) => {
         $(p).find("option").remove();
         $(p).append( '<option value="" disable selected hidden> --- </option>');
@@ -189,7 +193,7 @@ function calculateTotalValue() {
     total+= $('#cheerleaders').val() * 10;
     total+= $('#assistants').val() * 10;
     total+= $('#apothecary').val() * 50;
-    total+= $('#rerolls').val() * rerolls;
+    total+= $('#rerolls').val() * reroll_cost;
 
     $('#value').val(total);
 }
@@ -217,11 +221,15 @@ $(function(){
                 null,
                 (data) => {
                     positions = data.positions; 
-                    rerolls = data.rerolls;
+                    reroll_cost = data.rerolls;
                 },
                 'json'
              );
     }
 
     teammoney = $('#money').val();
+    cheerleaders = $('#cheerleaders').val();
+    assistants = $('#assistants').val();
+    apothecary = $('#apothecary').val();
+    rerolls = $('#rerolls').val();
 })

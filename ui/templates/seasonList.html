@@ -5,7 +5,7 @@
         <th>{{@L.basic.name}}</th>
         <th>{{@L.basic.teams}}</th>
     </tr>
-    {~ foreach(@seasons as @season): ~}
+    {~ foreach(@seasons?:[] as @season): ~}
     <tr>
         <td>{{@season.number}}</td>
         <td><a href="{{ 'season_view', 'id='.@season.id | alias}}" title="{{@season.name}}">{{@season.name}}</a></td>
