@@ -7,7 +7,6 @@ function addPlayer() {
     var nb = $(".player.list tr").length;
     if(nb > 16) { $('.add-player').disable(); }
     var nbs = $('.player.list tr .number').map( (i, e) => { return parseInt($(e).val()); }).get().sort( (a,b) => { return a-b; } );
-    console.log(nbs);
     switch(nbs.length) {
         case 0: nb = 1; break;
         case 1: nb = nbs[0]==1?2:1; break;
@@ -53,7 +52,7 @@ function addPlayer() {
     row.find(".remove-player").click(removePlayer);
     row.find(".basicskills").chosen({width: '10em'});
     row.find(".learnedskills").chosen({width: '10em'});
-    $("#race").prop("disabled", "disabled");
+    //$("#race").prop("disabled", "disabled");
 }
 function selectRace(e) {
     var id = this.value;
@@ -119,6 +118,11 @@ function calculateMoney() {
     var cost = 0;
     $(".new .value").each( (i, v) => { cost+= +$(v).val(); });
     cost += (+$("#ff").val() - {{@cfg.ff}}) * {{@cfg.ffPrice}};
+
+    cost+= $('#cheerleaders').val() * 10;
+    cost+= $('#assistants').val() * 10;
+    cost+= $('#apothecary').val() * 50;
+    cost+= $('#rerolls').val() * rerolls;
 
     $('#money').val( teammoney - cost);
     calculateTotalValue();

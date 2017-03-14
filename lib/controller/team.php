@@ -71,6 +71,23 @@ class Team {
         $team->cheerleaders = $p['cheerleaders'];
         $team->apothecary = $p['apothecary'];
         // Add the currently logged in coach as team coach
+
+        if(empty($params['id'])) {
+            $file = $f3->get('FILES'); 
+            if(!empty($file) && !empty($file['logo']['tmp_name'])) {
+                $img = new \Image($file['logo']['tmp_name'], false, '');
+                $img->resize(180, 180, false, false);
+                $slug = trim($team->name);
+                $slug = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $slug);
+                $slug = preg_replace('/[-\s]+/', '-', $slug);
+                $name = "img/teamlogos/$slug.png";
+                $f3->write( $name, $img->dump('png') );
+
+                $team->logo = $name;
+            } else $team->logo = "img/teamlogos/default.png";
+        }
+
+
         $team->save();
 
         //Now, get each player.
@@ -112,22 +129,6 @@ class Team {
                 $old->erase();
             }
         }
-
-        if(empty($params['id'])) {
-            $file = $f3->get('FILES'); 
-            if(!empty($file) && !empty($file['logo']['tmp_name'])) {
-                $img = new \Image($file['logo']['tmp_name'], false, '');
-                $img->resize(180, 180, false, false);
-                $slug = trim($team->name);
-                $slug = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $slug);
-                $slug = preg_replace('/[-\s]+/', '-', $slug);
-                $name = "img/teamlogos/$slug.png";
-                $f3->write( $name, $img->dump('png') );
-
-                $team->logo = $name;
-            } else $team->logo = "img/teamlogos/default.png";
-        }
-
         $team->save();
 
         $f3->reroute("@team_view(@id=".$team->id.")");

@@ -9,7 +9,9 @@ class Base {
         $season = new \Model\Season();
         $season = $season::getCurrent($f3);
 
-        $season->teams->orderBy('points DESC');
+        if($season->teams) {
+            $season->teams->orderBy('points DESC');
+        }
         $f3->set("teams", $season->teams);
         foreach($season->teams?:[] as $team) { // Get all playing players into one collection
             if(empty($players))
@@ -19,17 +21,25 @@ class Base {
                     $players->append($player);
         }
 
-        $players->orderBy('TD DESC');
-        $f3->set("players_by_td", array_slice($players->castAll(), 0, 3));
+        if($players)  {
+            $players->orderBy('TD DESC');
+            $f3->set("players_by_td", array_slice($players->castAll(), 0, 3));
+        }
 
-        $players->orderBy('Cas DESC');
-        $f3->set("players_by_cas", array_slice($players->castAll(), 0, 3));
+        if($players) {
+            $players->orderBy('Cas DESC');
+            $f3->set("players_by_cas", array_slice($players->castAll(), 0, 3));
+        }
 
-        $players->orderBy('Int DESC');
-        $f3->set("players_by_int", array_slice($players->castAll(), 0, 3));
+        if($players) {
+            $players->orderBy('Int DESC');
+            $f3->set("players_by_int", array_slice($players->castAll(), 0, 3));
+        }
 
-        $players->orderBy('CP DESC');
-        $f3->set("players_by_cp", array_slice($players->castAll(), 0, 3));
+        if($players) {
+            $players->orderBy('CP DESC');
+            $f3->set("players_by_cp", array_slice($players->castAll(), 0, 3));
+        }
 
         $f3->set("page.template", "home");
         echo \Template::instance()->render('layout.html');
@@ -59,7 +69,7 @@ class Base {
         $f3->set("coach", $coach);
 
         $f3->set("SESSION.INSTALLING", true);
-         
+
         $f3->route('POST @coach_create: /postinstall', '\Controller\Base->post_install');
         echo \Template::instance()->render('templates/coachEdit.html');
         exit;
@@ -100,7 +110,7 @@ class Base {
         $f3->reroute("config");
     }
 
-	public function assets($f3, $args) {
+    public function assets($f3, $args) {
         $path = $f3->get('UI').$args['type'].'/';
         if($args['type'] == 'less') {
             $parser = new \Less_Parser(array('compress'=>true));
@@ -114,5 +124,5 @@ class Base {
             $files = preg_replace('/(\.+\/)/','',$_GET['files']); // close potential hacking attempts  
             echo \Preview::instance()->resolve(\Web::instance()->minify($files, null, true, $path));
         }
-	}
+    }
 }

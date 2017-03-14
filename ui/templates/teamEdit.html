@@ -156,7 +156,7 @@
         <div class="team data">
             <fieldset>
                 <p>
-                    <label for="money">{{@L.team.money}}</label><input type="number" name="money" value="{{@team.id?@team.money:@cfg.initialgold}}" id="money">
+                    <label for="money">{{@L.team.money}}</label><input type="number" name="money" value="{{@team.id?@team.money:@cfg.initialgold}}" id="money" readonly="readonly">
                 </p>
                 <p>
                     <label for="FF">{{@L.team.ff}}</label><input type="number" name="ff" value="{{@team.FF?:@cfg.ff}}" id="ff" min=0 max=9 />
@@ -170,10 +170,10 @@
             </fieldset>
             <fieldset>
                 <p>
-                    <label for="assistants">{{@L.team.assistants}}</label><input type="number" name="assistants" value="{{@team.assistants?:0}}" id="assistants" min=0 />
+                    <label for="assistants">{{@L.team.assistants}}</label><input type="number" name="assistants" value="{{@team.assistants?:0}}" id="assistants" min=0 max=10/>
                 </p>
                 <p>
-                    <label for="cheerleaders">{{@L.team.cheerleaders}}</label><input type="number" name="cheerleaders" value="{{@team.cheerleaders?:0}}" id="cheerleaders" min=0 />
+                    <label for="cheerleaders">{{@L.team.cheerleaders}}</label><input type="number" name="cheerleaders" value="{{@team.cheerleaders?:0}}" id="cheerleaders" min=0 max=10/>
                 </p>
                 <p>
                     <label for="apothecary">{{@L.team.apothecary}}</label><input type="number" name="apothecary" value="{{@team.apothecary?:0}}" id="apothecary" min=0 max=1 />
