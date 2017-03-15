@@ -59,6 +59,8 @@ $access->allow('/coach/*', 'manager');
 $access->allow('/coach/@/view');
 $access->allow('/coach/profile', 'coach');
 $access->allow('/coach/profile/edit', 'coach');
+$access->allow('/coach/@/avatar', 'coach');
+$access->allow('/coach/@/update', 'coach');
 $access->deny('/team/*');
 $access->allow('/team/*', 'coach,manager');
 $access->allow('/team/@/view', 'guest');

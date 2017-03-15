@@ -3,7 +3,7 @@
 
 # TEAM
 
-    Diego Cano -- Main Developer -- 
+    Diego Cano -- Main Developer -- http://blepstudio.es/
 
 # THANKS
 
@@ -13,4 +13,5 @@
 
     PHP, SQLite, CSS3, HTML5
     Fat Free Framework, Cortex, Apache Server Configs, jQuery, Modernizr, Normalize.css
-    Summernote, LessCSS, Chosen
+    Trumbowyg, LessCSS, Chosen
+    Gutcruncher font

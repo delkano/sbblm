@@ -56,7 +56,8 @@ function addPlayer() {
     row.find(".remove-player").click(removePlayer);
     row.find(".basicskills").chosen({width: '10em'});
     row.find(".learnedskills").chosen({width: '10em'});
-    //$("#race").prop("disabled", "disabled");
+    $("#race_hidden").val($("#race").val());
+    $("#race").prop("disabled", "disabled");
 }
 function selectRace(e) {
     var id = this.value;
@@ -153,6 +154,8 @@ function removePlayer(e) {
     var row = $(e.target).parent().parent();
     row.remove();
     calculateMoney();
+
+    //We need here some code to cancel #race disabled status when there are no players left
 }
 
 function calculateValue(row) {

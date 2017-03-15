@@ -114,7 +114,7 @@ class Coach {
                 $f3->write( $name, $img->dump('png') );
 
                 $coach->avatar = $name;
-            } else $coach->avatar = "img/avatar/default.png";
+            } else $coach->avatar = "img/avatars/default.png";
         }
 
         $coach->save();

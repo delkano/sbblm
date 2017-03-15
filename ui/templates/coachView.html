@@ -27,7 +27,7 @@
                 {~ if(@myprofile): ~}
                 <a href="{{'team_edit', 'id='.@team.id | alias}}">{{@team.name}}</a>
                 {~ else: ~}
-                {{@team.name}}
+                <a href="{{'team_view', 'id='.@team.id | alias}}">{{@team.name}}</a>
                 {~ endif ~}
             </td>
             <td>{{@team.list.name}}</td>
