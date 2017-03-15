@@ -127,7 +127,11 @@ function calculateMoney() {
     cost+= -(+cheerleaders - +$('#cheerleaders').val()) * 10;
     cost+= -(+assistants - +$('#assistants').val()) * 10;
     cost+= -(+apothecary - +$('#apothecary').val()) * 50;
-    cost+= -(+rerolls - +$('#rerolls').val()) * reroll_cost;
+    {~ if(count(@team.hosted) >0 || count(@team.visited) >0): ~}
+            cost+= -(+rerolls - +$('#rerolls').val()) * 2 * reroll_cost;
+            {~ else: ~}
+            cost+= -(+rerolls - +$('#rerolls').val()) * reroll_cost;
+    {~ endif ~}
 
     $('#money').val( teammoney - cost);
     calculateTotalValue();
@@ -171,6 +175,22 @@ function calculateValue(row) {
         mvp = row.find(".mvp").val();
     var spp = +cp + +td * 3 + +int * 2 + +cas * 2 + +mvp * 5;
     row.find(".spp").val(spp);
+    // Let's calculate the level then
+    var level;
+    if(spp <= 5) 
+        level = 1;
+    else if(spp <= 15)
+        level = 2;
+    else if(spp <= 30)
+        level = 3;
+    else if(spp <= 50)
+        level = 4;
+    else if(spp <= 75)
+        level = 5;
+    else if(spp <= 175)
+        level = 6;
+    else level = 7;
+    row.find(".level").val(level);
 
     // Trait improvements
     var ma = row.find(".ma").val(),

@@ -224,7 +224,7 @@ header {
         font-size: 0.8em;
         padding: 0.5em 1em;
         text-align: center;
-        width: 15em;
+        width: 30em;
         box-shadow: 0 0 13px 4px;
     }
     &:hover:before { // Little tip under it
@@ -314,7 +314,7 @@ form {
 
 .wide-table {
     max-width: 100%;
-    overflow-y: scroll;
+    overflow-x: scroll;
     table {
         min-width: 100%;
     }
@@ -455,7 +455,7 @@ form {
 
     .wide-table {
         max-width: none;
-        //overflow-y: visible;
+        overflow-x: visible;
     }
 
     .coach.list {
@@ -475,6 +475,7 @@ form {
         }
         &#main-column {
             width: ~"calc(100% - 16em)";
+            padding-right: 2em;
         }
     }
 }

@@ -13,6 +13,8 @@ This is a very basic, just-for-small-private-leagues manager for Blood Bowl. It 
 
 It does not try to replace OBBLM, NAFLM, FEBB, nor any of these big suites with many stats, different leagues, etc.
 
+You can find an example in my own league: [http://grimcup.blepstudio.es/].
+
 ### Requirements
 
 SBBLM only needs a web server with PHP (>= 5.4) & SQLite support (it should not be difficult to find such a server these days).

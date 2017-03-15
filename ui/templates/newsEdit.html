@@ -9,7 +9,7 @@
 <p>
     <input type="input" name="title" value="{{@news.title}}" title="{{@L.news.title}}" placeholder="{{@L.news.title}}" />
 </p>
-<p>{{@L.news.author}}: {~ if(@news.author): ~}{{@news.author}}{~else: ~}{{@coach.name}}{~ endif ~}</p>
+<p>{{@L.news.author}}: {~ if(@news.author): ~}{{@news.author.name}}{~else: ~}{{@coach.name}}{~ endif ~}</p>
 <p>
     <textarea class="beautiful" name="content" id="content" placeholder="{{@L.news.content}}">{{@news.content}}</textarea>
 </p>

@@ -62,7 +62,7 @@
             </td>
             <td>
                 {~foreach(@player.learnedSkills?:[] as @skill): ~}
-                <a title="{{@skill.description}}" class="skill-tag">{{@skill.name}}</a>
+                <a data-tooltip="{{@skill.description}}" class="skill-tag">{{@skill.name}}</a>
                 {~ endforeach ~}
             </td>
             <td>{{@player.CP}}</td>
