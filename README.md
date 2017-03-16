@@ -13,7 +13,7 @@ This is a very basic, just-for-small-private-leagues manager for Blood Bowl. It 
 
 It does not try to replace OBBLM, NAFLM, FEBB, nor any of these big suites with many stats, different leagues, etc.
 
-You can find an example in my own league: [http://grimcup.blepstudio.es/].
+You can find an example in my own league: http://grimcup.blepstudio.es/.
 
 ### Requirements
 
@@ -40,3 +40,9 @@ Re-install is as easy as deleting the database *db/db.sql* and going to the *ins
 
 This is a work in progress. I wrote it to manage my first Blood Bowl league, and answer to my requirements. I might add 
 new features as I see them useful or necessary. I also accept requests, although their inclusion might depend on factors.
+
+
+### Still missing
+  * Enforce game number per round limitations
+  * Implement some kind of team transition between seasons (I need to see how the off-season rules work in 
+  Death Zone Season 1 first, to design something generic enough).

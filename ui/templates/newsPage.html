@@ -1,0 +1,49 @@
+<div id="news-block">
+    <h3>{{@L.basic.news}}</h3>
+    <div class="news meta">
+        {~ if(@LOGGEDIN): ~}<a href="{{'news_new' | alias}}">{{@L.news.new}}</a>{~ endif ~}
+    </div>
+    <ul id="news-list">
+        {~ foreach(@news.subset?:[] as @piece): ~}
+        <li>
+            <article>
+                <header>
+                    <h4>{{@piece.title}}</h4>
+                    <div class='news meta'>
+                        {{@L.news.meta,@piece.author.name,@piece.date | format}}
+                        {~ if(@MANAGER || @coach.id===@piece.author.id): ~}- <a href="{{'news_edit', 'id='.@piece.id | alias}}">{{@L.news.edit}}</a>{~ endif ~}
+                    </div>
+                </header>
+                <div class='news-body'>
+                    {{@piece.content}}
+                </div>
+            </article>
+        </li>
+        {~ endforeach ~}
+    </ul>
+    <div id="pagination">
+        {~ if(@news.pos > 0): ~}
+        <span class="page-number">
+            <a href="{{ 'news_page' | alias}}?p=0">1</a>
+        </span>
+        {~ endif ~}
+        {~ if(@news.pos > 1): ~}
+        <span class="page-number">
+            <a href="{{ 'news_page' | alias}}?p={{@news.pos - 1}}">{{@news.pos - 1}}</a>
+        </span>
+        {~ endif ~}
+        <span class='page-number'>{{@news.pos + 1}}</span>
+        {~ if(@news.pos < @news.count - 2): ~}
+        <span class="page-number">
+            <a href="{{ 'news_page' | alias}}?p={{@news.pos + 1}}">{{@news.pos + 1}}</a>
+        </span>
+        {~ endif ~}
+        {~ if(@news.pos < @news.count - 1): ~}
+        <span class="page-number">
+            <a href="{{ 'news_page' | alias}}?p={{@news.count - 1}}">{{@news.count}}</a>
+        </span>
+        {~ endif ~}
+    </div>
+</div>
+
+

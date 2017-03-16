@@ -108,6 +108,7 @@ $f3->route('GET @news_edit: /news/@id/edit', '\Controller\News->edit');
 $f3->route('GET @news_new: /news/new', '\Controller\News->edit');
 $f3->route('POST @news_update: /news/@id/update', '\Controller\News->update');
 $f3->route('POST @news_create: /news/create', '\Controller\News->update');
+$f3->route('GET @news_page: /news', '\Controller\News->getPage');
 
 $f3->route('GET @season_view: /season/@id/view', '\Controller\Season->getOne');
 $f3->route('GET @season_list: /seasons', '\Controller\Season->getList');

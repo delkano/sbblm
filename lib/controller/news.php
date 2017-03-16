@@ -5,8 +5,19 @@ class News {
     public function getLast($f3) {
         $news = new \Model\News();
 
-        return $news->find('', array('order' => 'date DESC', 'limit' => 10));
+        return $news->find('', array('order' => 'date DESC', 'limit' => 3));
     }
+    public function getPage($f3) {
+        $news = new \Model\News();
+        $page_nb = intval($f3->get("GET[p]"));
+
+        $f3->set("news", $news->paginate($page_nb, 10, null, array('order' => 'date DESC')));
+        $f3->set("page.title", $f3->get("L.news.archive"));
+
+        $f3->set("page.template", "newsPage");
+        echo \Template::instance()->render('layout.html');
+    }
+
     public function edit($f3, $params) {
         $news = new \Model\News();
         if(!empty($params['id'])) {
@@ -20,9 +31,9 @@ class News {
         if($new || !$news->dry()) {
             $f3->set('news', $news);
             if($new)
-                $f3->set('page.title', "Creating news");
+                $f3->set('page.title', $f3->get("L.news.creating"));
             else
-                $f3->set('page.title', $news->name." - Edit");
+                $f3->set('page.title', $f3->get("L.news.editing")." - ".$news->title);
             $f3->set('page.template', "newsEdit");
 
             echo \Template::instance()->render('layout.html');
