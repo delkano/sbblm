@@ -18,6 +18,11 @@ class Coach {
             $f3->set('page.title', $coach->name);
             $f3->set('page.template', "coachView");
 
+            if(!empty($f3->get("SESSION")) && !empty($f3->get("SESSION.coach"))) {
+                $me = \Controller\Coach::get($f3, $f3->get("SESSION.coach"));
+                if($id == $me->get("id")) 
+                    $f3->set("myprofile", true);
+            }
             echo \Template::instance()->render('layout.html');
         }
     }

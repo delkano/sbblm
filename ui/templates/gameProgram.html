@@ -1,4 +1,4 @@
-{~ if(@game.date): ~}
+{~ if(@game.id): ~}
 <h2>{{@L.game.editing,@game.number|format}}</h2>
 
 <form method="POST" action="{{'game_update','id='.@game.id | alias}}"  enctype="multipart/form-data">

@@ -16,6 +16,11 @@ class Team {
             $f3->set('page.title', $team->name);
             $f3->set('page.template', "teamView");
 
+            if(!empty($f3->get("SESSION")) && !empty($f3->get("SESSION.coach"))) {
+                $me = \Controller\Coach::get($f3, $f3->get("SESSION.coach"));
+                if($team->coach->get("id") == $me->get("id")) 
+                    $f3->set("myteam", true);
+            }
             echo \Template::instance()->render('layout.html');
         }
     }
@@ -51,17 +56,18 @@ class Team {
 
     public function update($f3, $params) {
         $team = new \Model\Team();
-        if(!empty($params['id'])) {
+        if(!empty($params['id'])) { // Old team, being edited
             $id = intval($params['id']);
             $team->filter('players', array('dead = ?', 0));
             $team->load(array('id=?', $id));
 
             $existing = $team->players;
+        } else { //New team, current coach
+            $team->coach = $f3->get("coach");
         }
         $p = $f3->get("POST");
         //Getting the data
         $team->name = $p['teamname'];
-        $team->coach = $f3->get("coach");
         $team->money = $p['money'];
         $team->list = $p['race'];
         $team->value = $p['value'];

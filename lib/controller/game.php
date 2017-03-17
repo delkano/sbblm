@@ -101,7 +101,7 @@ class Game {
             //No matter what the previous results,
             //Let's substract the points from the teams.
             //We'll add them after saving results anyway.
-            if($game->localResult!=null && $game->visitorResult!=null)
+            if($game->localResult!=NULL && $game->visitorResult!=NULL)
                 if($game->localResult > $game->visitorResult) {
                     $game->local->points -= $won;
                     $game->visitor->points -= $lost;

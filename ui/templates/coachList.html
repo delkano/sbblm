@@ -12,7 +12,7 @@
         <td>
             <ul>
                 {~ foreach(@coach.teams?:[] as @team): ~}
-                <li><a href="{{'team_view', 'id='.@team.id | alias}}" title="{{@team.name}}" />{{@team.name}}</a></li>
+                <li><a href="{{'team_view', 'id='.@team.id | alias}}" title="{{@team.name}}" />{{@team.name}}</a> ({{@team.list.name}})</li>
                 {~ endforeach ~}
             </ul>
         </td>

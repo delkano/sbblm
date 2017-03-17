@@ -30,6 +30,7 @@ $f3->set('ONERROR',
         switch ($f3->get('ERROR.code')) {
         case 404: echo \Template::instance()->render('404.html'); break;
         case 500: echo "<h2>Error ".$f3->get('ERROR.code')."</h2><p>".$f3->get("ERROR.status")."</p><p>".$f3->get("ERROR.text")."</p><div><pre>".$f3->get("ERROR.trace")."</pre></div>"; break;
+        case 403: $f3->reroute("/"); break;
         default: echo "<h2>Big mistake nº".$f3->get('ERROR.code')."</h2><p>".$f3->get("ERROR.status")."</p>"; break;
         }
     }

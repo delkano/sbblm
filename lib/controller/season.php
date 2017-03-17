@@ -111,6 +111,7 @@ class Season {
                     $game->local = $teams[$teams_nb-1];
                     $game->visitor = $teams[$t1];
                 }
+                $game->comment = "";
                 $game->save();
             }
             $t1 = ($t1 + 1) % ($teams_nb - 1);
@@ -123,6 +124,7 @@ class Season {
                 $game->local = $teams[$t1];
                 $game->visitor = $teams[$t2];
 
+                $game->comment = "";
                 $game->save();
 
                 $t1 = ($t1 + 1) % ($teams_nb - 1);
