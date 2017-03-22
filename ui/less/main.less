@@ -569,4 +569,64 @@ form {
     h3 {
         page-break-after: avoid;
     }
+
+    header {
+        display: none;
+    }
+
+    h2 {
+        img { 
+            max-height: 100px;
+            max-width: 100px;
+            margin-right: 1em;
+        }
+        margin-right: 1em;
+    }
+    h2,h3,.data {
+        display: inline-block;
+        vertical-align: top;
+        a[href]:after {
+            content: "";
+        }
+        .meta { display: none; }
+
+        dl {
+            dt, dd {
+                max-width: 45%;
+                display: inline-block;
+                vertical-align: top;
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                margin: 0;
+            }
+            dt {
+                border-left: 1px solid;
+                padding-left: 1em;
+            }
+            dd {
+                border-right: 1px solid;
+                padding: 0 1em;
+                margin-left: -0.5em;
+            }
+        }
+    }
+    .container {
+        font-size: 0.8em;
+        .wide-table {
+            overflow: hidden;
+            table {
+                border: 1px solid;
+                td, th {
+                    border-bottom: 1px solid;
+                }
+            }
+        }
+        #games-list {
+            a[href] { text-decoration: none; }
+            a[href]:after { content: ""; }
+            .meta { display: none; }
+        }
+
+        .nav { display: none; }
+    }
 }

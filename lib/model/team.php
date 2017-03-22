@@ -83,11 +83,11 @@ class Team extends \DB\Cortex {
     public function ties() {
         $res = 0;
         foreach($this->hosted?:[] as $game) {
-            if($games->localResult!==null)
+            if($game->localResult!==null)
                 $res+= ($game->localResult == $game->visitorResult)?1:0;
         }
         foreach($this->visited?:[] as $game) {
-            if($games->visitorResult!==null)
+            if($game->visitorResult!==null)
                 $res+= ($game->localResult == $game->visitorResult)?1:0;
         }
         return $res;
