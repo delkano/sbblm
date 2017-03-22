@@ -92,7 +92,16 @@ function selectPosition(e) {
                 null,
                 (d) => { 
                     skills = d; 
-                    data.basic.concat(data.doubles).forEach( (group) => {
+                    data.basic.forEach( (group) => {
+                        line += "<optgroup label='"+group.name+"'>";
+                        skills[group.name].forEach( (skill) => {
+                            line += "<option value='"+skill.id+"'>"+skill.name+"</option>";
+                        });
+                        line += "</optgroup>";
+                    });
+                    // Separated because, in ideal conditions, we'd have nested optgroups to
+                    // separate basic skill ups from doubles. I can't find a way to cleanly do this on HTML yet.
+                    data.doubles.forEach( (group) => {
                         line += "<optgroup label='"+group.name+"'>";
                         skills[group.name].forEach( (skill) => {
                             line += "<option value='"+skill.id+"'>"+skill.name+"</option>";
@@ -122,7 +131,9 @@ function calculateMoney() {
     // Calculate total money left
     var cost = 0;
     $(".new .value").each( (i, v) => { cost+= +$(v).val(); });
+    {~ if(@cfg.ffPrice != -1): ~}
     cost += (+$("#ff").val() - {{@cfg.ff}}) * {{@cfg.ffPrice}};
+    {~ endif ~}
 
     cost+= -(+cheerleaders - +$('#cheerleaders').val()) * 10;
     cost+= -(+assistants - +$('#assistants').val()) * 10;
@@ -212,7 +223,9 @@ function calculateValue(row) {
 function calculateTotalValue() {
     var total = 0;
     $('td .value').each( (i, v) => { total+= +$(v).val(); });
+    {~ if(@cfg.ffPrice != -1): ~}
     total+= (+$('#ff').val() - {{@cfg.ff}}) * {{@cfg.ffPrice}};
+    {~ endif ~}
     total+= $('#cheerleaders').val() * 10;
     total+= $('#assistants').val() * 10;
     total+= $('#apothecary').val() * 50;

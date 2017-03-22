@@ -87,7 +87,7 @@ class Team extends \DB\Cortex {
                 $res+= ($game->localResult == $game->visitorResult)?1:0;
         }
         foreach($this->visited?:[] as $game) {
-            if($games->localResult!==null)
+            if($games->visitorResult!==null)
                 $res+= ($game->localResult == $game->visitorResult)?1:0;
         }
         return $res;

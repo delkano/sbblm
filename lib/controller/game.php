@@ -3,7 +3,7 @@ namespace Controller;
 
 class Game {
     public function getOne($f3, $params) {
-       $id = intval($params['id']);
+        $id = intval($params['id']);
         $game = new \Model\Game();
         $game->load(array('id=?', $id));
 
@@ -38,6 +38,7 @@ class Game {
         $games = $games->find(array('date>?', time()), array('order'=>'date DESC'));
          */
         $games = $rounds[$i]->games;
+        $games->orderBy('date ASC');
         return $games;
     }
     public function program($f3, $params) {
@@ -101,7 +102,10 @@ class Game {
             //No matter what the previous results,
             //Let's substract the points from the teams.
             //We'll add them after saving results anyway.
-            if($game->localResult!=NULL && $game->visitorResult!=NULL)
+            $won = \Model\Config::read("wonPoints");
+            $lost = \Model\Config::read("lostPoints");
+            $draw = \Model\Config::read("drawPoints");
+            if($game->localResult!==NULL && $game->visitorResult!==NULL)
                 if($game->localResult > $game->visitorResult) {
                     $game->local->points -= $won;
                     $game->visitor->points -= $lost;
@@ -114,30 +118,39 @@ class Game {
                 }
 
             //Getting the data (this part will exist only on results)
-            $game->localResult = intval($f3->get("POST.localResult"));
-            $game->visitorResult = intval($f3->get("POST.visitorResult"));
-            $game->localCasualties = intval($f3->get("POST.localCasualties"));
-            $game->visitorCasualties = intval($f3->get("POST.visitorCasualties"));
-            $game->localGate = intval($f3->get("POST.localGate"));
-            $game->visitorGate = intval($f3->get("POST.visitorGate"));
-            $game->localFans = intval($f3->get("POST.localFans"));
-            $game->visitorFans = intval($f3->get("POST.visitorFans"));
-            $game->localMoney = intval($f3->get("POST.localMoney"));
-            $game->visitorMoney = intval($f3->get("POST.visitorMoney"));
 
-            $won = \Model\Config::read("wonPoints");
-            $lost = \Model\Config::read("lostPoints");
-            $draw = \Model\Config::read("drawPoints");
-            if($game->localResult > $game->visitorResult) {
-                $game->local->points += $won;
-                $game->visitor->points += $lost;
-            } else if($game->localResult < $game->visitorResult) {
-                $game->local->points += $lost;
-                $game->visitor->points += $won;
-            } else {
-                $game->local->points += $draw;
-                $game->visitor->points += $draw;
-            }
+            if($f3->get("POST.localResult") != NULL)
+                $game->localResult = intval($f3->get("POST.localResult"));
+            if($f3->get("POST.visitorResult") != NULL)
+                $game->visitorResult = intval($f3->get("POST.visitorResult"));
+            if($f3->get("POST.localCasualties") != NULL)
+                $game->localCasualties = intval($f3->get("POST.localCasualties"));
+            if($f3->get("POST.visitorCasualties") != NULL)
+                $game->visitorCasualties = intval($f3->get("POST.visitorCasualties"));
+            if($f3->get("POST.localGate") != NULL)
+                $game->localGate = intval($f3->get("POST.localGate"));
+            if($f3->get("POST.visitorGate") != NULL)
+                $game->visitorGate = intval($f3->get("POST.visitorGate"));
+            if($f3->get("POST.localFans") != NULL)
+                $game->localFans = intval($f3->get("POST.localFans"));
+            if($f3->get("POST.visitorFans") != NULL)
+                $game->visitorFans = intval($f3->get("POST.visitorFans"));
+            if($f3->get("POST.localMoney") != NULL)
+                $game->localMoney = intval($f3->get("POST.localMoney"));
+            if($f3->get("POST.visitorMoney") != NULL)
+                $game->visitorMoney = intval($f3->get("POST.visitorMoney"));
+
+            if($game->localResult!==NULL && $game->visitorResult!==NULL)
+                if($game->localResult > $game->visitorResult) {
+                    $game->local->points += $won;
+                    $game->visitor->points += $lost;
+                } else if($game->localResult < $game->visitorResult) {
+                    $game->local->points += $lost;
+                    $game->visitor->points += $won;
+                } else {
+                    $game->local->points += $draw;
+                    $game->visitor->points += $draw;
+                }
             $game->local->save();
             $game->visitor->save();
         }  // The rest, any time.
@@ -149,7 +162,7 @@ class Game {
         if($f3->exists('POST.visitor'))
             $game->visitor = intval($f3->get("POST.visitor"));
         if($f3->exists('POST.official'))
-            $game->official = intval($f3->get("POST.official"));
+            $game->official = intval($f3->get("POST.official")==true);
         if($f3->exists('POST.date'))
             $game->date = strtotime($f3->get("POST.date"));
 
