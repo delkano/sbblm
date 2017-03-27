@@ -53,7 +53,8 @@ class News {
         $news->content = trim($f3->get("POST.content"));
         if(empty($news->author))
             $news->author = $f3->get("coach");
-        $news->date = $f3->get("POST.date")?:time();
+        //$news->date = $f3->get("POST.date")?:time();
+        $news->date = $news->date?:time();
 
         $news->save();
 

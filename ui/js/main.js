@@ -222,7 +222,11 @@ function calculateValue(row) {
 
 function calculateTotalValue() {
     var total = 0;
-    $('td .value').each( (i, v) => { total+= +$(v).val(); });
+    $('.player.list tr').each( (j, row) => {
+        row = $(row);
+        if(!row.find('td input[type=checkbox]').is(":checked")) 
+            row.find('td .value').each( (i, v) => { total+= +$(v).val(); });
+    });
     {~ if(@cfg.ffPrice != -1): ~}
     total+= (+$('#ff').val() - {{@cfg.ff}}) * {{@cfg.ffPrice}};
     {~ endif ~}
@@ -268,4 +272,18 @@ $(function(){
     assistants = $('#assistants').val();
     apothecary = $('#apothecary').val();
     rerolls = $('#rerolls').val();
+
+    /*
+     * this swallows backspace keys on any non-input element.
+     * stops backspace -> back
+     */
+    var rx = /INPUT|SELECT|TEXTAREA/i;
+
+    $(document).bind("keydown", function(e){
+        if( e.which == 8 ){ // 8 == backspace
+            if(!rx.test(e.target.tagName) || e.target.disabled || e.target.readOnly || $(e.target).is(':checkbox,:radio,:submit') ){
+                e.preventDefault();
+            }
+        }
+    });
 })
