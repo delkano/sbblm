@@ -117,6 +117,13 @@ class Game {
                     $game->visitor->points -= $draw;
                 }
 
+            // Similarly, let's substract the previous money so we can add the current one later
+            if($game->localMoney != NULL)
+                $game->local->money -= $game->localMoney;
+            if($game->visitorMoney != NULL)
+                $game->visitor->money -= $game->visitorMoney;
+
+
             //Getting the data (this part will exist only on results)
 
             if($f3->get("POST.localResult") != NULL)
@@ -151,6 +158,12 @@ class Game {
                     $game->local->points += $draw;
                     $game->visitor->points += $draw;
                 }
+
+            if($f3->get("POST.localMoney") != NULL)
+                $game->local->money += $game->localMoney;
+            if($f3->get("POST.visitorMoney") != NULL)
+                $game->visitor->money += $game->visitorMoney;
+
             $game->local->save();
             $game->visitor->save();
         }  // The rest, any time.
