@@ -22,4 +22,14 @@ class Round extends \DB\Cortex {
         $db = 'DB',
         $fluid = true,
         $table = 'round';
+
+    function over() {
+        $over = true;
+        foreach($this->games as $game) {
+            if($game->visitorResult === null && $game->localResult === null) {
+                $over = false;
+            }
+        }
+        return $over;
+    }
 }

@@ -31,7 +31,7 @@ class Game {
         $season = \Model\Season::getCurrent($f3);
         $i = 0;
         $rounds = $season->rounds;
-        while($rounds[$i]->over) { $i++; }
+        while($rounds[$i]->over()) { $i++; }
 
         /*
         $games = new \Model\Game();
