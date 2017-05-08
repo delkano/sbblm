@@ -59,6 +59,13 @@ class Config {
             $file = $web->receive(function($file) {
                 if($file['size'] > (2 * 1024 * 1024)) // if bigger than 2 MB
                     return false; // this file is not valid, return false will skip moving it
+
+                // Let's make a resized version for the webapp icon
+                $img = new \Image($file['tmp_name'], false, '');
+                $img->resize(144, 144, false, false);
+                $name = "webapp-icon.png";
+                \Base::instance()->write( $name, $img->dump('png') );
+
                 return true;
             },true, function() { return "logo.png"; });
 

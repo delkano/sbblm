@@ -277,11 +277,12 @@ $(function(){
      * this swallows backspace keys on any non-input element.
      * stops backspace -> back
      */
-    var rx = /INPUT|SELECT|TEXTAREA/i;
+    var rx = /INPUT|SELECT|TEXTAREA/i; //Excluded tags
+    var cx = /trumbowyg-editor/i; //Excluded classes
 
     $(document).bind("keydown", function(e){
         if( e.which == 8 ){ // 8 == backspace
-            if(!rx.test(e.target.tagName) || e.target.disabled || e.target.readOnly || $(e.target).is(':checkbox,:radio,:submit') ){
+            if((!rx.test(e.target.tagName) && !cx.test(e.target.className)) || e.target.disabled || e.target.readOnly || $(e.target).is(':checkbox,:radio,:submit') ){
                 e.preventDefault();
             }
         }
