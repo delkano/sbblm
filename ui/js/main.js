@@ -56,6 +56,8 @@ function addPlayer() {
     row.find(".remove-player").click(removePlayer);
     row.find(".basicskills").chosen({width: '10em'});
     row.find(".learnedskills").chosen({width: '10em'});
+    row.find("input").change(calculateValue);
+    row.find("select").change(calculateValue);
     $("#race_hidden").val($("#race").val());
     $("#race").prop("disabled", "disabled");
 }

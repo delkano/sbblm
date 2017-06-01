@@ -94,7 +94,7 @@ class Team extends \DB\Cortex {
     }
     public function winperc() {
         $total = $this->wins()+$this->losses()+$this->ties();
-        return $total?$this->wins()*100/$total:'-';
+        return $total?round($this->wins()*100/$total, 2):'-';
     }
     public function cp() {
         $res = 0;
