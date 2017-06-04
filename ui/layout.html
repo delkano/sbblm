@@ -69,7 +69,7 @@
         <script src="{{@BASE}}/js/vendor/jquery.singleuploadimage.js"></script>
         <script src="{{@BASE}}/js/vendor/chosen.jquery.min.js"></script>
         <script src="/assets/js?files=plugins.js"></script>
-        <script src="/assets/js?files=main.js"></script>
+        <script src="/assets/js?files=main.js{~ if(isset(@team)): ~}&team={{@team.id}}{~ endif ~}"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!--

@@ -30,7 +30,7 @@
         </p>
 
         <p>
-            <label for="visitor">{{@L.game.local}}</label>
+            <label for="visitor">{{@L.game.visitor}}</label>
             <select name="visitor" id="visitor" disabled>
                 {~ foreach(@teams?:[] as @team): ~}
                 <option value={{@team.id}} {~ if(@game.visitor.id == @team.id): ~}selected{~ endif ~}>{{@team.name}} ({{@team.coach.name}})</option>

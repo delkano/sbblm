@@ -20,6 +20,7 @@ class Base {
                 foreach($team->players?:[] as $player)
                     $players->append($player);
         }
+        $players->orderBy('SPP DESC');
 
         if($players)  {
             $players->orderBy('TD DESC');
@@ -112,9 +113,21 @@ class Base {
 
     public function assets($f3, $args) {
         $path = $f3->get('UI').$args['type'].'/';
+
+        //If the asset request has a "team" parameter, we need to load the team in question
+        if(!empty($_GET['team'])) {
+            $team_id = intval($_GET['team']);
+            $team = new \Model\Team();
+            $team->load(array('id=?', $team_id));
+
+            if(!$team->dry()) {
+                $f3->set('team', $team);
+            }
+        }
         if($args['type'] == 'less') {
             $parser = new \Less_Parser(array('compress'=>true));
             $files = $_GET['files'];
+
             foreach(explode(",", $files) as $file) 
                 $parser->parseFile($path.$file);
 
