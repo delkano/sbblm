@@ -46,14 +46,15 @@ class Test_Filter {
 			$result[0]['name'] == 'Johnny English',
 			$type.': has filter on many-to-one field'
 		);
+		\Matrix::instance()->sort($result[0]['news'],'title');
 		$test->expect(
 			count($result[0]['news']) == 2 &&
-			$result[0]['news'][0]['title'] == 'Responsive Images' &&
-			$result[0]['news'][1]['title'] == 'CSS3 Showcase',
+			$result[0]['news'][0]['title'] == 'CSS3 Showcase' &&
+			$result[0]['news'][1]['title'] == 'Responsive Images',
 			$type.': has filter does not prune relation set'
 		);
 
-		$result = $news->has('author', array('name = ?', 'Johnny English'))->afind();
+		$result = $news->has('author', array('name = ?', 'Johnny English'))->afind(null,array('order'=>'title DESC'));
 		$test->expect(
 			count($result) == 2 && // has 2 news
 			$result[0]['title'] == 'Responsive Images' &&
@@ -160,7 +161,7 @@ class Test_Filter {
 
 		$news->reset();
 		$news->has('author', array('name = ?', 'Ridley Scott'));
-		$news->load();
+		$news->load(null,array('order'=>'title'));
 		$res = array();
 		while (!$news->dry()) {
 			$res[] = $news->title;
@@ -295,6 +296,38 @@ class Test_Filter {
 			$result[1]['title'] == 'Web Design' &&
 			$result[1]['count_news'] == 1,
 			$type.': has-filter and M:M relation counter'
+		);
+
+
+		$author = new AuthorModel();
+		$author->has('friends', ['name LIKE ?','%Scott%']);
+		$res = $author->find();
+		$ids = $res->getAll('_id');
+		$test->expect(
+			$res && count($res) == 2 &&
+			in_array($authorIDs[0],$ids) && in_array($authorIDs[2],$ids),
+			$type.': has-filter on self-ref relation'
+		);
+
+		$author = new AuthorModel();
+		$author->has('friends.news', ['title LIKE ?','%Interface%']);
+		$res = $author->find();
+		$ids = $res->getAll('_id');
+		$test->expect(
+			$res && count($res) == 2 &&
+			in_array($authorIDs[0],$ids) && in_array($authorIDs[2],$ids),
+			$type.': has-filter, nested on self-ref relation'
+		);
+
+		$author = new AuthorModel();
+		$author->has('friends', ['name LIKE ?','%Scott%']);
+		$author->has('news', ['title LIKE ?','%CSS%']);
+		$res = $author->find();
+		$ids = $res->getAll('_id');
+		$test->expect(
+			$res && count($res) == 1 &&
+			in_array($authorIDs[0],$ids),
+			$type.': multiple has-filter on self-ref relation'
 		);
 
 		$news->reset();

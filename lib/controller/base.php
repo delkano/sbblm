@@ -135,6 +135,7 @@ class Base {
             echo $parser->getCss();
         } else {
             $files = preg_replace('/(\.+\/)/','',$_GET['files']); // close potential hacking attempts  
+            
             echo \Preview::instance()->resolve(\Web::instance()->minify($files, null, true, $path));
         }
     }

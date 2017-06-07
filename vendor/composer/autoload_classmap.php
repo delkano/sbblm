@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Access' => $vendorDir . '/xfra35/f3-access/lib/access.php',
-    'Assets' => $vendorDir . '/ikkez/f3-assets/lib/assets.php',
     'Audit' => $vendorDir . '/bcosca/fatfree-core/audit.php',
     'Auth' => $vendorDir . '/bcosca/fatfree-core/auth.php',
     'Base' => $vendorDir . '/bcosca/fatfree-core/base.php',
@@ -53,6 +52,7 @@ return array(
     'View' => $vendorDir . '/bcosca/fatfree-core/base.php',
     'Web' => $vendorDir . '/bcosca/fatfree-core/web.php',
     'Web\\Geo' => $vendorDir . '/bcosca/fatfree-core/web/geo.php',
+    'Web\\Google\\Recaptcha' => $vendorDir . '/bcosca/fatfree-core/web/google/recaptcha.php',
     'Web\\Google\\StaticMap' => $vendorDir . '/bcosca/fatfree-core/web/google/staticmap.php',
     'Web\\OAuth2' => $vendorDir . '/bcosca/fatfree-core/web/oauth2.php',
     'Web\\OpenID' => $vendorDir . '/bcosca/fatfree-core/web/openid.php',

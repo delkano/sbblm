@@ -136,6 +136,6 @@ $f3->route('GET @invite_send: /invite/send/@hash', '\Controller\Invite->send');
 $f3->route('GET @invite_spend: /invite/@hash', '\Controller\Invite->spend');
 $f3->route('POST @invite_save: /invite/@hash/save', '\Controller\Coach->update');
 
-\Assets::instance();
+//\Assets::instance();
 $f3->run();
 

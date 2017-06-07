@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit49eddfb0796427878c34fbcafc6e33c3
+class ComposerStaticInite246da1a5caa6be2cb14dcaf142bfe49
 {
     public static $files = array (
         '45e8c92354af155465588409ef796dbc' => __DIR__ . '/..' . '/bcosca/fatfree/lib/base.php',
@@ -22,7 +22,6 @@ class ComposerStaticInit49eddfb0796427878c34fbcafc6e33c3
 
     public static $classMap = array (
         'Access' => __DIR__ . '/..' . '/xfra35/f3-access/lib/access.php',
-        'Assets' => __DIR__ . '/..' . '/ikkez/f3-assets/lib/assets.php',
         'Audit' => __DIR__ . '/..' . '/bcosca/fatfree-core/audit.php',
         'Auth' => __DIR__ . '/..' . '/bcosca/fatfree-core/auth.php',
         'Base' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
@@ -68,6 +67,7 @@ class ComposerStaticInit49eddfb0796427878c34fbcafc6e33c3
         'View' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
         'Web' => __DIR__ . '/..' . '/bcosca/fatfree-core/web.php',
         'Web\\Geo' => __DIR__ . '/..' . '/bcosca/fatfree-core/web/geo.php',
+        'Web\\Google\\Recaptcha' => __DIR__ . '/..' . '/bcosca/fatfree-core/web/google/recaptcha.php',
         'Web\\Google\\StaticMap' => __DIR__ . '/..' . '/bcosca/fatfree-core/web/google/staticmap.php',
         'Web\\OAuth2' => __DIR__ . '/..' . '/bcosca/fatfree-core/web/oauth2.php',
         'Web\\OpenID' => __DIR__ . '/..' . '/bcosca/fatfree-core/web/openid.php',
@@ -78,8 +78,8 @@ class ComposerStaticInit49eddfb0796427878c34fbcafc6e33c3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit49eddfb0796427878c34fbcafc6e33c3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit49eddfb0796427878c34fbcafc6e33c3::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInite246da1a5caa6be2cb14dcaf142bfe49::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite246da1a5caa6be2cb14dcaf142bfe49::$classMap;
 
         }, null, ClassLoader::class);
     }

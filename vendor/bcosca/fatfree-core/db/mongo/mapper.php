@@ -146,7 +146,7 @@ class Mapper extends \DB\Cursor {
 					]
 				);
 				$tmp=$this->db->selectcollection(
-					$fw->get('HOST').'.'.$fw->get('BASE').'.'.
+					$fw->HOST.'.'.$fw->BASE.'.'.
 					uniqid(NULL,TRUE).'.tmp'
 				);
 				$tmp->batchinsert($grp['retval'],['w'=>1]);
@@ -179,7 +179,7 @@ class Mapper extends \DB\Cursor {
 			}
 			if ($options['group'])
 				$tmp->drop();
-			if ($fw->get('CACHE') && $ttl)
+			if ($fw->CACHE && $ttl)
 				// Save to cache backend
 				$cache->set($hash,$result,$ttl);
 		}
@@ -212,16 +212,17 @@ class Mapper extends \DB\Cursor {
 	*	Count records that match criteria
 	*	@return int
 	*	@param $filter array
+	*	@param $options array
 	*	@param $ttl int
 	**/
-	function count($filter=NULL,$ttl=0) {
+	function count($filter=NULL,array $options=NULL,$ttl=0) {
 		$fw=\Base::instance();
 		$cache=\Cache::instance();
 		if (!($cached=$cache->exists($hash=$fw->hash($fw->stringify(
 			[$filter])).'.mongo',$result)) || !$ttl ||
 			$cached[0]+$ttl<microtime(TRUE)) {
 			$result=$this->collection->count($filter?:[]);
-			if ($fw->get('CACHE') && $ttl)
+			if ($fw->CACHE && $ttl)
 				// Save to cache backend
 				$cache->set($hash,$result,$ttl);
 		}
@@ -291,10 +292,17 @@ class Mapper extends \DB\Cursor {
 	/**
 	*	Delete current record
 	*	@return bool
+	*	@param $quick bool
 	*	@param $filter array
 	**/
-	function erase($filter=NULL) {
+	function erase($filter=NULL,$quick=TRUE) {
 		if ($filter) {
+			if (!$quick) {
+				foreach ($this->find($filter) as $mapper)
+					if (!$mapper->erase())
+						return FALSE;
+				return TRUE;
+			}
 			return $this->legacy?
 				$this->collection->remove($filter):
 				$this->collection->deletemany($filter);
@@ -331,7 +339,7 @@ class Mapper extends \DB\Cursor {
 	**/
 	function copyfrom($var,$func=NULL) {
 		if (is_string($var))
-			$var=\Base::instance()->get($var);
+			$var=\Base::instance()->$var;
 		if ($func)
 			$var=call_user_func($func,$var);
 		foreach ($var as $key=>$val)

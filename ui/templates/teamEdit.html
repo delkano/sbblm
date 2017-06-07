@@ -29,125 +29,129 @@
         </select>
         <div class="wide-table">
             <table class="player list">
-                <tr>
-                    <th>{{@L.player.number}}</th>
-                    <th>{{@L.basic.name}}</th>
-                    <th>{{@L.player.position}}</th>
-                    <th>{{@L.player.ma}}</th>
-                    <th>{{@L.player.st}}</th>
-                    <th>{{@L.player.ag}}</th>
-                    <th>{{@L.player.av}}</th>
-                    <th>{{@L.player.basicskills}}</th>
-                    <th>{{@L.player.learnedskills}}</th>
-                    <th>{{@L.player.cp}}</th>
-                    <th>{{@L.player.td}}</th>
-                    <th>{{@L.player.int}}</th>
-                    <th>{{@L.player.cas}}</th>
-                    <th>{{@L.player.mvp}}</th>
-                    <th>{{@L.player.spp}}</th>
-                    <th>{{@L.player.value}}</th>
-                    <th>{{@L.player.level}}</th>
-                    <th>{{@L.player.hurt}}</th>
-                    <th>{{@L.player.comment}}</th>
-                    <th>{{@L.player.dead}}</th>
-                </tr>
-                {~ foreach((@team.players?:[]) as @player): ~}
-                <tr>
-                    <td>
-                        <input type="number" class="number" name=player[{{@player.number}}][number] value={{@player.number}}  readonly="readonly">
-                        <input type="hidden" name=player[{{@player.number}}][id] value={{@player.id}}  readonly="readonly">
-                    </td>
-                    <td>
-                        <input class="name" name="player[{{@player.number}}][name]" value="{{@player.name}}" required=true/>
-                    </td>
-                    <td>
-                        <select class="positions" name="player[{{@player.number}}][position]" required=true>
-                            {~ if(@team.id): ~}
-                            {~ foreach(@team.list.positions as @position): ~}
-                            <option value="{{@position.id}}" {~ if(@player.position.id == @position.id): ~}selected{~ endif ~}>{{@position.name}}</option>
-                            {~ endforeach ~}
-                            {~ endif ~}
-                        </select>
-                    </td>
-                    <td>
-                        <input class="ma" name="player[{{@player.number}}][ma]" type="number" value="{{@player.MA}}" required=true min=1 max=10 />
-                    </td>
-                    <td>
-                        <input class="st" name="player[{{@player.number}}][st]" type="number" value="{{@player.ST}}" required=true min=1 max=10 />
-                    </td>
-                    <td>
-                        <input class="ag" name="player[{{@player.number}}][ag]" type="number" value="{{@player.AG}}" required=true min=1 max=10 />
-                    </td>
-                    <td>
-                        <input class="av" name="player[{{@player.number}}][av]" type="number" value="{{@player.AV}}" required=true min=1 max=10 />
-                    </td>
-                    <td>
-                        <select class="basicskills" name="player[{{@player.number}}][basicskills][]" required=true readonly="readonly" multiple=true data-placeholder="{{@L.basic.select}}">
-                            {~ if(@team.id): ~}
-                            {~ foreach(@player.basicSkills?:[] as @skill): ~}
-                            <option value="{{@skill.id}}" selected>{{@skill.name}}</option>
-                            {~ endforeach ~}
-                            {~ endif ~}
-                        </select>
-                    </td>
-                    <td>
-                        <select class="learnedskills" name="player[{{@player.number}}][learnedskills][]" multiple=true data-placeholder="{{@L.basic.select}}">
-                            {~ if(@team.id): ~}
-                            {~ foreach(@player.position.basic?:[] as @basic): ~}
-                            <optgroup label="{{@basic.name}}">
-                                {~ foreach(@basic.skills?:[] as @skill): ~}
-                                <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                <thead>
+                    <tr>
+                        <th>{{@L.player.number}}</th>
+                        <th>{{@L.basic.name}}</th>
+                        <th>{{@L.player.position}}</th>
+                        <th>{{@L.player.ma}}</th>
+                        <th>{{@L.player.st}}</th>
+                        <th>{{@L.player.ag}}</th>
+                        <th>{{@L.player.av}}</th>
+                        <th>{{@L.player.basicskills}}</th>
+                        <th>{{@L.player.learnedskills}}</th>
+                        <th>{{@L.player.cp}}</th>
+                        <th>{{@L.player.td}}</th>
+                        <th>{{@L.player.int}}</th>
+                        <th>{{@L.player.cas}}</th>
+                        <th>{{@L.player.mvp}}</th>
+                        <th>{{@L.player.spp}}</th>
+                        <th>{{@L.player.value}}</th>
+                        <th>{{@L.player.level}}</th>
+                        <th>{{@L.player.hurt}}</th>
+                        <th>{{@L.player.comment}}</th>
+                        <th>{{@L.player.dead}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {~ foreach((@team.players?:[]) as @player): ~}
+                    <tr>
+                        <td>
+                            <input type="number" class="number" name=player[{{@player.number}}][number] value={{@player.number}}  readonly="readonly">
+                            <input type="hidden" name=player[{{@player.number}}][id] value={{@player.id}}  readonly="readonly">
+                        </td>
+                        <td>
+                            <input class="name" name="player[{{@player.number}}][name]" value="{{@player.name}}" required=true/>
+                        </td>
+                        <td>
+                            <select class="positions" name="player[{{@player.number}}][position]" required=true>
+                                {~ if(@team.id): ~}
+                                {~ foreach(@team.list.positions as @position): ~}
+                                <option value="{{@position.id}}" {~ if(@player.position.id == @position.id): ~}selected{~ endif ~}>{{@position.name}}</option>
                                 {~ endforeach ~}
-                            </optgroup>
-                            {~ endforeach ~}
-                            {~ foreach(@player.position.doubles?:[] as @basic): ~}
-                            <optgroup label="{{@basic.name}}">
-                                {~ foreach(@basic.skills?:[] as @skill): ~}
-                                <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                                {~ endif ~}
+                            </select>
+                        </td>
+                        <td>
+                            <input class="ma" name="player[{{@player.number}}][ma]" type="number" value="{{@player.MA}}" required=true min=1 max=10 />
+                        </td>
+                        <td>
+                            <input class="st" name="player[{{@player.number}}][st]" type="number" value="{{@player.ST}}" required=true min=1 max=10 />
+                        </td>
+                        <td>
+                            <input class="ag" name="player[{{@player.number}}][ag]" type="number" value="{{@player.AG}}" required=true min=1 max=10 />
+                        </td>
+                        <td>
+                            <input class="av" name="player[{{@player.number}}][av]" type="number" value="{{@player.AV}}" required=true min=1 max=10 />
+                        </td>
+                        <td>
+                            <select class="basicskills" name="player[{{@player.number}}][basicskills][]" required=true readonly="readonly" multiple=true data-placeholder="{{@L.basic.select}}">
+                                {~ if(@team.id): ~}
+                                {~ foreach(@player.basicSkills?:[] as @skill): ~}
+                                <option value="{{@skill.id}}" selected>{{@skill.name}}</option>
                                 {~ endforeach ~}
-                            </optgroup>
-                            {~ endforeach ~}
-                            {~ endif ~}
-                        </select>
+                                {~ endif ~}
+                            </select>
+                        </td>
+                        <td>
+                            <select class="learnedskills" name="player[{{@player.number}}][learnedskills][]" multiple=true data-placeholder="{{@L.basic.select}}">
+                                {~ if(@team.id): ~}
+                                {~ foreach(@player.position.basic?:[] as @basic): ~}
+                                <optgroup label="{{@basic.name}}">
+                                    {~ foreach(@basic.skills?:[] as @skill): ~}
+                                    <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                                    {~ endforeach ~}
+                                </optgroup>
+                                {~ endforeach ~}
+                                {~ foreach(@player.position.doubles?:[] as @basic): ~}
+                                <optgroup label="{{@basic.name}}">
+                                    {~ foreach(@basic.skills?:[] as @skill): ~}
+                                    <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                                    {~ endforeach ~}
+                                </optgroup>
+                                {~ endforeach ~}
+                                {~ endif ~}
+                            </select>
 
 
-                    </td>
-                    <td>
-                        <input class="cp" name="player[{{@player.number}}][cp]" type="number" value="{{@player.CP}}" required=true min=0 />
-                    </td>
-                    <td>
-                        <input class="td" name="player[{{@player.number}}][td]" type="number" value="{{@player.TD}}" required=true min=0 />
-                    </td>
-                    <td>
-                        <input class="int" name="player[{{@player.number}}][int]" type="number" value="{{@player.Int}}" required=true min=0 />
-                    </td>
-                    <td>
-                        <input class="cas" name="player[{{@player.number}}][cas]" type="number" value="{{@player.Cas}}" required=true min=0 />
-                    </td>
-                    <td>
-                        <input class="mvp" name="player[{{@player.number}}][mvp]" type="number" value="{{@player.MVP}}" required=true min=0 />
-                    </td>
-                    <td>
-                        <input class="spp" name="player[{{@player.number}}][spp]" type="number" value="{{@player.SPP}}" required=true min=0 />
-                    </td>
-                    <td>
-                        <input class="value" name="player[{{@player.number}}][playervalue]" type="number" value="{{@player.value}}"  readonly="readonly"/>
-                    </td>
-                    <td>
-                        <input class="level" name="player[{{@player.number}}][level]" type="number" value="{{@player.level}}" required=true min=1 />
-                    </td>
-                    <td>
-                        <input type="checkbox" name="player[{{@player.number}}][hurt]" class="hurt" {~ if(@player.hurt): ~}checked{~ endif ~}/>
-                    </td>
-                    <td>
-                        <textarea class="notes" name="player[{{@player.number}}][comment]">{{@player.comment}}</textarea>
-                    </td>
-                    <td>
-                        <input type="checkbox" name="player[{{@player.number}}][dead]" class="dead" {~ if(@player.dead): ~}checked{~ endif ~}/>
-                    </td>
-                    <td> <button type="button" class="remove-player" data-id="{{@player.id}}">{{@L.basic.delete}}</button> </td>
-                </tr>
-                {~ endforeach ~}
+                        </td>
+                        <td>
+                            <input class="cp" name="player[{{@player.number}}][cp]" type="number" value="{{@player.CP}}" required=true min=0 />
+                        </td>
+                        <td>
+                            <input class="td" name="player[{{@player.number}}][td]" type="number" value="{{@player.TD}}" required=true min=0 />
+                        </td>
+                        <td>
+                            <input class="int" name="player[{{@player.number}}][int]" type="number" value="{{@player.Int}}" required=true min=0 />
+                        </td>
+                        <td>
+                            <input class="cas" name="player[{{@player.number}}][cas]" type="number" value="{{@player.Cas}}" required=true min=0 />
+                        </td>
+                        <td>
+                            <input class="mvp" name="player[{{@player.number}}][mvp]" type="number" value="{{@player.MVP}}" required=true min=0 />
+                        </td>
+                        <td>
+                            <input class="spp" name="player[{{@player.number}}][spp]" type="number" value="{{@player.SPP}}" required=true min=0 />
+                        </td>
+                        <td>
+                            <input class="value" name="player[{{@player.number}}][playervalue]" type="number" value="{{@player.value}}"  readonly="readonly"/>
+                        </td>
+                        <td>
+                            <input class="level" name="player[{{@player.number}}][level]" type="number" value="{{@player.level}}" required=true min=1 />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="player[{{@player.number}}][hurt]" class="hurt" {~ if(@player.hurt): ~}checked{~ endif ~}/>
+                        </td>
+                        <td>
+                            <textarea class="notes" name="player[{{@player.number}}][comment]">{{@player.comment}}</textarea>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="player[{{@player.number}}][dead]" class="dead" {~ if(@player.dead): ~}checked{~ endif ~}/>
+                        </td>
+                        <td> <button type="button" class="remove-player" data-id="{{@player.id}}">{{@L.basic.delete}}</button> </td>
+                    </tr>
+                    {~ endforeach ~}
+                </tbody>
             </table>
 
         </div>

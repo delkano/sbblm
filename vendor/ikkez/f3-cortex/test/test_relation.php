@@ -127,10 +127,12 @@ class Test_Relation {
 		$news_id[] = $news->_id;
 		$news->reset();
 
-		$allnews = $this->getResult($news->find());
+		$allnews = $this->getResult($news->find(null,array('order'=>'title')));
 		$test->expect(
-			json_encode($allnews) ==
-			'[{"title":"Responsive Images","text":"Lorem Ipsun"},{"title":"CSS3 Showcase","text":"News Text 2"},{"title":"Touchable Interfaces","text":"Lorem Foo"}]',
+			count($allnews) == 3 &&
+			$allnews[0]['title'] == 'CSS3 Showcase' &&
+			$allnews[1]['title'] == 'Responsive Images' &&
+			$allnews[2]['title'] == 'Touchable Interfaces',
 			$type.': all NewsModel items created'
 		);
 
@@ -189,6 +191,7 @@ class Test_Relation {
 		$news->reset();
 		$news->load(array($news_pk.' = ?', $news_id[1]));
 		$test->expect(
+			count($news->tags) == 2 &&
 			$news->tags[0]->title == 'Responsive' && $news->tags[1]->title == 'Usability',
 			$type.': belongs-to-many: relations created with array of IDs'
 		);
@@ -302,8 +305,11 @@ class Test_Relation {
 		$tag3 = $tag->load(array($tag_pk.' = ?',$tag_id[2]));
 		$news->tags2[] = $tag3;
 		$news->save();
+		$a=count($news->tags2);
+		$news->reset();
+		$news->load(array($news_pk.' = ?',$news_id[0]));
 		$test->expect(
-			count($news->tags2) == 3,
+			count($news->tags2) == 3 && $a == 3,
 			$type.': many-to-many relation added implicitly'
 		);
 
@@ -317,6 +323,27 @@ class Test_Relation {
 			$type.': many-to-many relation released'
 		);
 
+		$news->reset();
+		$news->title='Can it run Crysis?';
+		$news->text='XOXO';
+		$news->tags2 = array($tag_id[0]);
+		$news->save();
+		$news_id[] = $news->_id;
+		$news->reset();
+		$news->load(array($news_pk.' = ?', $news_id[3]));
+		$a=count($news->tags2);
+		$tag1 = $tag->find(array($tag_pk.' = ?',$tag_id[0]));
+		$b=count($tag1[0]->news);
+		$c=$tag1[0]->news[0]->title == 'Can it run Crysis?';
+		$news->erase();
+		$tag1 = $tag->find(array($tag_pk.' = ?',$tag_id[0]));
+		$d=count($tag1[0]->news);
+		$test->expect(
+			$a == 1 && $b == 1 && $c && $d == 0,
+			$type.': many-to-many relation cleaned by erase cascade'
+		);
+
+		$news->load(array($news_pk.' = ?', $news_id[0]));
 		$all = $news->find();
 		$test->expect(
 			$all[1]->tags2 === NULL
@@ -337,8 +364,39 @@ class Test_Relation {
 			);
 		}
 
+		$author = new AuthorModel();
+		$author->load(array($author_pk.' = ?',$author_id[0]));
+		$test->expect(
+			$author->friends === NULL,
+			$type.': self-ref relation is empty'
+		);
+
+		$author->friends = [$author_id[1]];
+		$author->save();
+		$author->reset();
+		$author->load(array($author_pk.' = ?',$author_id[0]));
+		$test->expect(
+			$author->friends && $author->friends[0]->get('_id') == $author_id[1],
+			$type.': self-ref relation populated'
+		);
+		$authorB = $author->findone([$author_pk.' = ?',$author_id[1]]);
+		$test->expect(
+			$authorB->friends && $authorB->friends[0]->get('_id') == $author_id[0],
+			$type.': self-ref relation inverse way'
+		);
+
+		$authorB->friends[] = $author_id[2];
+		$authorB->save();
+		$authorB = new AuthorModel();
+		$authorB->load(array($author_pk.' = ?',$author_id[1]));
+		$ids = $authorB->friends->getAll('_id');
+		$test->expect(
+			$authorB->friends && count($authorB->friends) == 2 &&
+			in_array($author_id[0],$ids) && in_array($author_id[2],$ids),
+			$type.': self-ref relation collection merging'
+		);
+
 		///////////////////////////////////
 		return $test->results();
 	}
-
 }

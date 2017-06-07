@@ -78,6 +78,7 @@ function selectPosition(e) {
     row.find('.ag').val(+data.AG);
     row.find('.av').val(+data.AV);
     var bs = row.find('.basicskills');
+    console.log(data);
     bs.find("option").remove();
     data.skills.forEach( (skill) => {
         bs.append("<option value='"+skill.id+"' selected=true>"+skill.name+"</option>");
