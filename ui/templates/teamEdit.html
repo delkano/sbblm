@@ -56,10 +56,10 @@
                 <tbody>
                     {~ foreach((@team.players?:[]) as @player): ~}
                     <tr>
-                        <td>
+                        <th>
                             <input type="number" class="number" name=player[{{@player.number}}][number] value={{@player.number}}  readonly="readonly">
                             <input type="hidden" name=player[{{@player.number}}][id] value={{@player.id}}  readonly="readonly">
-                        </td>
+                        </th>
                         <td>
                             <input class="name" name="player[{{@player.number}}][name]" value="{{@player.name}}" required=true/>
                         </td>

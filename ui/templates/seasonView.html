@@ -30,7 +30,7 @@
             {~ foreach(@season.teams?:[] as @team): ~}
             <tr>
                 <td>{{is_null(@team.points)?'-':@team.points}}</td>
-                <td>{{@team.name}}</td>
+                <td><a href="{{'team_view', 'id='.@team.id | alias}}">{{@team.name}}</a></td>
                 <td>{{@team.list.name}}</td>
                 <td>{{@team.value}}</td>
                 <td>{{@team->wins()}}</td>

@@ -321,8 +321,12 @@ form {
     max-width: 100%;
     overflow-x: scroll;
     table {
-        thead {
+        th, thead {
             position: sticky;
+            top: 0;
+            left: 0;
+            background-color: #fff;
+            z-index: 999;
         }
         min-width: 100%;
     }
