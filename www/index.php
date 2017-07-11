@@ -111,6 +111,7 @@ $f3->route('POST @news_update: /news/@id/update', '\Controller\News->update');
 $f3->route('POST @news_create: /news/create', '\Controller\News->update');
 $f3->route('GET @news_page: /news', '\Controller\News->getPage');
 
+$f3->route('GET @season_current: /season/current', '\Controller\Season->getCurrent');
 $f3->route('GET @season_view: /season/@id/view', '\Controller\Season->getOne');
 $f3->route('GET @season_list: /seasons', '\Controller\Season->getList');
 $f3->route('GET @season_edit: /season/@id/edit', '\Controller\Season->edit');

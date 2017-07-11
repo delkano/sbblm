@@ -29,6 +29,22 @@ class Season {
 
         echo \Template::instance()->render('layout.html');
     }
+
+    public function getCurrent($f3) {
+        $season = \Model\Season::getCurrent($f3);
+        $season->teams->orderBy('points DESC');
+
+        if($season->dry()) {
+            $f3->error(404);
+        } else {
+            $f3->set('season', $season);
+            $f3->set('page.title', $season->name);
+            $f3->set('page.template', "seasonView");
+
+            echo \Template::instance()->render('layout.html');
+        }
+    }
+
     public function edit($f3, $params) {
         $season = new \Model\Season();
         if(!empty($params['id'])) {
