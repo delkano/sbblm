@@ -41,6 +41,9 @@ $f3->set("MANAGER", (\Controller\Auth::role($f3) == 'manager'));
 
 // Home
 $f3->route("GET @home: /", '\Controller\Base->home');
+$f3->route("GET @manifest: /manifest.json", function($f3) {
+    echo \Template::instance()->render('manifest.json');
+});
 
 // Asset management
 $f3->route('GET /assets/@type', '\Controller\Base->assets',	3600*24 );

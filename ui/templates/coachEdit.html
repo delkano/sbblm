@@ -1,10 +1,10 @@
 {~ if(@coach.name): ~}
 <h2>{{@L.coach.editing,@coach.name|format}}</h2>
 
-<form method="POST" action="{{'coach_update','id='.@coach.id | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'coach_update','id='.@coach.id | alias}}"  enctype="multipart/form-data">
     <fieldset id="avatar" class="">
         <legend>{{@L.basic.avatar}}</legend>
-        <div id="avatarbox" onClick="avatarupload.click();" class="singleupload" data-url="{{'coach_avatar', 'id='.@coach.id|alias}}">
+        <div id="avatarbox" onClick="avatarupload.click();" class="singleupload" data-url="{{@BASE}}{{'coach_avatar', 'id='.@coach.id|alias}}">
             <img src="{{@BASE}}/{{@coach.avatar}}" />
         </div>
         <input type="file" name="avatar" id="avatarupload"  style="display:none;" />
@@ -13,9 +13,9 @@
 <h2>{{@L.coach.creating}}</h2>
 
 {~ if(@hash): ~}
-<form method="POST" action="{{'invite_save','hash='.@hash | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'invite_save','hash='.@hash | alias}}"  enctype="multipart/form-data">
 {~ else: ~}
-<form method="POST" action="{{'coach_create' | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'coach_create' | alias}}"  enctype="multipart/form-data">
 {~ endif ~}
     <fieldset id="avatar" class="">
         <legend>{{@L.basic.avatar}}</legend>

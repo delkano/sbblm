@@ -6,7 +6,7 @@
     <div id="news-block">
         <h3>{{@L.basic.news}}</h3>
         <div class="news meta">
-            {~ if(@LOGGEDIN): ~}<a href="{{'news_new' | alias}}">{{@L.news.new}}</a>{~ endif ~}
+            {~ if(@LOGGEDIN): ~}<a href="{{@BASE}}{{'news_new' | alias}}">{{@L.news.new}}</a>{~ endif ~}
         </div>
         <ul id="news-list">
             {~ foreach(@news?:[] as @piece): ~}
@@ -16,7 +16,7 @@
                         <h4>{{@piece.title}}</h4>
                         <div class='news meta'>
                             {{@L.news.meta,@piece.author.name,@piece.date | format}}
-                            {~ if(@MANAGER || @coach.id===@piece.author.id): ~}- <a href="{{'news_edit', 'id='.@piece.id | alias}}">{{@L.news.edit}}</a>{~ endif ~}
+                            {~ if(@MANAGER || @coach.id===@piece.author.id): ~}- <a href="{{@BASE}}{{'news_edit', 'id='.@piece.id | alias}}">{{@L.news.edit}}</a>{~ endif ~}
                         </div>
                     </header>
                     <div class='news-body'>
@@ -26,7 +26,7 @@
             </li>
             {~ endforeach ~}
         </ul>
-        <a href="{{ 'news_page' | alias}}">{{@L.news.archive}}</a>
+        <a href="{{@BASE}}{{ 'news_page' | alias}}">{{@L.news.archive}}</a>
     </div>
 
     <div id="games-block">
@@ -39,22 +39,22 @@
                     {~ else: ~}{{@L.game.undetermined}}
                     {~ endif ~}
                 </span>
-                <a href="{{'team_view', 'id='.@game.local.id | alias}}">{{@game.local.name}}</a>
-                (<a href="{{'coach_view', 'id='.@game.local.coach.id | alias}}">{{@game.local.coach.name}}</a>)
+                <a href="{{@BASE}}{{'team_view', 'id='.@game.local.id | alias}}">{{@game.local.name}}</a>
+                (<a href="{{@BASE}}{{'coach_view', 'id='.@game.local.coach.id | alias}}">{{@game.local.coach.name}}</a>)
                 vs
-                <a href="{{'team_view', 'id='.@game.visitor.id | alias}}">{{@game.visitor.name}}</a>
-                (<a href="{{'coach_view', 'id='.@game.visitor.coach.id | alias}}">{{@game.visitor.coach.name}}</a>)
+                <a href="{{@BASE}}{{'team_view', 'id='.@game.visitor.id | alias}}">{{@game.visitor.name}}</a>
+                (<a href="{{@BASE}}{{'coach_view', 'id='.@game.visitor.coach.id | alias}}">{{@game.visitor.coach.name}}</a>)
                 {~ if(@MANAGER): ~}
-                <span class="meta">(<a href="{{'game_reprogram', 'id='.@game.id | alias}}">{{@L.basic.edit}}</a>)</span>
-                <span class="meta">(<a href="{{'game_results', 'id='.@game.id | alias}}">{{@L.game.results}}</a>)</span>
+                <span class="meta">(<a href="{{@BASE}}{{'game_reprogram', 'id='.@game.id | alias}}">{{@L.basic.edit}}</a>)</span>
+                <span class="meta">(<a href="{{@BASE}}{{'game_results', 'id='.@game.id | alias}}">{{@L.game.results}}</a>)</span>
                 {~ endif ~}
                 {~ if(@game.localResult): ~}
-                : <a href="{{'game_view', 'id='.@game.id | alias}}">{{@L.basic.view}}</a>
+                : <a href="{{@BASE}}{{'game_view', 'id='.@game.id | alias}}">{{@L.basic.view}}</a>
                 {~ endif ~}
             </li>
             {~ endforeach ~}
         </ul>
-        {~ if(@MANAGER): ~}<a href="{{'game_program' | alias}}">{{@L.game.program}}</a>{~ endif ~}
+        {~ if(@MANAGER): ~}<a href="{{@BASE}}{{'game_program' | alias}}">{{@L.game.program}}</a>{~ endif ~}
         </div>
     </div>
 <div id="side-column" class="column">
@@ -65,7 +65,7 @@
             <tbody>
                 {~ foreach(@teams?:[] as @team): ~}
                 <tr>
-                    <td><a href="{{'team_view', 'id='.@team.id | alias}}">{{@team.name}}</a></td>
+                    <td><a href="{{@BASE}}{{'team_view', 'id='.@team.id | alias}}">{{@team.name}}</a></td>
                     <td>{{@team.points}}</td>
                 </tr>
                 {~ endforeach ~}
@@ -78,7 +78,7 @@
             <tbody>
                 {~ foreach(@players_by_td?:[] as @player): ~}
                 <tr>
-                    <td><a href="{{'team_view', 'id='.@player.team._id | alias}}">{{@player.name}}</a></td>
+                    <td><a href="{{@BASE}}{{'team_view', 'id='.@player.team._id | alias}}">{{@player.name}}</a></td>
                     <td>{{@player.TD}}</td>
                 </tr>
                 {~ endforeach ~}
@@ -104,7 +104,7 @@
             <tbody>
                 {~ foreach(@players_by_cp?:[] as @player): ~}
                 <tr>
-                    <td><a href="{{'team_view', 'id='.@player.team._id | alias}}">{{@player.name}}</a></td>
+                    <td><a href="{{@BASE}}{{'team_view', 'id='.@player.team._id | alias}}">{{@player.name}}</a></td>
                     <td>{{@player.CP}}</td>
                 </tr>
                 {~ endforeach ~}
@@ -117,7 +117,7 @@
             <tbody>
                 {~ foreach(@players_by_int?:[] as @player): ~}
                 <tr>
-                    <td><a href="{{'team_view', 'id='.@player.team._id | alias}}">{{@player.name}}</a></td>
+                    <td><a href="{{@BASE}}{{'team_view', 'id='.@player.team._id | alias}}">{{@player.name}}</a></td>
                     <td>{{@player.Int}}</td>
                 </tr>
                 {~ endforeach ~}

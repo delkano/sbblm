@@ -33,18 +33,18 @@
             
             <nav id="main-menu">
                 <ul>
-                    <li><a href="{{@BASE}}/" title="{{@L.menu.home}}">{{@L.menu.home}}</a>
-                    <li><a href="{{'coach_list' | alias}}" title="{{@L.menu.coaches}}">{{@L.menu.coaches}}</a>
-                    <li><a href="{{'season_current' | alias}}" title="{{@L.menu.currentseason}}">{{@L.menu.currentseason}}</a>
-                    <li><a href="{{'season_list' | alias}}" title="{{@L.menu.seasons}}">{{@L.menu.seasons}}</a>
+                    <li><a href="{{@BASE}}" title="{{@L.menu.home}}">{{@L.menu.home}}</a>
+                    <li><a href="{{@BASE}}{{'coach_list' | alias}}" title="{{@L.menu.coaches}}">{{@L.menu.coaches}}</a>
+                    <li><a href="{{@BASE}}{{'season_current' | alias}}" title="{{@L.menu.currentseason}}">{{@L.menu.currentseason}}</a>
+                    <li><a href="{{@BASE}}{{'season_list' | alias}}" title="{{@L.menu.seasons}}">{{@L.menu.seasons}}</a>
                     {~ if(@MANAGER): ~} 
-                    <li><a href="{{'config' | alias}}" title="{{@L.menu.configuration}}">{{@L.menu.config}}</a>
+                    <li><a href="{{@BASE}}{{'config' | alias}}" title="{{@L.menu.configuration}}">{{@L.menu.config}}</a>
                     {~ endif ~}
                     {~ if(@LOGGEDIN): ~} 
-                    <li><a href="{{'coach_profile' | alias}}" title="{{@L.menu.profile}}">{{@L.menu.profile}}</a>
-                        <li><a href="{{'logout' | alias}}" title="{{@L.menu.logout}}">{{@L.menu.logout}}</a>
+                    <li><a href="{{@BASE}}{{'coach_profile' | alias}}" title="{{@L.menu.profile}}">{{@L.menu.profile}}</a>
+                        <li><a href="{{@BASE}}{{'logout' | alias}}" title="{{@L.menu.logout}}">{{@L.menu.logout}}</a>
                     {~ else: ~}
-                    <li><a href="{{'login' | alias}}" title="{{@L.menu.login}}">{{@L.menu.login}}</a>
+                    <li><a href="{{@BASE}}{{'login' | alias}}" title="{{@L.menu.login}}">{{@L.menu.login}}</a>
                     {~ endif ~}
                 </ul>
             </nav>
@@ -69,8 +69,8 @@
         <script src="{{@BASE}}/js/vendor/trumbowyg.min.js"></script>
         <script src="{{@BASE}}/js/vendor/jquery.singleuploadimage.js"></script>
         <script src="{{@BASE}}/js/vendor/chosen.jquery.min.js"></script>
-        <script src="/assets/js?files=plugins.js"></script>
-        <script src="/assets/js?files=main.js{~ if(isset(@team)): ~}&team={{@team.id}}{~ endif ~}"></script>
+        <script src="{{@BASE}}/assets/js?files=plugins.js"></script>
+        <script src="{{@BASE}}/assets/js?files=main.js{~ if(isset(@team)): ~}&team={{@team.id}}{~ endif ~}"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!--

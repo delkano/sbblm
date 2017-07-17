@@ -62,8 +62,28 @@ class Config {
 
                 // Let's make a resized version for the webapp icon
                 $img = new \Image($file['tmp_name'], false, '');
+                $img->resize(558, 558, false, false);
+                $name = "tile.png";
+                \Base::instance()->write( $name, $img->dump('png') );
+
+                $img = new \Image($file['tmp_name'], false, '');
+                $img->resize(558, 270, false, false);
+                $name = "tile-wide.png";
+                \Base::instance()->write( $name, $img->dump('png') );
+
+                $img = new \Image($file['tmp_name'], false, '');
                 $img->resize(144, 144, false, false);
                 $name = "webapp-icon.png";
+                \Base::instance()->write( $name, $img->dump('png') );
+
+                $img = new \Image($file['tmp_name'], false, '');
+                $img->resize(180, 180, false, false);
+                $name = "apple-touch-icon.png";
+                \Base::instance()->write( $name, $img->dump('png') );
+
+                $img = new \Image($file['tmp_name'], false, '');
+                $img->resize(32, 32, false, false);
+                $name = "favicon.ico";
                 \Base::instance()->write( $name, $img->dump('png') );
 
                 return true;

@@ -1,6 +1,6 @@
 <h2>
     <img src="{{@BASE}}/{{@coach.avatar}}" />{{@coach.name}}
-    <span class="meta">{~ if(@myprofile): ~}<a href="{{'coach_profile_edit'|alias}}">{{@L.basic.edit}}</a>{~ endif ~}</span>
+    <span class="meta">{~ if(@myprofile): ~}<a href="{{@BASE}}{{'coach_profile_edit'|alias}}">{{@L.basic.edit}}</a>{~ endif ~}</span>
 </h2>
 
 <h3>{{@L.basic.teams}}</h3>
@@ -25,9 +25,9 @@
         <tr>
             <td>
                 {~ if(@myprofile): ~}
-                <a href="{{'team_edit', 'id='.@team.id | alias}}">{{@team.name}}</a>
+                <a href="{{@BASE}}{{'team_edit', 'id='.@team.id | alias}}">{{@team.name}}</a>
                 {~ else: ~}
-                <a href="{{'team_view', 'id='.@team.id | alias}}">{{@team.name}}</a>
+                <a href="{{@BASE}}{{'team_view', 'id='.@team.id | alias}}">{{@team.name}}</a>
                 {~ endif ~}
             </td>
             <td>{{@team.list.name}}</td>
@@ -47,6 +47,6 @@
 
 <p>
     {~ if(@myprofile): ~}
-    <a href="{{'team_new'|alias}}">{{@L.coach.addteam}}</a>
+    <a href="{{@BASE}}{{'team_new'|alias}}">{{@L.coach.addteam}}</a>
     {~ endif ~}
 </p>

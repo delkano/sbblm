@@ -127,6 +127,7 @@ class Base {
         if($args['type'] == 'less') {
             $parser = new \Less_Parser(array('compress'=>true));
             $files = $_GET['files'];
+            if(empty($files)) $files = $f3['GET']['?files']; //Lighttpd fix
 
             foreach(explode(",", $files) as $file) 
                 $parser->parseFile($path.$file);
@@ -134,7 +135,9 @@ class Base {
             header('Content-type: text/css');
             echo $parser->getCss();
         } else {
-            $files = preg_replace('/(\.+\/)/','',$_GET['files']); // close potential hacking attempts  
+            $files = $_GET['files'];
+            if(empty($files)) $files = $f3['GET']['?files']; //Lighttpd fix
+            $files = preg_replace('/(\.+\/)/','',$files); // close potential hacking attempts  
             
             echo \Preview::instance()->resolve(\Web::instance()->minify($files, null, true, $path));
         }

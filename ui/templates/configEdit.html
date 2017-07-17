@@ -1,4 +1,4 @@
-<form action="{{'config' | alias}}" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+<form action="{{@BASE}}{{'config' | alias}}" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
     <div class="logo">
         {~ if(@cfg.logo): ~}
         <img src="{{@BASE}}/img/logo.png" />

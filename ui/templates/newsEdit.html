@@ -1,9 +1,9 @@
 {~ if(@news.title): ~}
 <h2>{{@L.news.editing}}</h2>
-<form method="POST" action="{{'news_update','id='.@news.id | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'news_update','id='.@news.id | alias}}"  enctype="multipart/form-data">
 {~ else: ~}
 <h2>{{@L.news.creating}}</h2>
-<form method="POST" action="{{'news_create' | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'news_create' | alias}}"  enctype="multipart/form-data">
 {~ endif ~}
 
 <p>

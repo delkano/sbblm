@@ -1,11 +1,11 @@
 {~ if(@season.name): ~}
 <h2>{{@L.season.editing,@season.number|format}}</h2>
 
-<form method="POST" action="{{'season_update','id='.@season.id | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'season_update','id='.@season.id | alias}}"  enctype="multipart/form-data">
     {~ else: ~}
 <h2>{{@L.season.creating}}</h2>
 
-<form method="POST" action="{{'season_create' | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'season_create' | alias}}"  enctype="multipart/form-data">
 {~ endif ~}
 
     <p>

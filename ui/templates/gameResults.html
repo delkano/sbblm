@@ -1,11 +1,11 @@
 {~ if(@game.id): ~}
 <h2>{{@L.game.editing}}</h2>
 
-<form method="POST" action="{{'game_update','id='.@game.id | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'game_update','id='.@game.id | alias}}"  enctype="multipart/form-data">
 {~ else: ~}
 <h2>{{@L.game.creating}}</h2>
 
-<form method="POST" action="{{'game_create' | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'game_create' | alias}}"  enctype="multipart/form-data">
 {~ endif ~}
 
         <p class="field">

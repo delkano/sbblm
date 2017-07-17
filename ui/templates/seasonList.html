@@ -8,11 +8,11 @@
     {~ foreach(@seasons?:[] as @season): ~}
     <tr>
         <td>{{@season.number}}</td>
-        <td><a href="{{ 'season_view', 'id='.@season.id | alias}}" title="{{@season.name}}">{{@season.name}}</a></td>
+        <td><a href="{{@BASE}}{{ 'season_view', 'id='.@season.id | alias}}" title="{{@season.name}}">{{@season.name}}</a></td>
         <td>
             <ul>
                 {~ foreach(@season.teams?:[] as @team): ~}
-                <li><a href="{{'team_view', 'id='.@team.id | alias}}" title="{{@team.name}}" />{{@team.name}}</a></li>
+                <li><a href="{{@BASE}}{{'team_view', 'id='.@team.id | alias}}" title="{{@team.name}}" />{{@team.name}}</a></li>
                 {~ endforeach ~}
             </ul>
         </td>
@@ -20,5 +20,5 @@
     {~ endforeach ~}
 </table>
 {~ if(@MANAGER): ~}
-<a href='{{ "season_new" | alias}}'>{{@L.season.create}}</a>
+<a href='{{@BASE}}{{ "season_new" | alias}}'>{{@L.season.create}}</a>
 {~ endif ~}

@@ -1,6 +1,6 @@
 {
-    "name": "SBBLM - Simple Blood Bowl League Manager",
-    "short_name": "SBBLM",
+    "name": "{{ @cfg.name }}",
+    "short_name": "{{ @cfg.name }}",
     "theme_color": "rgb(85,26,139)",
     "background_color": "#ffffff",
     "display": "standalone",
@@ -13,8 +13,14 @@
         "type": "image/png"
     },
     {
-        "src": "img/logo.png",
-        "sizes": "180x180",
+        "src": "tile.png",
+        "sizes": "558x558",
         "type": "image/png"
-    }]
+    },
+    {
+        "src": "tile-wide.png",
+        "sizes": "558x237",
+        "type": "image/png"
+    }
+     ]
 }

@@ -1,9 +1,9 @@
 <h2>
     <img src="{{@BASE}}/{{@team.logo}}" />{{@team.name}} ({{@team.list.name}})
-    {~if(@myteam || @MANAGER): ~}<span class="meta"><a href="{{'team_edit', 'id='.@team.id | alias}}">{{@L.basic.edit}}</a></span>{~endif~}
+    {~if(@myteam || @MANAGER): ~}<span class="meta"><a href="{{@BASE}}{{'team_edit', 'id='.@team.id | alias}}">{{@L.basic.edit}}</a></span>{~endif~}
 </h2>
 
-<h3><a href="{{'coach_view', 'id='.@team.coach.id | alias}}">{{@L.basic.coach}}: {{@team.coach.name}}</a></h3>
+<h3><a href="{{@BASE}}{{'coach_view', 'id='.@team.coach.id | alias}}">{{@L.basic.coach}}: {{@team.coach.name}}</a></h3>
 
 <div class="data">
     <dl>

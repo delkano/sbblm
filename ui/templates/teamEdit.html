@@ -1,16 +1,16 @@
 {~ if(@team.name): ~}
 <h2>{{@L.team.editing,@team.name|format}}</h2>
-<form method="POST" action="{{'team_update','id='.@team.id | alias}}"  enctype="multipart/form-data">
+<form method="POST" action="{{@BASE}}{{'team_update','id='.@team.id | alias}}"  enctype="multipart/form-data">
     <fieldset id="team-logo" class="">
         <!--legend>{{@L.basic.logo}}</legend-->
-        <div id="avatarbox" onClick="avatarupload.click();" class="singleupload" data-url="{{'team_logo', 'id='.@team.id|alias}}">
+        <div id="avatarbox" onClick="avatarupload.click();" class="singleupload" data-url="{{@BASE}}{{'team_logo', 'id='.@team.id|alias}}">
             <img src="{{@BASE}}/{{@team.logo}}" />
         </div>
         <input type="file" name="logo" id="avatarupload"  style="display:none;" />
     </fieldset>
 
     {~ else: ~}
-    <form method="POST" action="{{'team_create' | alias}}"  enctype="multipart/form-data">
+    <form method="POST" action="{{@BASE}}{{'team_create' | alias}}"  enctype="multipart/form-data">
         <fieldset id="team-logo" class="">
             <!--legend>{{@L.basic.logo}}</legend-->
             <input type="file" name="logo" id="logo-upload"/>
