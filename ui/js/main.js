@@ -78,7 +78,6 @@ function selectPosition(e) {
     row.find('.ag').val(+data.AG);
     row.find('.av').val(+data.AV);
     var bs = row.find('.basicskills');
-    console.log(data);
     bs.find("option").remove();
     data.skills.forEach( (skill) => {
         bs.append("<option value='"+skill.id+"' selected=true>"+skill.name+"</option>");
@@ -183,7 +182,6 @@ function calculateValue(row) {
         row = $(row);
     }
     var pos = findPositionById(row.find(".positions").val());
-    console.log(pos);
     if(!pos) return; // Bad row
     var value = pos.value;
 
@@ -231,7 +229,7 @@ function calculateValue(row) {
     levelUpped+= (av - pos.AV > 0)? av - pos.AV : 0;
     levelUpped+= (ag - pos.AG > 0)? ag - pos.AG : 0;
     levelUpped+= (st - pos.ST > 0)? st - pos.ST : 0;
-    levelUpped+= skills.length;
+    levelUpped+= skills?skills.length:0;
 
     row.find(".value").val(value);
 
@@ -306,6 +304,11 @@ $(function(){
                 (data) => {
                     positions = data.positions; 
                     reroll_cost = data.rerolls;
+
+                    // Let's recalculate all player values before we go any further
+                    $(".player tr").each( function(i, row) {
+                        calculateValue(row);
+                    });
                 },
                 'json'
              );
@@ -316,11 +319,6 @@ $(function(){
     assistants = $('#assistants').val();
     apothecary = $('#apothecary').val();
     rerolls = $('#rerolls').val();
-
-    // Let's recalculate all player values before we go any further
-    $(".player tr").each( function(i, row) {
-        calculateValue(row);
-    });
 
     /*
      * this swallows backspace keys on any non-input element.
