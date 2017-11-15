@@ -177,10 +177,17 @@ function removePlayer(e) {
 }
 
 function calculateValue(row) {
-    row = $(row.target).parent().parent();
+    if(row.target) { // We've been called from an event
+        row = $(row.target).parent().parent();
+    } else {
+        row = $(row);
+    }
     var pos = findPositionById(row.find(".positions").val());
+    console.log(pos);
+    if(!pos) return; // Bad row
     var value = pos.value;
 
+    console.log(value);
     // Let's calculate SPP's too
     var td = row.find(".td").val(),
         cp = row.find(".cp").val(),
@@ -219,8 +226,42 @@ function calculateValue(row) {
     if(skills !== null) 
         value+= skills.length * 20;
 
+    var levelUpped = 1; // Let's calculate how many upgrades we've already applied
+    levelUpped+= (ma - pos.MA > 0)? ma - pos.MA : 0;
+    levelUpped+= (av - pos.AV > 0)? av - pos.AV : 0;
+    levelUpped+= (ag - pos.AG > 0)? ag - pos.AG : 0;
+    levelUpped+= (st - pos.ST > 0)? st - pos.ST : 0;
+    levelUpped+= skills.length;
+
     row.find(".value").val(value);
+
+    /* This works badly: since we don't store the initial values of each player's attribute
+     * We can only calculate min/max in relation to current values; which are user changeable.
+     * In short: when we decrement an attribute. "max" becomes the new value we've applied, and therefore
+     * we can't undo the decrement.
+     *
+    if(levelUpped < level) { // We haven't upgraded everything we could
+        row.addClass("needsUpgrade");
+        blockFields(row, false);
+    } else {
+        row.removeClass("needsUpgrade");
+        blockFields(row, true);
+    }
+    */
+
     calculateTotalValue();
+}
+
+function blockFields(row, value) {
+    row.find(".learnedskills").attr("disabled", value);
+    var ma = row.find(".ma");
+    ma.attr("max", +ma.val() + (value?0:1));
+    var ag = row.find(".ag");
+    ag.attr("max", +ag.val() + (value?0:1));
+    var st = row.find(".st");
+    st.attr("max", +st.val() + (value?0:1));
+    var av = row.find(".av");
+    av.attr("max", +av.val() + (value?0:1));
 }
 
 function calculateTotalValue() {
@@ -275,6 +316,11 @@ $(function(){
     assistants = $('#assistants').val();
     apothecary = $('#apothecary').val();
     rerolls = $('#rerolls').val();
+
+    // Let's recalculate all player values before we go any further
+    $(".player tr").each( function(i, row) {
+        calculateValue(row);
+    });
 
     /*
      * this swallows backspace keys on any non-input element.

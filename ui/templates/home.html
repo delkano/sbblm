@@ -3,32 +3,6 @@
         {{@cfg.welcome|raw}}
     </div>
 
-    <div id="news-block">
-        <h3>{{@L.basic.news}}</h3>
-        <div class="news meta">
-            {~ if(@LOGGEDIN): ~}<a href="{{@BASE}}{{'news_new' | alias}}">{{@L.news.new}}</a>{~ endif ~}
-        </div>
-        <ul id="news-list">
-            {~ foreach(@news?:[] as @piece): ~}
-            <li>
-                <article>
-                    <header>
-                        <h4>{{@piece.title}}</h4>
-                        <div class='news meta'>
-                            {{@L.news.meta,@piece.author.name,@piece.date | format}}
-                            {~ if(@MANAGER || @coach.id===@piece.author.id): ~}- <a href="{{@BASE}}{{'news_edit', 'id='.@piece.id | alias}}">{{@L.news.edit}}</a>{~ endif ~}
-                        </div>
-                    </header>
-                    <div class='news-body'>
-                        {{@piece.content}}
-                    </div>
-                </article>
-            </li>
-            {~ endforeach ~}
-        </ul>
-        <a href="{{@BASE}}{{ 'news_page' | alias}}">{{@L.news.archive}}</a>
-    </div>
-
     <div id="games-block">
         <h3>{{@L.game.thisround}}</h3>
         <ul id="games-list">
@@ -55,8 +29,34 @@
             {~ endforeach ~}
         </ul>
         {~ if(@MANAGER): ~}<a href="{{@BASE}}{{'game_program' | alias}}">{{@L.game.program}}</a>{~ endif ~}
-        </div>
     </div>
+
+    <div id="news-block">
+        <h3>{{@L.basic.news}}</h3>
+        <div class="news meta">
+            {~ if(@LOGGEDIN): ~}<a href="{{@BASE}}{{'news_new' | alias}}">{{@L.news.new}}</a>{~ endif ~}
+        </div>
+        <ul id="news-list">
+            {~ foreach(@news?:[] as @piece): ~}
+            <li>
+                <article>
+                    <header>
+                        <h4>{{@piece.title}}</h4>
+                        <div class='news meta'>
+                            {{@L.news.meta,@piece.author.name,@piece.date | format}}
+                            {~ if(@MANAGER || @coach.id===@piece.author.id): ~}- <a href="{{@BASE}}{{'news_edit', 'id='.@piece.id | alias}}">{{@L.news.edit}}</a>{~ endif ~}
+                        </div>
+                    </header>
+                    <div class='news-body'>
+                        {{@piece.content}}
+                    </div>
+                </article>
+            </li>
+            {~ endforeach ~}
+        </ul>
+        <a href="{{@BASE}}{{ 'news_page' | alias}}">{{@L.news.archive}}</a>
+    </div>
+</div>
 <div id="side-column" class="column">
     <h3>{{@L.basic.stats}}</h3>
     <div id="result-stats">
