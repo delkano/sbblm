@@ -103,6 +103,7 @@ function selectPosition(e) {
                     });
                     // Separated because, in ideal conditions, we'd have nested optgroups to
                     // separate basic skill ups from doubles. I can't find a way to cleanly do this on HTML yet.
+                    line += "<option disabled=true> --- </option>";
                     data.doubles.forEach( (group) => {
                         line += "<optgroup label='"+group.name+"'>";
                         skills[group.name].forEach( (skill) => {
@@ -185,7 +186,6 @@ function calculateValue(row) {
     if(!pos) return; // Bad row
     var value = pos.value;
 
-    console.log(value);
     // Let's calculate SPP's too
     var td = row.find(".td").val(),
         cp = row.find(".cp").val(),
@@ -238,6 +238,8 @@ function calculateValue(row) {
      * In short: when we decrement an attribute. "max" becomes the new value we've applied, and therefore
      * we can't undo the decrement.
      *
+    */
+    console.log(levelUpped);
     if(levelUpped < level) { // We haven't upgraded everything we could
         row.addClass("needsUpgrade");
         blockFields(row, false);
@@ -245,7 +247,6 @@ function calculateValue(row) {
         row.removeClass("needsUpgrade");
         blockFields(row, true);
     }
-    */
 
     calculateTotalValue();
 }
@@ -253,13 +254,13 @@ function calculateValue(row) {
 function blockFields(row, value) {
     row.find(".learnedskills").attr("disabled", value);
     var ma = row.find(".ma");
-    ma.attr("max", +ma.val() + (value?0:1));
+    ma.attr("max", +ma.data("init") + (value?0:1));
     var ag = row.find(".ag");
-    ag.attr("max", +ag.val() + (value?0:1));
+    ag.attr("max", +ag.data("init") + (value?0:1));
     var st = row.find(".st");
-    st.attr("max", +st.val() + (value?0:1));
+    st.attr("max", +st.data("init") + (value?0:1));
     var av = row.find(".av");
-    av.attr("max", +av.val() + (value?0:1));
+    av.attr("max", +av.data("init") + (value?0:1));
 }
 
 function calculateTotalValue() {

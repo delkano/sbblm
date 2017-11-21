@@ -73,19 +73,24 @@
                             </select>
                         </td>
                         <td>
-                            <input class="ma" name="player[{{@player.number}}][ma]" type="number" value="{{@player.MA}}" required=true min=1 max=10 />
+                            <input class="ma" name="player[{{@player.number}}][ma]" type="number" value="{{@player.MA}}"
+                            required=true min={{@player.MA - 1}} max={{@player.MA}} data-init="{{@player.MA}}"/>
                         </td>
                         <td>
-                            <input class="st" name="player[{{@player.number}}][st]" type="number" value="{{@player.ST}}" required=true min=1 max=10 />
+                            <input class="st" name="player[{{@player.number}}][st]" type="number" value="{{@player.ST}}"
+                            required=true min={{@player.ST - 1}} max={{@player.ST}} data-init="{{@player.ST}}"/>
                         </td>
                         <td>
-                            <input class="ag" name="player[{{@player.number}}][ag]" type="number" value="{{@player.AG}}" required=true min=1 max=10 />
+                            <input class="ag" name="player[{{@player.number}}][ag]" type="number" value="{{@player.AG}}"
+                            required=true min={{@player.AG - 1}} max={{@player.AG}} data-init="{{@player.AG}}"/>
                         </td>
                         <td>
-                            <input class="av" name="player[{{@player.number}}][av]" type="number" value="{{@player.AV}}" required=true min=1 max=10 />
+                            <input class="av" name="player[{{@player.number}}][av]" type="number" value="{{@player.AV}}"
+                            required=true min={{@player.AV - 1}} max={{@player.AV}} data-init="{{@player.AV}}"/>
                         </td>
                         <td>
-                            <select class="basicskills" name="player[{{@player.number}}][basicskills][]" required=true readonly="readonly" multiple=true data-placeholder="{{@L.basic.select}}">
+                            <select class="basicskills" name="player[{{@player.number}}][basicskills][]"
+                                required=true readonly="readonly" multiple=true data-placeholder="{{@L.basic.select}}">
                                 {~ if(@team.id): ~}
                                 {~ foreach(@player.basicSkills?:[] as @skill): ~}
                                 <option value="{{@skill.id}}" selected>{{@skill.name}}</option>
