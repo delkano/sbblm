@@ -59,16 +59,16 @@
             </span>
             <a href="{{@BASE}}{{'team_view', 'id='.@game.local.id | alias}}">{{@game.local.name}}</a>
             (<a href="{{@BASE}}{{'coach_view', 'id='.@game.local.coach.id | alias}}">{{@game.local.coach.name}}</a>)
-            {~ if(@game.localResult): ~}: {{@game.localResult}} {~endif~}
+            {~ if(is_int(@game.localResult)): ~}: {{@game.localResult}} {~endif~}
             vs
             <a href="{{@BASE}}{{'team_view', 'id='.@game.visitor.id | alias}}">{{@game.visitor.name}}</a>
             (<a href="{{@BASE}}{{'coach_view', 'id='.@game.visitor.coach.id | alias}}">{{@game.visitor.coach.name}}</a>)
-            {~ if(@game.visitorResult): ~}: {{@game.visitorResult}} {~endif~}
+            {~ if(is_int(@game.visitorResult)): ~}: {{@game.visitorResult}} {~endif~}
             {~ if(@MANAGER): ~}
             <span class="meta">(<a href="{{@BASE}}{{'game_reprogram', 'id='.@game.id | alias}}">{{@L.basic.edit}}</a>)</span>
             <span class="meta">(<a href="{{@BASE}}{{'game_results', 'id='.@game.id | alias}}">{{@L.game.results}}</a>)</span>
             {~ endif ~}
-            {~ if(@game.localResult): ~}
+            {~ if(is_int(@game.localResult)): ~}
             : <a  class="nav" href="{{@BASE}}{{'game_view', 'id='.@game.id | alias}}">{{@L.basic.view}}</a>
             {~ endif ~}
         </li>
