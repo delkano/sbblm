@@ -7,7 +7,7 @@
         <h3>{{@L.game.thisround}}</h3>
         <ul id="games-list">
             {~ foreach(@games?:[] as @game): ~}
-            <li>
+            <li class="{~ if(@game.official): ~}official{~ else: ~}friendly{~ endif ~}">
                 <span class='date'>
                     {~ if(@game.date): ~} {{'{0, date}',@game.date | format}}
                     {~ else: ~}{{@L.game.undetermined}}

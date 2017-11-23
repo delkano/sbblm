@@ -252,7 +252,7 @@ function calculateValue(row) {
 }
 
 function blockFields(row, value) {
-    row.find(".learnedskills").attr("disabled", value);
+    //row.find(".learnedskills").attr("disabled", value);
     var ma = row.find(".ma");
     ma.attr("max", +ma.data("init") + (value?0:1));
     var ag = row.find(".ag");
