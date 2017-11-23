@@ -12,7 +12,7 @@
         <label for="round">{{@L.game.round}}</label>
         <select name="round" id="round">
             {~ foreach(@season.rounds?:[] as @round): ~}
-            <option value="{{@round.id}}" {~ if(@round.over): ~}disabled{~endif~} {~ if(@game.round.id == @round.id): ~}selected{~endif~}>{{@round.number}}</option>
+            <option value="{{@round.id}}" {~ if(@round->over()): ~}disabled{~endif~} {~ if(@game.round.id == @round.id): ~}selected{~endif~}>{{@round.number}}</option>
             {~ endforeach ~}
         </select>
     </p>

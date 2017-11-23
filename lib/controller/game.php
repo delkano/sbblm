@@ -147,7 +147,7 @@ class Game {
             if($f3->get("POST.visitorMoney") != NULL)
                 $game->visitorMoney = intval($f3->get("POST.visitorMoney"));
 
-            if($game->localResult!==NULL && $game->visitorResult!==NULL)
+            if($game->official && $game->localResult!==NULL && $game->visitorResult!==NULL)
                 if($game->localResult > $game->visitorResult) {
                     $game->local->points += $won;
                     $game->visitor->points += $lost;
