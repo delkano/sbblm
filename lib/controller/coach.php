@@ -152,11 +152,15 @@ class Coach {
         $coach = new \Model\Coach();
         $coach->load(array('id=?', $id));
 
+        if($coach->countRel('teams')>0) {
+            $f3->error(500, "Coach has teams."); // TODO: Better this
+        }
+
         if($coach->dry()) {
             $f3->error(404);
     } else {
         $coach->erase();
-        $f3->reroute("@coaches_list");
+        $f3->reroute("@coach_list");
     }
     }
 

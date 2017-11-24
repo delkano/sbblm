@@ -1,6 +1,7 @@
 <h2>
     <img src="{{@BASE}}/{{@coach.avatar}}" />{{@coach.name}}
     <span class="meta">{~ if(@myprofile): ~}<a href="{{@BASE}}{{'coach_profile_edit'|alias}}">{{@L.basic.edit}}</a>{~ endif ~}</span>
+    <span class="meta">{~ if(@MANAGER): ~}<a href="{{@BASE}}{{'coach_delete'|alias}}">{{@L.basic.delete}}</a>{~ endif ~}</span>
 </h2>
 
 <h3>{{@L.basic.teams}}</h3>
