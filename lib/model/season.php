@@ -16,7 +16,7 @@ class Season extends \DB\Cortex {
                 'type' => 'TEXT'
             ),
             'teams' => array(
-                'has-many' => array('\Model\Team', 'seasons')
+                'has-many' => array('\Model\Team', 'season')
             ),
             'rounds' => array(
                 'has-many' => array('\Model\Round', 'season')

@@ -17,14 +17,21 @@ class Auth {
         $coach = new \Model\Coach();
         $coach->load(array('username = ?', $f3->get("POST.username")));
         if($coach->dry()) {
-            $f3->reroute("@login");
+            $f3->error = $f3['L.login.wrongcredentials'];
+            //$f3->reroute("@login");
+            return $this->login($f3);
         }
         if(password_verify($f3->get("POST.password"), $coach->password)) {
             $f3->set("SESSION.coach", $coach->username);
             $f3->set("coach", $coach);
-            $f3->reroute("@home");
+            if($f3->exists('POST.referer')) {
+                $f3->reroute($f3['POST.referer']);
+            } else 
+                $f3->reroute("@home");
         } else {
-            $f3->reroute("@login");
+            $f3->error = $f3['L.login.wrongcredentials'];
+            //$f3->reroute("@login");
+            return $this->login($f3);
         }
     }
 

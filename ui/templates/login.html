@@ -1,10 +1,14 @@
 <form action="{{@BASE}}{{'login_check' | alias}}" method="POST" class="login">
+    <input type="hidden" name="referer" value="{{@SERVER.HTTP_REFERER}}">
     <p>
         <label for="username">{{@L.basic.username}}</label> <input type="text" name="username" value="" id="username" placeholder="{{@L.basic.username}}">
     </p>
     <p>
         <label for="password">{{@L.basic.password}}</label> <input type="password" name="password" value="" id="password" placeholder="{{@L.basic.password}}">
     </p>
+    {~ if(@error): ~}
+    <p class="error">{{@error}}</p>
+    {~ endif ~}
     <p>
     <input type="submit" value="{{@L.basic.login}}" />
     </p>

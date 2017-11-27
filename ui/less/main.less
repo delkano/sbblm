@@ -223,7 +223,7 @@ header {
 
 .skill-tag {
     padding-right: 0.2em;
-    border: 1px solid #ccc;
+    border: 1px solid #ncc;
     display: inline;
     position: relative;
     &:hover:after{ // Tooltips
@@ -337,6 +337,9 @@ form {
         label { min-width: 12em; }
     }
 }
+.error {
+    color: #cc0000;
+}
 
 .wide-table {
     max-width: 100%;
@@ -350,6 +353,9 @@ form {
             z-index: 90;
         }
         min-width: 100%;
+        th, td {
+            border-bottom: 1px solid #ccc;
+        }
     }
 }
 .cemetery table {

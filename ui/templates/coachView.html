@@ -8,6 +8,7 @@
 <table>
     <thead>
         <tr>
+            <th>{{@L.basic.season}}</th>
             <th>{{@L.basic.name}}</th>
             <th>{{@L.team.race}}</th>
             <th>{{@L.team.value}}</th>
@@ -24,6 +25,7 @@
     <tbody>
         {~ foreach(@coach.teams?:[] as @team): ~}
         <tr>
+            <td>{{@team.season.number}}</td>
             <td>
                 {~ if(@myprofile): ~}
                 <a href="{{@BASE}}{{'team_edit', 'id='.@team.id | alias}}">{{@team.name}}</a>
@@ -33,14 +35,14 @@
             </td>
             <td>{{@team.list.name}}</td>
             <td>{{@team.value}}</td>
-            <td>{{@team.wins}}</td>
-            <td>{{@team.ties}}</td>
-            <td>{{@team.losses}}</td>
-            <td>{{@team.winperc}}</td>
-            <td>{{@team.cp}}</td>
-            <td>{{@team.td}}</td>
-            <td>{{@team.int}}</td>
-            <td>{{@team.cas}}</td>
+            <td>{{@team->wins()}}</td>
+            <td>{{@team->ties()}}</td>
+            <td>{{@team->losses()}}</td>
+            <td>{{@team->winperc()}}</td>
+            <td>{{@team->cp()}}</td>
+            <td>{{@team->td()}}</td>
+            <td>{{@team->int()}}</td>
+            <td>{{@team->cas()}}</td>
         </tr>
         {~ endforeach ~}
     </tbody>

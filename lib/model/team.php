@@ -16,8 +16,8 @@ class Team extends \DB\Cortex {
                 'type' => 'INT2',
                 'nullable' => false
             ),
-            'seasons' => array(
-                'has-many' => array('\Model\Season', 'teams')
+            'season' => array(
+                'belongs-to-one' => '\Model\Season'
             ),
             'list' => array(
                 'belongs-to-one' => '\Model\PositionList'

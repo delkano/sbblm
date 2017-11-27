@@ -50,7 +50,7 @@ $f3->route('GET /assets/@type', '\Controller\Base->assets',	3600*24 );
 
 // Login and auth
 $f3->route('GET @login: /login', '\Controller\Auth->login');
-$f3->route('POST @login_check: /login_check', '\Controller\Auth->check');
+$f3->route('POST @login_check: /login', '\Controller\Auth->check');
 $f3->route('GET @logout: /logout', '\Controller\Auth->logout');
 
 // Route access
