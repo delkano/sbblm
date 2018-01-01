@@ -94,6 +94,7 @@ function selectPosition(e) {
                 null,
                 (d) => { 
                     skills = d; 
+                    line += "<optgroup label='{{@L.player.singles}}'>";
                     data.basic.forEach( (group) => {
                         line += "<optgroup label='"+group.name+"'>";
                         skills[group.name].forEach( (skill) => {
@@ -101,9 +102,11 @@ function selectPosition(e) {
                         });
                         line += "</optgroup>";
                     });
+                    line += "</optgroup>";
                     // Separated because, in ideal conditions, we'd have nested optgroups to
                     // separate basic skill ups from doubles. I can't find a way to cleanly do this on HTML yet.
                     line += "<option disabled=true> --- </option>";
+                    line += "<optgroup label='{{@L.player.doubles}}'>";
                     data.doubles.forEach( (group) => {
                         line += "<optgroup label='"+group.name+"'>";
                         skills[group.name].forEach( (skill) => {
@@ -111,6 +114,7 @@ function selectPosition(e) {
                         });
                         line += "</optgroup>";
                     });
+                    line += "</optgroup>";
                     ls.append(line);
                     ls.trigger('chosen:updated');
                 },
@@ -239,7 +243,6 @@ function calculateValue(row) {
      * we can't undo the decrement.
      *
     */
-    console.log(levelUpped);
     if(levelUpped < level) { // We haven't upgraded everything we could
         row.addClass("needsUpgrade");
         blockFields(row, false);
@@ -252,15 +255,15 @@ function calculateValue(row) {
 }
 
 function blockFields(row, value) {
-    //row.find(".learnedskills").attr("disabled", value);
+    row.find(".learnedskills").selectivity("setOptions", {"removeOnly": value});
     var ma = row.find(".ma");
-    ma.attr("max", +ma.data("init") + (value?0:1));
+    ma.attr("max", value?ma.val():+(ma.data("init") + 1));
     var ag = row.find(".ag");
-    ag.attr("max", +ag.data("init") + (value?0:1));
+    ag.attr("max", value?ag.val():+(ag.data("init") + 1));
     var st = row.find(".st");
-    st.attr("max", +st.data("init") + (value?0:1));
+    st.attr("max", value?st.val():+(st.data("init") + 1));
     var av = row.find(".av");
-    av.attr("max", +av.data("init") + (value?0:1));
+    av.attr("max", value?av.val():+(av.data("init") + 1));
 }
 
 function calculateTotalValue() {
@@ -295,8 +298,8 @@ $(function(){
     $("#rerolls").change(calculateMoney);
     $("#assistants").change(calculateMoney);
 
-    $(".basicskills").chosen({width: '10em'});
-    $(".learnedskills").chosen({width: '10em'});
+    $(".basicskills").selectivity({"readOnly": true});
+    $(".learnedskills").selectivity({"multiple": true});
 
     var id = $("#race").val();
     if(id) {
@@ -320,6 +323,8 @@ $(function(){
     assistants = $('#assistants').val();
     apothecary = $('#apothecary').val();
     rerolls = $('#rerolls').val();
+
+
 
     /*
      * this swallows backspace keys on any non-input element.

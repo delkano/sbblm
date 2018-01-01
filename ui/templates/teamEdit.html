@@ -90,7 +90,7 @@
                         </td>
                         <td>
                             <select class="basicskills" name="player[{{@player.number}}][basicskills][]"
-                                required=true readonly="readonly" multiple=true data-placeholder="{{@L.basic.select}}">
+                                required=true readonly="true" multiple=true data-placeholder="{{@L.basic.select}}">
                                 {~ if(@team.id): ~}
                                 {~ foreach(@player.basicSkills?:[] as @skill): ~}
                                 <option value="{{@skill.id}}" selected>{{@skill.name}}</option>
@@ -101,6 +101,7 @@
                         <td>
                             <select class="learnedskills" name="player[{{@player.number}}][learnedskills][]" multiple=true data-placeholder="{{@L.basic.select}}">
                                 {~ if(@team.id): ~}
+                                <optgroup label="{{@L.player.singles}}">
                                 {~ foreach(@player.position.basic?:[] as @basic): ~}
                                 <optgroup label="{{@basic.name}}">
                                     {~ foreach(@basic.skills?:[] as @skill): ~}
@@ -108,13 +109,16 @@
                                     {~ endforeach ~}
                                 </optgroup>
                                 {~ endforeach ~}
-                                {~ foreach(@player.position.doubles?:[] as @basic): ~}
-                                <optgroup label="{{@basic.name}}">
-                                    {~ foreach(@basic.skills?:[] as @skill): ~}
-                                    <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                                </optgroup>
+                                <optgroup label="{{@L.player.doubles}}">
+                                    {~ foreach(@player.position.doubles?:[] as @basic): ~}
+                                    <optgroup label="{{@basic.name}}">
+                                        {~ foreach(@basic.skills?:[] as @skill): ~}
+                                        <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                                        {~ endforeach ~}
+                                    </optgroup>
                                     {~ endforeach ~}
                                 </optgroup>
-                                {~ endforeach ~}
                                 {~ endif ~}
                             </select>
 

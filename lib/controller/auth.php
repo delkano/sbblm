@@ -18,7 +18,6 @@ class Auth {
         $coach->load(array('username = ?', $f3->get("POST.username")));
         if($coach->dry()) {
             $f3->error = $f3['L.login.wrongcredentials'];
-            //$f3->reroute("@login");
             return $this->login($f3);
         }
         if(password_verify($f3->get("POST.password"), $coach->password)) {
@@ -30,7 +29,6 @@ class Auth {
                 $f3->reroute("@home");
         } else {
             $f3->error = $f3['L.login.wrongcredentials'];
-            //$f3->reroute("@login");
             return $this->login($f3);
         }
     }
