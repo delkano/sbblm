@@ -298,6 +298,45 @@ $(function(){
     $("#rerolls").change(calculateMoney);
     $("#assistants").change(calculateMoney);
 
+    // Let's change a few templates to add the hover tooltips to skills
+    var templates = $.Selectivity.Templates;
+    templates.multipleSelectedItem = function(options) {
+        var extraClass = options.highlighted ? ' highlighted' : '';
+        var texts = options.text.split(" => ");
+        return (
+            '<span class="selectivity-multiple-selected-item skill-tag' +
+            extraClass +
+            '" ' +
+            'data-item-id="' +
+            escape(options.id) +
+            '" data-tooltip="'+
+            texts[1] +
+            '">' +
+            (options.removable
+                ? '<a class="selectivity-multiple-selected-item-remove">' +
+                  '<i class="fa fa-remove"></i>' +
+                  '</a>'
+                : '') +
+            texts[0] +
+            '</span>'
+        );
+    };
+    templates.resultItem = function(options) {
+        var texts = options.text.split(" => ");
+        return (
+            '<div class="selectivity-result-item' +
+            (options.disabled ? ' disabled' : '') +
+            '"' +
+            ' data-item-id="' +
+            escape(options.id) +
+            '">' +
+            texts[0] +
+            (options.submenu
+                ? '<i class="selectivity-submenu-icon fa fa-chevron-right"></i>'
+                : '') +
+            '</div>'
+        );
+    };
     $(".basicskills").selectivity({"readOnly": true});
     $(".learnedskills").selectivity({"multiple": true});
 

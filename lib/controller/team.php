@@ -13,7 +13,8 @@ class Team {
             $f3->error(404);
         } else {
             $f3->set('team', $team);
-            $team->players->orderBy('number ASC');
+            if($team->players)
+                $team->players->orderBy('number ASC');
             $f3->set('page.title', $team->name);
             $f3->set('page.template', "teamView");
 
@@ -47,7 +48,8 @@ class Team {
                 $f3->set('page.title', "New team");
             } else {
                 $f3->set('page.title', $team->name." - Edit");
-                $team->players->orderBy('number ASC');
+                if($team->players)
+                    $team->players->orderBy('number ASC');
             }
             $f3->set('page.template', "teamEdit");
 

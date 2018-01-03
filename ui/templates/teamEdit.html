@@ -93,7 +93,7 @@
                                 required=true readonly="true" multiple=true data-placeholder="{{@L.basic.select}}">
                                 {~ if(@team.id): ~}
                                 {~ foreach(@player.basicSkills?:[] as @skill): ~}
-                                <option value="{{@skill.id}}" selected>{{@skill.name}}</option>
+                                <option value="{{@skill.id}}" selected>{{@skill.name}} => {{@skill.description}}</option>
                                 {~ endforeach ~}
                                 {~ endif ~}
                             </select>
@@ -105,7 +105,7 @@
                                 {~ foreach(@player.position.basic?:[] as @basic): ~}
                                 <optgroup label="{{@basic.name}}">
                                     {~ foreach(@basic.skills?:[] as @skill): ~}
-                                    <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                                    <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}} => {{@skill.description}}</option>
                                     {~ endforeach ~}
                                 </optgroup>
                                 {~ endforeach ~}
@@ -114,7 +114,7 @@
                                     {~ foreach(@player.position.doubles?:[] as @basic): ~}
                                     <optgroup label="{{@basic.name}}">
                                         {~ foreach(@basic.skills?:[] as @skill): ~}
-                                        <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}}</option>
+                                        <option value="{{@skill.id}}" {~ if(@player->hasSkill(@skill, false)): ~}selected{~ endif ~} >{{@skill.name}} => {{@skill.description}}</option>
                                         {~ endforeach ~}
                                     </optgroup>
                                     {~ endforeach ~}
