@@ -6,8 +6,7 @@ class Base {
         $f3->set("news", (new \Controller\News)->getLast($f3));
         $f3->set("games", (new \Controller\Game)->getNext($f3));
 
-        $season = new \Model\Season();
-        $season = $season::getCurrent($f3);
+        $season = \Model\Season::getCurrent($f3);
 
         if($season->teams) {
             $season->teams->orderBy('points DESC');

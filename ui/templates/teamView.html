@@ -143,4 +143,77 @@
         </table>
     </div>
     {~ endif ~}
+
+    <h4>{{@L.team.games}}</h4>
+    {~ if(!@team.hosted && !@team.vsited): ~}
+    {{@L.team.nogames}}
+    {~ else: ~}
+    <table class="games">
+        <thead>
+            <tr>
+                <th>{{@L.game.against}}</th>
+                <th>{{@L.game.date}}</th>
+                <th>{{@L.game.results}}</th>
+                <th>{{@L.game.casualties}}</th>
+                <th>{{@L.game.gate}}</th>
+                <th>{{@L.game.money}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {~ foreach(@team.hosted?:[] as @game): ~}
+            {~ if(!@game.date) break ~}
+            <tr>
+                <td>{{@game.visitor.name}}</td>
+                <td>{{'{0, date}',@game.date | format}}</td>
+                <td><strong>{{@game.localResult}}</strong> - {{@game.visitorResult}}</td>
+                <td><strong>{{@game.localCasualties}}</strong> - {{@game.visitorCasualties}}</td>
+                <td><strong>{{@game.localGate}}K</strong> - {{@game.visitorGate}}K</td>
+                <td><strong>{{@game.localMoney}}K</strong> - {{@game.visitorMoney}}K</td>
+            </tr>
+            {~ endforeach ~}
+            {~ foreach(@team.visited?:[] as @game): ~}
+            {~ if(!@game.date) break ~}
+            <tr>
+                <td>{{@game.local.name}}</td>
+                <td>{{'{0, date}',@game.date | format}}</td>
+                <td>{{@game.localResult}} - <strong>{{@game.visitorResult}}</strong></td>
+                <td>{{@game.localCasualties}} - <strong>{{@game.visitorCasualties}}</strong></td>
+                <td>{{@game.localGate}}K - <strong>{{@game.visitorGate}}K</strong></td>
+                <td>{{@game.localMoney}}K - <strong>{{@game.visitorMoney}}K</strong></td>
+            </tr>
+            {~ endforeach ~}
+        </tbody>
+    </table>
+    {~ endif ~}
+
+    <h4>{{@L.basic.stats}}</h4>
+    <table class="stats">
+        <thead>
+            <tr>
+                <th>{{@L.team.points}}</th>
+                <th>{{@L.team.wins}}</th>
+                <th>{{@L.team.ties}}</th>
+                <th>{{@L.team.losses}}</th>
+                <th>{{@L.team.winperc}}</th>
+                <th>{{@L.player.cp}}</th>
+                <th>{{@L.player.td}}</th>
+                <th>{{@L.player.int}}</th>
+                <th>{{@L.player.cas}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{is_null(@team.points)?'-':@team.points}}</td>
+                <td>{{@team->wins()}}</td>
+                <td>{{@team->ties()}}</td>
+                <td>{{@team->losses()}}</td>
+                <td>{{@team->winperc()}}</td>
+                <td>{{@team->cp()}}</td>
+                <td>{{@team->td()}}</td>
+                <td>{{@team->int()}}</td>
+                <td>{{@team->cas()}}</td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>

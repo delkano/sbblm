@@ -206,6 +206,9 @@ function calculateValue(row) {
         av = row.find(".av").val();
 
     // This reduces value when injured; a house rule I like but is not official.
+    // It should be (although this doesn't take into account an increased and then injured stat):
+    // value+= (ma>pos.MA? (ma - pos.MA) * 20:0) + (av>pos.AV?(av - pos.AV) * 20:0);
+    // value+= (st>pos.ST? (st - pos.ST) * 50:0) + (ag>pos.AG?(ag - pos.AG) * 40:0);
     value+= (ma - pos.MA) * 20 + (av - pos.AV) * 20;
     value+= (st - pos.ST) * 50 + (ag - pos.AG) * 40;
 

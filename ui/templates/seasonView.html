@@ -49,6 +49,7 @@
 <h3>{{@L.game.rounds}}</h3>
 {~ foreach(@season.rounds?:[] as @round): ~}
 <h4>{{@L.game.round}} {{@round.number}}</h4>
+{~ @round.games->orderBy('date ASC') ~}
     <ul id="games-list">
         {~ foreach(@round.games?:[] as @game): ~}
         <li class="{~ if(@game.official): ~}official{~ else: ~}friendly{~ endif ~}">
