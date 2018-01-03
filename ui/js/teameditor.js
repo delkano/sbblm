@@ -22,7 +22,7 @@ function addPlayer() {
                 }
     }
     var row = "<tr class='new'>";
-    row += "<td><input class='number' type='number' name='player["+nb+"][number]' value="+nb+" readonly='readonly'/></td>";
+    row += "<th><input class='number' type='number' name='player["+nb+"][number]' value="+nb+" readonly='readonly'/></th>";
     row += '<td><input class="name" name="player['+nb+'][name]" required=true/></td>';
     row += "<td><select class='positions' name='player["+nb+"][position]' required=true>";
     row += '<option value="" disable selected hidden> --- </option>';
@@ -54,12 +54,12 @@ function addPlayer() {
     $(".player.list").append(row);
     row.find(".positions").change(selectPosition);
     row.find(".remove-player").click(removePlayer);
-    row.find(".basicskills").chosen({width: '10em'});
-    row.find(".learnedskills").chosen({width: '10em'});
     row.find("input").change(calculateValue);
     row.find("select").change(calculateValue);
     $("#race_hidden").val($("#race").val());
     $("#race").prop("disabled", "disabled");
+    row.find(".basicskills").selectivity({readOnly: true});
+    row.find(".learnedskills").selectivity();
 }
 function selectRace(e) {
     var id = this.value;
@@ -78,59 +78,38 @@ function selectPosition(e) {
     row.find('.ag').val(+data.AG);
     row.find('.av').val(+data.AV);
     var bs = row.find('.basicskills');
-    bs.find("option").remove();
+    var lines = [];
     data.skills.forEach( (skill) => {
-        bs.append("<option value='"+skill.id+"' selected=true>"+skill.name+"</option>");
+        lines.push({id: skill.id, text: skill.name+" => "+skill.desc});
     });
-    bs.trigger('chosen:updated');
+    bs.selectivity("data", lines);
+    bs.selectivity("setOptions", {items: lines});
 
     var ls = row.find('.learnedskills');
-    ls.find("option").remove();
-    line = "";
+    lines = [];
     row.find('.value').val(+data.value);
 
-    if(Object.keys(skills).length === 0) {
-        $.get("/skills/getlist",
-                null,
-                (d) => { 
-                    skills = d; 
-                    line += "<optgroup label='{{@L.player.singles}}'>";
-                    data.basic.forEach( (group) => {
-                        line += "<optgroup label='"+group.name+"'>";
-                        skills[group.name].forEach( (skill) => {
-                            line += "<option value='"+skill.id+"'>"+skill.name+"</option>";
-                        });
-                        line += "</optgroup>";
-                    });
-                    line += "</optgroup>";
-                    // Separated because, in ideal conditions, we'd have nested optgroups to
-                    // separate basic skill ups from doubles. I can't find a way to cleanly do this on HTML yet.
-                    line += "<option disabled=true> --- </option>";
-                    line += "<optgroup label='{{@L.player.doubles}}'>";
-                    data.doubles.forEach( (group) => {
-                        line += "<optgroup label='"+group.name+"'>";
-                        skills[group.name].forEach( (skill) => {
-                            line += "<option value='"+skill.id+"'>"+skill.name+"</option>";
-                        });
-                        line += "</optgroup>";
-                    });
-                    line += "</optgroup>";
-                    ls.append(line);
-                    ls.trigger('chosen:updated');
-                },
-                'json'
-             );
-    } else {
-        data.basic.concat(data.doubles).forEach( (group) => {
-            line += "<optgroup label='"+group.name+"'>";
-            skills[group.name].forEach( (skill) => {
-                line += "<option value='"+skill.id+"'>"+skill.name+"</option>";
-            });
-            line += "</optgroup>";
+    var singles = [];
+    data.basic.forEach( (group) => {
+        var groupObj = [];
+        skills[group.name].forEach( (skill) => {
+            groupObj.push({id: skill.id, text: skill.name+" => "+skill.desc});
         });
-        ls.append(line);
-        ls.trigger('chosen:updated');
-    }
+        singles.push({ text: group.name, children: groupObj });
+    });
+    lines.push({ text: "{{@L.player.singles}}", children: singles });
+
+    var doubles = [];
+    data.doubles.forEach( (group) => {
+        var groupObj = [];
+        skills[group.name].forEach( (skill) => {
+            groupObj.push({id: skill.id, text: skill.name+" => "+skill.desc});
+        });
+        doubles.push({ text: group.name, children: groupObj });
+    });
+    lines.push({ text: "{{@L.player.doubles}}", children: doubles });
+    ls.selectivity("setOptions", {items: lines});
+
     calculateMoney();
 }
 
@@ -158,6 +137,11 @@ function calculateMoney() {
 function findPositionById(id) {
     var ret = $.grep(positions, function(e) {return e.id == id});
     return ret[0];
+}
+function findSkillGroup(id) {
+    for(var group in skills) 
+        for(var i=0; i<skills[group].length; i++) 
+            if(id === skills[group][i].id) return group;
 }
 
 function populatePositions(data) {
@@ -221,12 +205,21 @@ function calculateValue(row) {
         ag = row.find(".ag").val(),
         av = row.find(".av").val();
 
+    // This reduces value when injured; a house rule I like but is not official.
     value+= (ma - pos.MA) * 20 + (av - pos.AV) * 20;
     value+= (st - pos.ST) * 50 + (ag - pos.AG) * 40;
 
-    var skills = row.find(".learnedskills").val();
+    // For each skill, we need to find out if it's singles (20K) or doubles (30K).
+    // There's room for improvement here, too many nested for loops. There aren't yet many levelups,
+    // so it's still manageable, but it doesn't scale well.
+    var skills = row.find(".learnedskills").selectivity("data");
     if(skills !== null) 
-        value+= skills.length * 20;
+        skills.forEach( skill => {
+            if(pos.basic.indexOf(findSkillGroup(skill.id)) !== -1)
+                value+= skills.length * 20;
+            else
+                value+= skills.length * 30;
+        });
 
     var levelUpped = 1; // Let's calculate how many upgrades we've already applied
     levelUpped+= (ma - pos.MA > 0)? ma - pos.MA : 0;
@@ -237,12 +230,7 @@ function calculateValue(row) {
 
     row.find(".value").val(value);
 
-    /* This works badly: since we don't store the initial values of each player's attribute
-     * We can only calculate min/max in relation to current values; which are user changeable.
-     * In short: when we decrement an attribute. "max" becomes the new value we've applied, and therefore
-     * we can't undo the decrement.
-     *
-    */
+    // We only allow to add skills and attributes if we've leveled up.
     if(levelUpped < level) { // We haven't upgraded everything we could
         row.addClass("needsUpgrade");
         blockFields(row, false);
@@ -312,11 +300,9 @@ $(function(){
             '" data-tooltip="'+
             texts[1] +
             '">' +
-            (options.removable
-                ? '<a class="selectivity-multiple-selected-item-remove">' +
+                '<a class="selectivity-multiple-selected-item-remove">' +
                   '<i class="fa fa-remove"></i>' +
-                  '</a>'
-                : '') +
+                 '</a>' +
             texts[0] +
             '</span>'
         );
@@ -331,31 +317,37 @@ $(function(){
             escape(options.id) +
             '">' +
             texts[0] +
-            (options.submenu
-                ? '<i class="selectivity-submenu-icon fa fa-chevron-right"></i>'
-                : '') +
             '</div>'
         );
     };
     $(".basicskills").selectivity({"readOnly": true});
-    $(".learnedskills").selectivity({"multiple": true});
+    $(".learnedskills").selectivity();
 
     var id = $("#race").val();
-    if(id) {
-        $.get("/race/"+id+"/getlist",
-                null,
-                (data) => {
-                    positions = data.positions; 
-                    reroll_cost = data.rerolls;
 
-                    // Let's recalculate all player values before we go any further
-                    $(".player tr").each( function(i, row) {
-                        calculateValue(row);
-                    });
-                },
-                'json'
-             );
-    }
+    $.get("/skills/getlist", 
+        null,
+        data => {
+            skills = data;
+            if(id) {
+                $.get("/race/"+id+"/getlist",
+                    null,
+                    (data) => {
+                        positions = data.positions; 
+                        reroll_cost = data.rerolls;
+
+                        // Let's recalculate all player values before we go any further
+                        $(".player tr").each( function(i, row) {
+                            calculateValue(row);
+                        });
+                    },
+                    'json'
+                );
+            }
+        },
+        'json'
+    );
+
 
     teammoney = $('#money').val();
     cheerleaders = $('#cheerleaders').val();
