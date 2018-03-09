@@ -68,6 +68,7 @@ function selectRace(e) {
             populatePositions,
             'json'
          );
+    $("button.add-player").attr("disabled", false);
 }
 function selectPosition(e) {
     var id = e.target.value;
@@ -246,7 +247,8 @@ function calculateValue(row) {
 }
 
 function blockFields(row, value) {
-    row.find(".learnedskills").selectivity("setOptions", {"removeOnly": value});
+    // I use here a 0ms delay to work around a selectivity bug. Not pretty but it works.
+    setTimeout( () => row.find(".learnedskills").selectivity("setOptions", {"removeOnly": value}), 0);
     var ma = row.find(".ma");
     ma.attr("max", value?ma.val():+(ma.data("init") + 1));
     var ag = row.find(".ag");
@@ -288,6 +290,11 @@ $(function(){
     $("#apothecary").change(calculateMoney);
     $("#rerolls").change(calculateMoney);
     $("#assistants").change(calculateMoney);
+
+    // Only Managers can change money totals
+    {~ if(@MANAGER): ~}
+    $("#money").change( function() { teammoney = this.value } ); 
+    {~ endif ~}
 
     // Let's change a few templates to add the hover tooltips to skills
     var templates = $.Selectivity.Templates;

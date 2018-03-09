@@ -152,6 +152,7 @@
         <thead>
             <tr>
                 <th>{{@L.game.against}}</th>
+                <th>{{@L.game.official}}</th>
                 <th>{{@L.game.date}}</th>
                 <th>{{@L.game.results}}</th>
                 <th>{{@L.game.casualties}}</th>
@@ -164,6 +165,7 @@
             {~ if(!@game.date) break ~}
             <tr>
                 <td>{{@game.visitor.name}}</td>
+                <td>{{@game.official?@L.game.official:@L.game.friendly}}</td>
                 <td>{{'{0, date}',@game.date | format}}</td>
                 <td><strong>{{@game.localResult}}</strong> - {{@game.visitorResult}}</td>
                 <td><strong>{{@game.localCasualties}}</strong> - {{@game.visitorCasualties}}</td>
@@ -175,6 +177,7 @@
             {~ if(!@game.date) break ~}
             <tr>
                 <td>{{@game.local.name}}</td>
+                <td>{{@game.official?@L.game.official:@L.game.friendly}}</td>
                 <td>{{'{0, date}',@game.date | format}}</td>
                 <td>{{@game.localResult}} - <strong>{{@game.visitorResult}}</strong></td>
                 <td>{{@game.localCasualties}} - <strong>{{@game.visitorCasualties}}</strong></td>

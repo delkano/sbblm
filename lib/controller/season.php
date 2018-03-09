@@ -55,7 +55,7 @@ class Season {
             $new = true;
         }
 
-        $teams = (new \Model\Team())->find();
+        $teams = (new \Model\Team())->find('season=?', [null]);
 
         if($new || !$season->dry()) {
             $f3->set('season', $season);
@@ -94,6 +94,9 @@ class Season {
         $season = \Model\Season::getCurrent($f3);
         $teams = $season->teams;
         $teams_nb = count($teams);
+        // Let's avoid organizing a Season which already has been
+        if($season->rounds) 
+            $f3->reroute("@season_view(@id=$season->id)");
         
         $days_per_round = \Model\Config::read("officials");
         $odd = false;

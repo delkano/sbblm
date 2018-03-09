@@ -78,7 +78,7 @@
 {~ endforeach ~}
 {~ if(@MANAGER): ~}
 <a  class="nav" href="{{@BASE}}{{'game_program' | alias}}">{{@L.game.program}}</a>
-{~ if(!@round.games): ~}
+{~ if(!@season.rounds): ~}
 - <a  class="nav" href="{{@BASE}}{{'season_organize' | alias}}">{{@L.season.organize}}</a>
 {~ endif ~}
 {~ endif ~}

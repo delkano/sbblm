@@ -387,6 +387,17 @@ form {
     border-bottom: 1px solid #ccc;
     dl {
         column-count: 2;
+        dt {
+            display: inline-block;
+            width: 30%;
+        }
+        dd {
+            display: inline;
+            &:after {
+                content: "\a";
+                white-space: pre;
+            }
+        }
     }
 }
 
@@ -400,7 +411,7 @@ form {
 i.fa.fa-remove::before {
     display: inline-block;
     padding-right: 0.3em;
-    content: "X ";
+    content: "×";
     color: #fff;
     font-style: normal;
     font-weight: 600;
