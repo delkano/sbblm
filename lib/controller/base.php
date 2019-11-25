@@ -19,24 +19,19 @@ class Base {
                 foreach($team->players?:[] as $player)
                     $players->append($player);
         }
-        $players->orderBy('SPP DESC');
 
         if($players)  {
+            $players->orderBy('SPP DESC');
+
             $players->orderBy('TD DESC');
             $f3->set("players_by_td", array_slice($players->castAll(), 0, 3));
-        }
 
-        if($players) {
             $players->orderBy('Cas DESC');
             $f3->set("players_by_cas", array_slice($players->castAll(), 0, 3));
-        }
 
-        if($players) {
             $players->orderBy('Int DESC');
             $f3->set("players_by_int", array_slice($players->castAll(), 0, 3));
-        }
 
-        if($players) {
             $players->orderBy('CP DESC');
             $f3->set("players_by_cp", array_slice($players->castAll(), 0, 3));
         }

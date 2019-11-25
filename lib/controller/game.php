@@ -31,14 +31,15 @@ class Game {
         $season = \Model\Season::getCurrent($f3);
         $i = 0;
         $rounds = $season->rounds;
-        while($rounds[$i]->over()) { $i++; }
+        while($rounds[$i] && $rounds[$i]->over()) { $i++; }
 
         /*
         $games = new \Model\Game();
         $games = $games->find(array('date>?', time()), array('order'=>'date DESC'));
          */
         $games = $rounds[$i]->games;
-        $games->orderBy('date ASC');
+        if($games)
+            $games->orderBy('date ASC');
         return $games;
     }
     public function program($f3, $params) {
